@@ -1,3 +1,65 @@
 from django.shortcuts import render
+from django.views.generic.base import View
+from django.http import HttpResponseRedirect
 
 # Create your views here.
+
+mapping = {
+    "risk reduction": "riskreduction",
+    "primary prevention": "primaryprevention",
+    "faculty-staff training": "facultystafftraining",
+    "title IX office": "titleixoffice",
+    "volunteer group": "volunteergroup",
+    "student initiative": "studentinitiative",
+    "mens group": "mensgroup",
+    "other offices": "otheroffices",
+    "stats on campus reports": "oncampusreports",
+    "stats on all reports": "allreports",
+    "stats on climate studies": "climatestudy",
+    "consent": "consent",
+    "sexual assault": "sexualassault",
+    "sexual harassment": "sexualharassment",
+    "stalking": "stalking",
+    "dating violence": "datingviolence",
+    "domestic violence": "domesticviolence",
+    "awareness about policies": "aboutpolicies",
+    "awareness about reporting": "aboutreporting"
+}
+
+reverse_mapping = {mapping[key]: key for key in mapping}
+
+def getMatchesOfFields(fields):
+    forms = University.objects.all()
+    unis = []
+    for form in forms:
+        for field in fields:
+            if form.__getattribute__(field):
+                unis.append(form)
+                break
+    return unis
+
+class SearchPage(View):
+    def get(self, request):
+        context = {}
+        query = request.GET.get("q")
+        if not query: query = ""
+        query = query.split(",")
+        fields = []
+        for q_word in query:
+            fields.append(mapping[q_word])
+        matches = getMatchesOfFields(fields)
+        universities = []
+        print matches
+        for match in matches:
+            for field in fields:
+                data = {}
+                data["university_name"] = match.college.name
+                data["topic"] = reverse_mapping[field]
+                data["description"] = match.__getattribute__(field + "Desc")
+                data["university_pic"] = match.college.logo
+                data["id"] = match.college.id
+                universities.append(data)
+        import random
+        context["q"] = query
+        context["universities"] = universities
+        return render(request, 'search-results.html', context)

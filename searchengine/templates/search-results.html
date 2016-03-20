@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/search-results.css' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/tagit/jquery.tagit.css' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/tagit/tagit.ui-zendesk.css' %}"/>
+	<script src="{% static 'js/tag-it.min.js' %}"></script>
+{% endblock %}
+
+{% block navbar %}
+	{% include 'navbar.html' %}
+{% endblock %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+	<div class="">
+		<div class="search-result-input-container">
+			<!-- <input class="search-result-input" placeholder="Search..."> -->
+			<ul id="myTags" class="search-result-input">
+			    <!-- Existing list items will be pre-added to the tags -->
+			    {% for q_term in q %}
+			    	<li>{{ q_term }}</li>
+			    {% endfor %}
+			</ul>
+			<i class="glyphicon glyphicon-search search-icon"></i>
+			
+		</div>
+	</div>
+	<div class="row search-result-row">
+		{% for uni in universities %}
+			<div class="col-md-4 col-sm-6 col-xs-10">
+				<div class="search-result-panel">
+					<div class="search-result-header">
+						<div class="search-result-img-container">
+							<a href="/university_page/{{ uni.id }}"><img src="{{ uni.university_pic }}" class="img-circle search-result-img"></a>
+						</div>
+						<div class="search-result-title">
+							<div class="search-result-uni-name">
+								{{ uni.university_name }}
+							</div>
+							<div class="search-result-statistic">
+								{{ uni.topic }}
+							</div>
+						</div>
+					</div>
+					<div class="search-result-body">
+						<div class="search-result-description">
+							{{ uni.description|truncatechars:135 }}
+						</div>
+					</div>
+					<div class="search-result-footer">
+						<a href="#paperclip"><i class="glyphicon glyphicon-paperclip"></i></a>
+						<a href="#picture" style="margin-left:8px;"><i class="glyphicon glyphicon-picture"></i></a>
+					</div>
+				</div>	
+			</div>
+		{% endfor %}
+	</div>
+	<script type="text/javascript">
+    	$(document).ready(function() {
+	        $("#myTags").tagit();
+	    });
+	</script>
+{% endblock %}
