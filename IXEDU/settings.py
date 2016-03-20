@@ -81,11 +81,16 @@ TEMPLATES = [
 ]
 
 PIPELINE = {
-    'PIPELINE_ENABLED': True,
     'COMPILERS': (
         'pipeline.compilers.less.LessCompiler',
     ),
     'STYLESHEETS': {
+        'base': {
+            'source_filenames': (
+                'base.less',
+            ),
+            'output_filename': 'base.css',
+        }
     }
 }
 
