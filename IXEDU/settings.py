@@ -144,6 +144,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
 STATICFILES_DIRS = (
     os.path.join(AUTH_DIR, 'static'),
     os.path.join(FORUM_DIR, 'static'),
