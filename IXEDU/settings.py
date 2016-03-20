@@ -146,6 +146,7 @@ USE_TZ = True
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
     os.path.join(AUTH_DIR, 'static'),
     os.path.join(FORUM_DIR, 'static'),
     os.path.join(SE_DIR, 'static'),
