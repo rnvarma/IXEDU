@@ -87,8 +87,12 @@ WSGI_APPLICATION = 'IXEDU.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django_postgrespool',
+        'NAME': 'ddslv04a0i165s',
+        'USER': 'fddhpptxlggkop',
+        'PASSWORD': 'm37_OAxiSlVuNe5G-qnCl3zXRS',
+        'HOST': 'ec2-54-83-22-48.compute-1.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
