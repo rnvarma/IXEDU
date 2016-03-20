@@ -87,7 +87,7 @@ PIPELINE = {
     'STYLESHEETS': {
         'base': {
             'source_filenames': (
-                'base.less',
+                'less/base.less',
             ),
             'output_filename': 'base.css',
         },
