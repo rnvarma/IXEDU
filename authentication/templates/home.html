@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% load pipeline %}
-{% stylesheet 'home' %}
 
 {% block head %}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -10,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/tagit/tagit.ui-zendesk.css' %}"/>
     <script src="{% static 'js/tag-it.min.js' %}"></script>
     <script src="{% static 'js/autocomplete.js' %}"></script>
+    {% stylesheet 'home' %}
 {% endblock %}
 
 {% block title %}Browse{% endblock %}
