@@ -86,11 +86,6 @@ PIPELINE = {
         'pipeline.compilers.less.LessCompiler',
     ),
     'STYLESHEETS': {
-        'colors': {
-            'source_filenames': (
-                'less/color.less',
-            ),
-        }
     }
 }
 
