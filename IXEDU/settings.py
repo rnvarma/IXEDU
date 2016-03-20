@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pipeline',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -78,6 +79,20 @@ TEMPLATES = [
         },
     },
 ]
+
+PIPELINE = {
+    'PIPELINE_ENABLED': True,
+    'COMPILERS': (
+        'pipeline.compilers.less.LessCompiler',
+    ),
+    'STYLESHEETS': {
+        'colors': {
+            'source_filenames': (
+                'less/color.less',
+            ),
+        }
+    }
+}
 
 WSGI_APPLICATION = 'IXEDU.wsgi.application'
 
@@ -133,13 +148,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 STATICFILES_DIRS = (
     os.path.join(AUTH_DIR, 'static'),
     os.path.join(FORUM_DIR, 'static'),
     os.path.join(SE_DIR, 'static'),
     os.path.join(UNI_DIR, 'static')
+)
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
 )
 
 STATIC_URL = '/static/'
