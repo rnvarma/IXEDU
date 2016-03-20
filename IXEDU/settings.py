@@ -93,7 +93,8 @@ PIPELINE = {
         },
         'home': {
             'source_filenames': (
-                'less/home.less'
+                'less/home.less',
+                'less/search-results.less'
             ),
             'output_filename': 'home.css'
         }
