@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load pipeline %}
+{% stylesheet 'home' %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/home.css' %}" type="text/css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/search-results.css' %}"/>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:600,800' rel='stylesheet' type='text/css'>

@@ -90,6 +90,12 @@ PIPELINE = {
                 'base.less',
             ),
             'output_filename': 'base.css',
+        },
+        'home': {
+            'source_filenames': (
+                'less/home.less'
+            ),
+            'output_filename': 'home.css'
         }
     }
 }
