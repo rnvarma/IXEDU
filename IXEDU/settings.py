@@ -16,6 +16,9 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BACKEND_DIR = os.path.join(BASE_DIR, 'backend')
 AUTH_DIR = os.path.join(BASE_DIR, 'authentication')
+FORUM_DIR = os.path.join(BASE_DIR, 'forum')
+SE_DIR = os.path.join(BASE_DIR, 'searchengine')
+UNI_DIR = os.path.join(BASE_DIR, 'university')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -60,7 +63,10 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
-                 os.path.join(AUTH_DIR, 'templates'),],
+                 os.path.join(AUTH_DIR, 'templates'),
+                 os.path.join(FORUM_DIR, 'templates'),
+                 os.path.join(UNI_DIR, 'templates'),
+                 os.path.join(SE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,7 +131,10 @@ USE_TZ = True
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(AUTH_DIR, 'static')
+    os.path.join(AUTH_DIR, 'static'),
+    os.path.join(FORUM_DIR, 'static'),
+    os.path.join(SE_DIR, 'static'),
+    os.path.join(UNI_DIR, 'static')
 )
-s
+
 STATIC_URL = '/static/'
