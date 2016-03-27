@@ -47,7 +47,8 @@ class SearchPage(View):
         fields = []
         for q_word in query:
             fields.append(mapping[q_word])
-        matches = getMatchesOfFields(fields)
+        matches = []
+        # matches = getMatchesOfFields(fields)
         universities = []
         print matches
         for match in matches:
