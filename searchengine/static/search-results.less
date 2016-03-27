@@ -1,5 +1,8 @@
+@import "colors";
+@import "mixins";
+
 body {
-	background-color: #F7F7F7;
+	background-color: @base-gray-background;
 }
 
 .search-result-row {
@@ -13,15 +16,21 @@ body {
 
 .search-result-input {
 	width: 100%;
-	background-color: #E4E5E7 !important;
+	background-color: @search-term-background !important;
 	padding: 9px !important;
 	border: none !important;
 	font-size: 125% !important;
 	padding-left: 20px !important;
 }
 
-input:focus{
-    outline: none;
+.tagit-new {
+    input {
+        outline: none;
+
+        &:focus {
+            outline: none;
+        }
+    }
 }
 
 .search-icon {
@@ -30,7 +39,7 @@ input:focus{
     right: 0;
     font-size: 29px;
     padding: 15px;
-    background-color: #5E5CC7;
+    background-color: @search-purple;
     color: white;
 }
 
@@ -38,9 +47,7 @@ input:focus{
 	background-color: white;
 	margin-bottom: 30px;
 	padding: 20px;
-	-webkit-box-shadow: 0px 3px 5px -1px rgba(212,212,212,1);
-	-moz-box-shadow: 0px 3px 5px -1px rgba(212,212,212,1);
-	box-shadow: 0px 3px 5px -1px rgba(212,212,212,1);
+    .box-shadow(0px 3px 5px -1px @search-card-background);
 }
 
 .search-result-img {
