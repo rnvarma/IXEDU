@@ -19,8 +19,24 @@
         font-weight: 400;
     }
 
+    .logo-emph {
+        border-top: 2px solid @base-blue;
+        border-bottom: 2px solid @base-blue;
+        overflow: hidden;
+        padding-top: -20px;
+        height: 0.8em;
+        line-height: 0.66;
+        display: inline-block;
+        margin-right: 0.15em;
+        vertical-align: baseline;
+        margin-right: -5px;
+    }
+
     .site-title {
         display:inline-block;
+        letter-spacing: 0.1em;
+        margin-left: 10px;
+        font-size: 120%;
     }
 
     color: white;
@@ -29,29 +45,32 @@
 
     line-height: 1;
 
-    margin: 10px 0 0 10px;
+    margin: 15px 0 0 15px;
 
     display: inline-block;
     width: 100%;
 
     &.special {
         background-color: @nav-black;
-    }
-}
 
-a {
-    .IX-title {
-        color: @base-blue;
+        margin: 0;
+        padding: 15px;
+    }
+
+    a {
+        .IX-title {
+            color: @base-blue;
+
+            &:focus {
+                color: @base-blue;
+            }
+        }
+
+        color: white;
 
         &:focus {
-            color: @base-blue;
+            color: white;
         }
-    }
-
-    color: white;
-
-    &:focus {
-        color: white;
     }
 }
 
@@ -60,5 +79,19 @@ a {
     float: right;
     margin-right: 30px;
     font-size: 70%;
-    margin-top:5px;
+    margin-top: -5px;
+
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: @faded-gray;
+    padding: 15px;
+
+    a {
+        color: @faded-gray;
+
+        &:hover {
+            color: @faded-gray;
+        }
+    }
 }
