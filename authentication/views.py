@@ -21,7 +21,7 @@ class Register(View):
         return render(request, 'register.html')
 
     def post(self, request):
-        new_user = User.objects.create_user(request.POST.get('email').split("@")[0],
+        new_user = User.objects.create_user(request.POST.get('username'),
             request.POST.get('email'), request.POST.get('password'))
         new_user.first_name = request.POST.get('first_name')
         new_user.last_name = request.POST.get('last_name')
@@ -44,7 +44,7 @@ class Login(View):
         return render(request, 'login.html')
 
     def post(self, request):
-        user = authenticate(username=request.POST.get('email').split("@")[0],
+        user = authenticate(username=request.POST.get('username'),
                             password=request.POST.get('password'))
         if user is not None:
             login(request, user)
