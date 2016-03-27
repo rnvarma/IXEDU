@@ -6,6 +6,7 @@ from authentication.views import *
 urlpatterns = [
     url(r'^$', HomePage.as_view()),
     url(r'^login$', Login.as_view()),
+    url(r'^logout$', Logout.as_view()),
     url(r'^register$', Register.as_view()),
     url(r'^user$', UserPage.as_view())
 ]

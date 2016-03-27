@@ -52,6 +52,11 @@ class Login(View):
         else:
             return HttpResponseRedirect("/login")
 
+class Logout(View):
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect("/login")
+
 class UserPage(View):
     def get(self, request):
         return render(request, 'user.html')

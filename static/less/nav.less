@@ -36,7 +36,7 @@
         display:inline-block;
         letter-spacing: 0.1em;
         margin-left: 10px;
-        font-size: 120%;
+        font-size: 25px;
     }
 
     color: white;
@@ -48,7 +48,6 @@
     display: inline-block;
     width: 100%;
 
-    padding: 15px;
     background-color: @nav-black;
 
     a {
@@ -61,28 +60,45 @@
         }
 
         color: white;
+    }
 
-        &:focus {
-            color: white;
+    li {
+        &:hover {
+            background-color: @faded-gray-light;
+        }
+        .right-site-title {
+            &:hover {
+                background-color: @faded-gray-light;
+            }
+
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+    }
+
+    .open {
+        .dropdown-toggle {
+            background-color: @faded-gray-light !important;
         }
     }
 }
+
+.navbar-brand {
+    padding: 20px 15px;
+}
+
 .right-site-title {
-    display: inline-block;
-    float: right;
-    margin-right: 30px;
-    font-size: 20px;
-    font-weight: 800;
+    font-size: 18px;
+    font-weight: 600;
     margin-top: -5px;
 
     border-color: white;
-    padding: 10px;
 
     a {
         color: white;
+    }
 
-        &:hover {
-            color: @faded-gray;
-        }
+    &:focus {
+        background-color: @faded-gray-light !important;
     }
 }
