@@ -100,9 +100,17 @@ PIPELINE = {
         'home': {
             'source_filenames': (
                 'less/home.less',
-                'less/search-results.less',
+                'less/nav.less'
             ),
             'output_filename': 'home.css'
+        },
+        'search-results': {
+            'source_filenames': (
+                'less/base.less',
+                'less/search-results.less',
+                'less/nav.less'
+            ),
+            'output_filename': 'search-results.css'
         }
     }
 }

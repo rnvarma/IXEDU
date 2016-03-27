@@ -1,15 +1,12 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load pipeline %}
 
 {% block head %}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/search-results.css' %}"/>
+    {% stylesheet 'search-results' %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/tagit/jquery.tagit.css' %}"/>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/tagit/tagit.ui-zendesk.css' %}"/>
 	<script src="{% static 'js/tag-it.min.js' %}"></script>
-{% endblock %}
-
-{% block navbar %}
-	{% include 'navbar.html' %}
 {% endblock %}
 
 {% block title %}Search Results{% endblock %}
