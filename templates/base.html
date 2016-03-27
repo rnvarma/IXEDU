@@ -26,7 +26,13 @@
                     EDU
                 </div>
             </a>
-            <div class="right-site-title"><a href="/signup" class="register-btn">Register University</a></div>
+            {% if user.is_authenticated %}
+                <div class="right-site-title"><a href="/user" class="register-btn">{{ user }}</a></div>
+                <div class="right-site-title"><a href="/uni/{{uni.id}}" class="register-btn">{{ uni.name }}</a></div>
+            {% else %}
+                <div class="right-site-title"><a href="/login" class="register-btn">Login</a></div>
+                <div class="right-site-title"><a href="/register" class="register-btn">Register</a></div>
+            {% endif %}
         </div>
 
     {% endblock %}
