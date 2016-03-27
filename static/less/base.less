@@ -1,4 +1,4 @@
-@base-blue: #606eb9;
+@import "colors";
 
 html {
     overflow-x: hidden
@@ -8,61 +8,36 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-.register-btn {
-    color: inherit;
-}
-
-.register-btn:hover {
-    text-decoration: none;
-    color: #ddd;
-}
-
-.register-btn:active {
-    text-decoration: none;
-}
-
-.nav-bar {
-    .IX-title {
-        color: @base-blue;
-        font-weight: 400;
-    }
-
-    .site-title {
-        display:inline-block;
-    }
-
-    color: white;
-    font-weight: 400;
-    font-size: 2em;
-
-    line-height: 1;
-
-    margin: 10px 0 0 10px;  
-
+.site-title {
+    letter-spacing: 0.1em;
     display: inline-block;
-    width: 100%;
-}
-
-a {
-    .IX-title {
-        color: @base-blue;
-
-        &:focus {
-            color: @base-blue;
-        }
-    }
-
-    color: white;
-
-    &:focus {
-        color: white;
-    }
+    margin-left: 10px;
+    font-size: 120%;
 }
 
 .right-site-title {
     display: inline-block;
     float: right;
+    margin-top: -5px;
     margin-right: 30px;
-    font-size: 70%;
-    margin-top:5px;
+    font-size: 60%;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: @faded-gray;
+    padding: 15px;
+    color: @faded-gray;
+}
+
+.logo-emph {
+    border-top: 2px solid @base-blue;
+    border-bottom: 2px solid @base-blue;
+    overflow: hidden;
+    padding-top: -20px;
+    height: 0.8em;
+    line-height: 0.66;
+    display: inline-block;
+    margin-right: 0.15em;
+    vertical-align: baseline;
+    margin-right: -5px;
 }
