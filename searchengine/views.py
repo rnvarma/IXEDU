@@ -6,16 +6,26 @@ from django.http import HttpResponseRedirect
 
 mapping = {
     "risk reduction": "riskreduction",
+    "secondary prevention": "riskreduction",
+    "risk": "riskreduction",
     "primary prevention": "primaryprevention",
     "faculty-staff training": "facultystafftraining",
+    "faculty staff training": "facultystafftraining",
     "title IX office": "titleixoffice",
+    "titleIX office": "titleixoffice",
+    "titleix office": "titleixoffice",
+    "title ix office": "titleixoffice",
     "volunteer group": "volunteergroup",
+    "volunteer": "volunteergroup",
     "student initiative": "studentinitiative",
     "mens group": "mensgroup",
     "other offices": "otheroffices",
     "stats on campus reports": "oncampusreports",
+    "campus reports": "oncampusreports",
     "stats on all reports": "allreports",
+    "all reports": "allreports",
     "stats on climate studies": "climatestudy",
+    "climate study", "climatestudy",
     "consent": "consent",
     "sexual assault": "sexualassault",
     "sexual harassment": "sexualharassment",
@@ -23,7 +33,9 @@ mapping = {
     "dating violence": "datingviolence",
     "domestic violence": "domesticviolence",
     "awareness about policies": "aboutpolicies",
-    "awareness about reporting": "aboutreporting"
+    "policies", "aboutpolicies",
+    "awareness about reporting": "aboutreporting",
+    "reporting": "aboutreporting",
 }
 
 reverse_mapping = {mapping[key]: key for key in mapping}
