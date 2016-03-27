@@ -25,7 +25,7 @@ mapping = {
     "stats on all reports": "allreports",
     "all reports": "allreports",
     "stats on climate studies": "climatestudy",
-    "climate study", "climatestudy",
+    "climate study": "climatestudy",
     "consent": "consent",
     "sexual assault": "sexualassault",
     "sexual harassment": "sexualharassment",
