@@ -59,7 +59,9 @@ class Logout(View):
 
 class UserPage(View):
     def get(self, request):
-        return render(request, 'user.html')
+        context = {}
+        context["uni"] = request.user.customuser.university
+        return render(request, 'user.html', context)
 
 
 
