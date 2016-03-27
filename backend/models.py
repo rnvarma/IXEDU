@@ -90,14 +90,3 @@ class PrivateResponse(models.Model):
 class PrivateLike(models.Model):
     user = models.ForeignKey(CustomUser, related_name="private_post_likes")
     post = models.ForeignKey(PrivatePost, related_name="likes")
-
-
-
-
-
-
-
-
-
-
-
