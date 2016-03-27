@@ -33,7 +33,7 @@ mapping = {
     "dating violence": "datingviolence",
     "domestic violence": "domesticviolence",
     "awareness about policies": "aboutpolicies",
-    "policies", "aboutpolicies",
+    "policies": "aboutpolicies",
     "awareness about reporting": "aboutreporting",
     "reporting": "aboutreporting",
 }
