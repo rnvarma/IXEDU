@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pipeline',
+    'storages',
     'backend',
     'forum',
     'searchengine',
@@ -83,37 +83,6 @@ TEMPLATES = [
         },
     },
 ]
-
-PIPELINE = {
-    'COMPILERS': (
-        'pipeline.compilers.less.LessCompiler',
-    ),
-    'STYLESHEETS': {
-        'base': {
-            'source_filenames': (
-                'less/base.less',
-                'less/nav.less',
-                'less/reset.less',
-            ),
-            'output_filename': 'base.css',
-        },
-        'home': {
-            'source_filenames': (
-                'less/home.less',
-                'less/nav.less'
-            ),
-            'output_filename': 'home.css'
-        },
-        'search-results': {
-            'source_filenames': (
-                'less/base.less',
-                'less/search-results.less',
-                'less/nav.less'
-            ),
-            'output_filename': 'search-results.css'
-        }
-    }
-}
 
 WSGI_APPLICATION = 'IXEDU.wsgi.application'
 
@@ -169,8 +138,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     os.path.join(AUTH_DIR, 'static'),
@@ -178,15 +145,20 @@ STATICFILES_DIRS = (
     os.path.join(SE_DIR, 'static'),
     os.path.join(UNI_DIR, 'static')
 )
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'pipeline.finders.PipelineFinder',
-)
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+AWS_ACCESS_KEY_ID = 'AKIAJG46VBV7P4GN4N5A'  
+AWS_SECRET_ACCESS_KEY = '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'  
+AWS_STORAGE_BUCKET_NAME = 'ixedu'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+if not DEBUG:
+    STATICFILES_LOCATION = 'static'
+    STATICFILES_STORAGE = 'IXEDU.storage.StaticStorage'
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+else:
+    STATIC_URL = "/static/"
+MEDIAFILES_LOCATION = 'media'
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+DEFAULT_FILE_STORAGE = 'IXEDU.storage.MediaStorage'
+
 

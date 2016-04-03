@@ -1,0 +1,112 @@
+/* BRAND COLORS */
+/* NAV COLORS */
+/* BASE PAGE COLORS */
+/* SEARCH COLORS */
+/* HOMEPAGE COLORS */
+body {
+  background-image: url(../images/hands-raised.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.search {
+  text-align: center;
+  margin-top: 20vh;
+}
+.search .hero-title {
+  font-weight: 100;
+  font-size: 1.4em;
+  color: white;
+}
+.search .search-bar {
+  margin-top: 25px;
+  position: relative;
+}
+.search .search-bar .search-box {
+  width: 100%;
+  padding: 10px 0 10px 15px;
+  border-radius: 5px;
+  margin-left: -14px;
+}
+.search .search-bar #search-area {
+  height: 50px;
+  width: 100%;
+  margin-left: 0;
+  background-color: white;
+  padding-top: 5px;
+}
+.search .search-icon-home {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 30px;
+  padding: 12px;
+  background-color: #5e5cc7;
+  color: white;
+  padding-bottom: 8px;
+}
+.search .search-icon-home:hover {
+  cursor: pointer;
+}
+.search .tagit-label {
+  color: white !important;
+  padding-right: 10px;
+  border-right: 1px solid #636c86;
+}
+.search ul.tagit li.tagit-choice {
+  border-radius: 0px;
+  border: none;
+  border-bottom: 3px solid #636c86;
+  background: none;
+  background-color: #8382d4;
+  font-weight: normal;
+  color: white;
+  padding: 5px 20px;
+}
+.search ul.tagit li.tagit-choice:hover {
+  background-color: #716fce;
+  border-bottom: 3px solid #636c86;
+  cursor: pointer;
+}
+.info-block {
+  background-color: white;
+  position: absolute;
+  top: 75vh;
+  width: 100%;
+  height: 400px;
+  text-align: center;
+  padding: 40px;
+}
+.info-block .info-row {
+  margin-left: -40px;
+  margin-right: -40px;
+}
+.info-block .info-row .icon-block {
+  display: inline-block;
+  padding: 0 10px;
+}
+.info-block .info-row .icon-block .pictures {
+  padding: 20px;
+}
+.info-block .info-row .icon-block .number {
+  width: 20px;
+  display: inline-block;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: extra-bold;
+  font-size: 40pt;
+  color: #606eb9;
+}
+.info-block .info-row .icon-block .steps {
+  width: 220px;
+  display: inline-block;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: semi-bold;
+  font-size: large;
+  padding: 5px 0px 0px 15px;
+  text-align: left;
+}
+.space {
+  padding: 120px;
+}
+.nav-bar {
+  background-color: transparent !important;
+}
