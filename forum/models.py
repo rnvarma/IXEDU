@@ -9,7 +9,7 @@ class forum(models.Model):
     after= models.DateTimeField()
     initial= models.DateTimeField()
 
-    checklist= models.NullBooleanField(default='false') 
-      
+    checklist= models.NullBooleanField(default='false')
+
     def __unicode__(self):   ### python 2.7
-        return self.title 
+        return self.title

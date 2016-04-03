@@ -16,4 +16,3 @@ class Forum(View):
             variable.save()
         context = {}
         return render(request, template, context)
-
