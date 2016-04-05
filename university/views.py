@@ -33,16 +33,6 @@ class UniversityForm(View):
                 uni_cat.subcats.append(uni_subcat)
             context["categories"].append(uni_cat)
             i += 1
-        # for cat in context["categories"]:
-        #     cat.num = i
-        #     i += 1
-        #     cat.subcats = cat.subcategories.all()
-        #     j = 0
-        #     for subcat in cat.subcats:
-        #         subcat.href = "".join(subcat.name.split())
-        #         subcat.id = subcat.href + "-id"
-        #         subcat.parity = j
-        #         j = 0 if j else 1
         context["num_cats"] = len(context["categories"])
         context["cat_nums"] = range(1, context["num_cats"] + 1)
         context["num_bars"] = context["num_cats"] - 1
