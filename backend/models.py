@@ -15,6 +15,9 @@ class University(models.Model):
     logo = models.FileField(upload_to="uni_logos/", blank=True, null=True)
     is_staging = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.name
+
 class UniFiles(models.Model):
     university = models.ForeignKey(University, related_name="files")
     name = models.CharField(max_length=200, default="")
@@ -33,15 +36,24 @@ class CustomUser(models.Model):
     role = models.CharField(max_length=200, default="")
     university = models.ForeignKey(University, related_name="members")
     user = models.OneToOneField(settings.AUTH_USER_MODEL, default=0, related_name="customuser")
+    
     def __str__(self):
         return self.name
 
 class ProfileCategory(models.Model):
     name = models.CharField(max_length=200, default="")
+    order = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return self.name
 
 class ProfileSubcategory(models.Model):
     category = models.ForeignKey(ProfileCategory, related_name="subcategories")
     name = models.CharField(max_length=200, default="")
+    order = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
 
 class FilledCategory(models.Model):
     category = models.ForeignKey(ProfileCategory, related_name="filled_forms")
@@ -49,11 +61,18 @@ class FilledCategory(models.Model):
 
 class FilledSubcategory(models.Model):
     filled_category = models.ForeignKey(FilledCategory, related_name="filled_subcategories")
+    name = models.CharField(max_length=200, default="")
     is_offered = models.BooleanField(default=False)
     description = models.TextField(default="")
 
+    def __str__(self):
+        return self.name
+
 class Tag(models.Model):
     name = models.CharField(max_length=100, default="")
+
+    def __str__(self):
+        return self.name
 
 class PublicPost(models.Model):
     title = models.CharField(max_length=500, default="")
@@ -90,3 +109,6 @@ class PrivateResponse(models.Model):
 class PrivateLike(models.Model):
     user = models.ForeignKey(CustomUser, related_name="private_post_likes")
     post = models.ForeignKey(PrivatePost, related_name="likes")
+
+
+

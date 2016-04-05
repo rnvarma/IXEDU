@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+    <link href="{% static 'css/policy_form.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <script>
+      var num_cats = {{ num_cats }}
+      var num_bars = {{ num_bars }}
+    </script>
+    <div class="row row-bar">
+        {% for i in bar_nums %}
+          <div class="bar bar{{i}}" data-num="{{ i }}">
+          </div>
+        {% endfor %}
+        {% for i in cat_nums %}
+          <div class="circle circle{{i}} {% if i == 1 %}half-empty{% endif %}"></div>
+        {% endfor %}
+        {% for cat in categories %}
+          <div class="under-text under-text{{cat.num}}">{{ cat.name }}</div>
+        {% endfor %}
+    </div>
+
+<form method="POST" action="/uni/{{uni.id}}/form">
+    {% csrf_token %}
+    <input type="hidden" name="uni_id" value="{{ uni.id }}">
+
+    {% for category in categories %}
+      <div class="row collapsing-row form-row{{category.num}} {% if category.num == 0%}active{% endif %}">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          {% for subcategory in category.subcats %}
+            <div class="panel panel-default">
+              <div class="panel-heading {% if subcategory.parity %}light{% else %}dark{% endif %}" role="tab" id="{{subcategory.name_id}}">
+                <h4 class="panel-title">
+                  <a class="link-clicker" role="button" data-toggle="collapse" data-parent="#accordion" href="#{{subcategory.href}}" aria-expanded="true" aria-controls="{{subcategory.href}}">
+                    <i class="glyphicon glyphicon-record select-circle"></i>{{ subcategory.name }}
+                  </a>
+                </h4>
+              </div>
+              <div id="{{subcategory.href}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{subcategory.name_id}}">
+              <div class="down-arrow">
+                  </div>
+                <div class="panel-body">
+                  <textarea name="{{ category.name }} - {{ subcategory.name }}" placeholder="Describe your policies here...">{{ subcategory.description }}</textarea>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+
+    <div class="row controls-row">
+        <div class="col-md-2 col-sm-3 col-xs-6">
+            <div class="control-btn btn prev-btn"><i style="margin-right:5px; font-size:80%;" class="glyphicon glyphicon-menu-left"></i>Previous</div>
+        </div>
+        <div class="col-md-offset-8 col-md-2 col-sm-offset-6 col-sm-3 col-xs-6 next-btn-container">
+            <div class="control-btn btn next-btn">Next<i style="margin-left:5px; font-size:80%;" class="glyphicon glyphicon-menu-right"></i></div>
+        </div>
+        <div class="col-md-offset-8 col-md-2 col-sm-offset-6 col-sm-3 col-xs-6 submit-btn-container" style="display:none;">
+                <button class="control-btn btn submit-btn">Submit<i style="margin-left:5px; font-size:80%;" class="glyphicon glyphicon-menu-right"></i></button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'js/policy_form.js' %}"></script>
+{% endblock %}
