@@ -23,6 +23,10 @@ class UniFiles(models.Model):
     name = models.CharField(max_length=200, default="")
     description = models.TextField(default="")
     uploaded_file = models.FileField(upload_to="uni_files/", blank=True, null=True)
+    link = models.CharField(max_length=300, default="", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
 
 class UniKeyTerms(models.Model):
     university = models.ForeignKey(University, related_name="key_terms")

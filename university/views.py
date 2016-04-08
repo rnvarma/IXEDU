@@ -9,6 +9,7 @@ class UniversityProfile(View):
     def get(self, request, u_id):
         context = {}
         context["uni"] = University.objects.get(id=u_id)
+        context["files"] = context["uni"].files.all()
         return render(request, 'university_profile.html', context)
 
 class UniversityForm(View):

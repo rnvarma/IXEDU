@@ -1,0 +1,68 @@
+
+body {
+    background-color: #E8E8E8;
+}
+
+.panel {
+    border: none;
+    border-radius: 0px;
+}
+
+.panel-heading {
+    text-transform: uppercase;
+    font-weight: 700;
+    background-color: #F8F8F8;
+    color: #414141;
+    padding: 15px;
+}
+
+.img-area {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: 100%;
+    height: 200px;
+}
+
+.university-name {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.university-location {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.resource-entry {
+    padding: 15px 5px;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.resource-entry:hover {
+    background-color: #F8F8F8;
+}
+
+.resource-name {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.resource-description {
+    font-size: 14px;
+}
+
+.resource-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.resource-link:active, .resource-link:focus {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+
+
+
+

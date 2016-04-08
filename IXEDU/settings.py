@@ -79,6 +79,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.media',
+                'django.core.context_processors.static',
             ],
         },
     },
@@ -152,11 +154,12 @@ AWS_STORAGE_BUCKET_NAME = 'ixedu'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 if not DEBUG:
-    STATICFILES_LOCATION = 'static'
     STATICFILES_STORAGE = 'IXEDU.storage.StaticStorage'
     STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
 else:
     STATIC_URL = "/static/"
+
+STATICFILES_LOCATION = 'static'
 MEDIAFILES_LOCATION = 'media'
 MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 DEFAULT_FILE_STORAGE = 'IXEDU.storage.MediaStorage'

@@ -2,11 +2,54 @@
 {% load staticfiles %}
 
 {% block head %}
-
+    <link rel="stylesheet" href="{% static 'css/university_profile.css' %}">
 {% endblock %}
 
 {% block title %}IXEDU - {{ uni.name }}{% endblock %}
 
 {% block content %}
-
+    <div class="row pushed-in">
+        <div class="col-md-4">
+            <div class="panel img-panel">
+                <div class="img-area" style="background-image: url({{ MEDIA_URL}}{{ uni.logo }});">
+                </div>
+                <div class="panel-body" style="line-height: 1.75">
+                    <div class="university-name">
+                        {{ uni.name }}
+                    </div>
+                    <div class="university-location">
+                        {{ uni.city }}, {{ uni.state }}
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    Title IX Office
+                </div>
+                <div class="panel-body">
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    Resources
+                </div>
+                <div class="panel-body">
+                    {% for file in files %}
+                        <div class="resource-entry">
+                            <a href="{% if file.link %}{{ file.link }}{% else %}{{MEDIA_URL}}{{file.uploaded_file}}{% endif %}" target="_blank" class="reset-this resource-link">
+                                <div class="resource-name">
+                                    {{ file.name }}
+                                </div>
+                                <div class="resource-description">
+                                    {{ file.description }}
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+        </div>
+    </div>
 {% endblock %}
