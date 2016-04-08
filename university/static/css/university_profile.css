@@ -61,8 +61,40 @@ body {
     color: inherit;
 }
 
+#university-information-area {
+    background-color: white;
+    min-height: 80%;
+}
 
+.university-info-tabs {
+    background-color: #E8E8E8
+}
 
+.nav-pills>li+li {
+    margin: 0;
+}
 
+.nav-pills>li>a {
+    padding: 15px 25px;
+    color: #414141;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+}
 
+.nav-pills>li.active>a {
+    background-color: white;
+    border-radius: 0px;
+    color: #414141;
+}
+
+.nav-pills>li.active>a:focus, .nav-pills>li.active>a:active {
+    background-color: white;
+    border-radius: 0px;
+    color: black;
+}
+
+.tab-content {
+    padding: 15px 25px;
+}
 
