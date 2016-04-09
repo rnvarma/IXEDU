@@ -132,3 +132,9 @@ body {
     font-weight: 600;
     font-size: 14px;
 }
+
+.admin-contact {
+    font-size: 12px;
+    margin-top: 5px;
+    padding-left: 5px;
+}

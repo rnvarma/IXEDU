@@ -30,7 +30,7 @@ class Register(View):
         full_name = request.POST.get('first_name') + " " + request.POST.get('last_name')
         university, created = University.objects.get_or_create(name=request.POST.get('uni'))
 
-        cu = CustomUser(name=full_name, university=university, user=new_user)
+        cu = CustomUser(name=full_name, university=university, user=new_user, email=request.POST.get('email'))
         cu.save()
         user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
         if user is not None:
