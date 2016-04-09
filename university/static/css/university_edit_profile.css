@@ -1,0 +1,67 @@
+.edit-btn {
+    position: absolute;
+    right: 17px;
+    top: 18px;
+    font-size: 16px;
+}
+
+.edit-btn:hover {
+    cursor: pointer;
+}
+
+.edit-camera-btn {
+    position: absolute;
+    top: 12px;
+    right: 17px;
+    font-size: 16px;
+    color: #E3EEF5;
+}
+
+.edit-camera-btn:hover {
+    cursor: pointer;
+    z-index: 9;
+}
+
+.upload-img-input {
+    width: 20px;
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    opacity: 0;
+    z-index: 10;
+}
+
+.upload-img-input:hover {
+    cursor: pointer;
+}
+
+.admin-entry {
+    line-height: 1.7;
+    padding: 15px 0px;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.admin-position {
+    font-size: 12px;
+    color: #838383;
+}
+
+.admin-name {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.profile-info-area {
+    background-color: white;
+    padding: 30px;
+}
+
+.profile-info-title {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+
+
+
+

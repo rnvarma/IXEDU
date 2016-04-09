@@ -3,6 +3,7 @@
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/university_profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/university_edit_profile.css' %}">
 {% endblock %}
 
 {% block title %}IXEDU - {{ uni.name }}{% endblock %}
@@ -13,8 +14,11 @@
             <div class="panel img-panel">
                 <div class="panel-heading">
                     University Information
+                    <i title="Edit information" class="glyphicon glyphicon-edit edit-btn"></i>
                 </div>
                 <div class="img-area" style="background-image: url({{ MEDIA_URL}}{{ uni.logo }});">
+                <input class="upload-img-input" type="file" name="profile_image">
+                <i title="Change photo" class="glyphicon glyphicon-camera edit-camera-btn"></i>
                 </div>
                 <div class="panel-body" style="line-height: 1.75">
                     <div class="university-name">
@@ -27,59 +31,51 @@
             </div>
             <div class="panel">
                 <div class="panel-heading">
-                    Title IX Office
+                    Admins
+                    <i title="Edit information" class="glyphicon glyphicon-edit edit-btn"></i>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="padding-top:0px;">
+                    {% for admin in admins %}
+                        <div class="admin-entry">
+                            <div class="admin-position">
+                                {{ admin.position }}
+                            </div>
+                            <div class="admin-name">
+                                {{ admin.name }}
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="panel">
                 <div class="panel-heading">
-                    Resources
+                    Collaborators
+                    <i title="Edit information" class="glyphicon glyphicon-edit edit-btn"></i>
                 </div>
-                <div class="panel-body">
-                    {% for file in files %}
-                        <div class="resource-entry">
-                            <a href="{% if file.link %}{{ file.link }}{% else %}{{MEDIA_URL}}{{file.uploaded_file}}{% endif %}" target="_blank" class="reset-this resource-link">
-                                <div class="resource-name">
-                                    {{ file.name }}
-                                </div>
-                                <div class="resource-description">
-                                    {{ file.description }}
-                                </div>
-                            </a>
+                <div class="panel-body" style="padding-top:0px;">
+                    {% for c in collaborators %}
+                        <div class="admin-entry">
+                            <div class="admin-name">
+                                {{ c.name }}
+                            </div>
                         </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
         <div class="col-md-8">
-            <div id="university-information-area"> 
-                <ul  class="nav nav-pills university-info-tabs">
-                    {% for cat in categories %}
-                        <li class="{% if cat.first %}active{% endif %}"><a href="#category{{cat.id}}" data-toggle="tab">{{ cat.name }}</a></li>
-                    {% endfor %}
-                </ul>
-                <div class="tab-content clearfix">
-                    {% for cat in categories %}
-                        <div class="tab-pane {% if cat.first %}active{% endif %}" id="category{{cat.id}}">
-                            {% for subcat in cat.subcats %}
-                                <div class="subcategory-area">
-                                    <div class="subcategory-name">
-                                        {{ subcat.name }}
-                                    </div>
-                                    <div class="subcategory-text">
-                                        {% if subcat.description %}
-                                            {{ subcat.description }}
-                                        {% else %}
-                                            <span style="font-style:italic; font-size:12px;">No description entered yet.</span>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endfor %}
+            <div class="profile-info-area">
+                <div class="profile-info-title">
+                    Complete your profile:
                 </div>
+            </div>
+            <div class="profile-checkboxes-area">
             </div>
         </div>
     </div>
 {% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/university_edit_profile.js' %}"></script>
+{% endblock %}
+

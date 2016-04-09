@@ -36,6 +36,8 @@ class UniversityProfile(View):
                 uni_cat.subcats.append(uni_subcat)
             context["categories"].append(uni_cat)
         context["can_edit"] = has_edit_priveleges(request.user)
+        context["admins"] = context["uni"].members.filter(role="admin")
+        context["collaborators"] = context["uni"].members.filter(role="collaborator")
         if context["can_edit"]:
             return render(request, 'university_edit_profile.html', context)
         else:
