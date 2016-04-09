@@ -98,3 +98,20 @@ body {
     padding: 15px 25px;
 }
 
+.subcategory-area {
+    margin-bottom: 10px;
+    margin-top: 20px;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.subcategory-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.subcategory-text {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+

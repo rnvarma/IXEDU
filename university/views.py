@@ -10,6 +10,19 @@ class UniversityProfile(View):
         context = {}
         context["uni"] = University.objects.get(id=u_id)
         context["files"] = context["uni"].files.all()
+        context["categories"] = []
+        first = True
+        cats = ProfileCategory.objects.all().order_by("order")
+        for cat in cats:
+            uni_cat, _ = FilledCategory.objects.get_or_create(category=cat, university=context["uni"])
+            uni_cat.subcats = []
+            uni_cat.name = cat.name
+            uni_cat.first = first
+            first = False
+            for subcat in cat.subcategories.all():
+                uni_subcat, _ = FilledSubcategory.objects.get_or_create(filled_category=uni_cat, name=subcat.name)
+                uni_cat.subcats.append(uni_subcat)
+            context["categories"].append(uni_cat)
         return render(request, 'university_profile.html', context)
 
 class UniversityForm(View):
