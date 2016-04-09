@@ -14,6 +14,7 @@ class University(models.Model):
     population = models.IntegerField(default=0)
     logo = models.FileField(upload_to="uni_logos/", blank=True, null=True)
     is_staging = models.BooleanField(default=False)
+    phone_number = models.CharField(max_length=200, default="", blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -35,11 +36,17 @@ class UniKeyTerms(models.Model):
 
 class CustomUser(models.Model):
     name = models.CharField(max_length=100, default="")
-    bio = models.TextField(default="")
+    bio = models.TextField(default="", blank=True, null=True)
     position = models.CharField(max_length=200, default="")
+    # role can either be collaborator, admin, or requested
+    # --admin: can manage roles, use form, upload resources
+    # --collaborator: can use form, upload resources
+    # --requested: no permissions
     role = models.CharField(max_length=200, default="")
     university = models.ForeignKey(University, related_name="members")
     user = models.OneToOneField(settings.AUTH_USER_MODEL, default=0, related_name="customuser")
+    email = models.CharField(max_length=100, default="", blank=True, null=True)
+    phone_number = models.CharField(max_length=100, default="", blank=True, null=True)
     
     def __str__(self):
         return self.name

@@ -5,6 +5,18 @@ from django.http import HttpResponseRedirect
 from backend.models import *
 # Create your views here.
 
+def has_edit_priveleges(user):
+    cu = user.customuser
+    role = cu.role
+    roles = {
+        "admin": True,
+        "collaborator": True,
+        "request": False,
+        "": False
+    }
+    if role in roles: return roles[role]
+    else: return False
+
 class UniversityProfile(View):
     def get(self, request, u_id):
         context = {}
@@ -23,7 +35,11 @@ class UniversityProfile(View):
                 uni_subcat, _ = FilledSubcategory.objects.get_or_create(filled_category=uni_cat, name=subcat.name)
                 uni_cat.subcats.append(uni_subcat)
             context["categories"].append(uni_cat)
-        return render(request, 'university_profile.html', context)
+        context["can_edit"] = has_edit_priveleges(request.user)
+        if context["can_edit"]:
+            return render(request, 'university_edit_profile.html', context)
+        else:
+            return render(request, 'university_profile.html', context)
 
 class UniversityForm(View):
     def get(self, request, u_id):
