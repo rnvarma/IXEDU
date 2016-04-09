@@ -35,22 +35,6 @@
     cursor: pointer;
 }
 
-.admin-entry {
-    line-height: 1.7;
-    padding: 15px 0px;
-    border-bottom: 1px solid #E8E8E8;
-}
-
-.admin-position {
-    font-size: 12px;
-    color: #838383;
-}
-
-.admin-name {
-    font-weight: 600;
-    font-size: 14px;
-}
-
 .profile-info-area {
     background-color: white;
     padding: 30px;
@@ -61,7 +45,13 @@
     font-weight: 600;
 }
 
+.university-metadata-input {
+    width: 100%;
+    font-size: 12px
+}
 
-
+.university-edit-label {
+    font-size: 12px;
+}
 
 

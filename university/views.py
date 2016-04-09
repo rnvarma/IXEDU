@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse, HttpResponse
 
 from backend.models import *
 # Create your views here.
@@ -42,6 +43,26 @@ class UniversityProfile(View):
             return render(request, 'university_edit_profile.html', context)
         else:
             return render(request, 'university_profile.html', context)
+
+class UniversityPhoto(View):
+    def post(self, request):
+        u_id = request.POST.get("u_id")
+        uni = University.objects.get(id=u_id)
+        uni.logo = request.FILES['profile_image']
+        uni.save()
+        return HttpResponseRedirect("/uni/%s" % u_id)
+
+class UniversityMetaData(View):
+    def post(self, request):
+        u_id = request.POST.get("u_id")
+        uni = University.objects.get(id=u_id)
+        fields = request.POST.get("fields")
+        for field in fields.split(","):
+            if not field: continue
+            field_data = request.POST.get(field)
+            uni.__setattr__(field, field_data)
+        uni.save()
+        return JsonResponse({"worked": True})
 
 class UniversityForm(View):
     def get(self, request, u_id):

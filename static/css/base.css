@@ -54,6 +54,12 @@ body {
   padding: 40px;
 }
 
-
+.ixedu-btn {
+  text-transform: uppercase;
+  color: white;
+  background-color: #606eb9;
+  font-size: 12px;
+  padding: 6px 24px;
+}
 
 

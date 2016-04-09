@@ -20,13 +20,26 @@
                     <div class="university-location">
                         {{ uni.city }}, {{ uni.state }}
                     </div>
+                    <div class="university-phone-number">
+                        {{ uni.phone_number }}
+                    </div>
                 </div>
             </div>
             <div class="panel">
                 <div class="panel-heading">
                     Title IX Office
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="padding-top:0px;">
+                    {% for admin in admins %}
+                        <div class="admin-entry">
+                            <div class="admin-position">
+                                {{ admin.position }}
+                            </div>
+                            <div class="admin-name">
+                                {{ admin.name }}
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="panel">
