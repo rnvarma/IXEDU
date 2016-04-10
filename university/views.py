@@ -7,7 +7,7 @@ from backend.models import *
 # Create your views here.
 
 def has_edit_priveleges(user):
-    if request.user.is_anonymous(): return False
+    if user.is_anonymous(): return False
     cu = user.customuser
     role = cu.role
     roles = {
