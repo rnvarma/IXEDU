@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 
+from backend.models import *
+
 # Create your views here.
 
 mapping = {
@@ -76,3 +78,15 @@ class SearchPage(View):
         context["q"] = query
         context["universities"] = universities
         return render(request, 'search-results.html', context)
+
+class AllUniversities(View):
+    def get(self, request):
+        context = {}
+        context["unis"] = University.objects.all()
+        if request.user.is_anonymous():
+            return render(request, 'all_universities.html', context)
+        else:
+            context["uni"] = request.user.customuser.university
+            return render(request, 'all_universities.html', context)
+
+
