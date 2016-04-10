@@ -88,12 +88,19 @@ class AllUniversities(View):
             total = 0
             total_empty = 0
 
-            filled_cats = uni.form_categories.all()
+            cats = ProfileCategory.objects.all().order_by("order")
 
-            for cat in filled_cats:
-                filled_subcats = cat.filled_subcategories.all()
-                total += filled_subcats.count()
-                total_empty += filled_subcats.filter(description = "").count()
+            for cat in cats:
+                uni_cat, _ = FilledCategory.objects.get_or_create(category=cat, university=uni)
+
+                uni_cat.subcats = []
+
+                for subcat in cat.subcategories.all():
+                    uni_subcat, _ = FilledSubcategory.objects.get_or_create(filled_category=uni_cat, name=subcat.name)
+                    uni_cat.subcats.append(uni_subcat)
+
+                total += len(uni_cat.subcats)
+                total_empty += len(filter(lambda x: x.description == "", uni_cat.subcats))
 
             uni.completion_record = str(total - total_empty) + "/" + str(total)
 
