@@ -137,7 +137,17 @@ body {
 }
 
 .admin-contact {
-    font-size: 12px;
+    font-size: 14px;
     margin-top: 5px;
+    padding-left: 5px;
+}
+
+.glyphicon {
+    vertical-align: middle;
+
+    padding-bottom: 4px;
+}
+
+.main-info-panel {
     padding-left: 5px;
 }
