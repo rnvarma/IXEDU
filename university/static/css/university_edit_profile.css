@@ -54,4 +54,31 @@
     font-size: 12px;
 }
 
+.category-checkbox-area {
+    margin: 20px 0px;
+}
+
+.category-checkbox-name {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.subategory-checkbox-area {
+    padding: 5px 0px;
+}
+
+.subcategory-filled {
+    color: #606eb9;
+}
+
+.subcategory-empty {
+    border: 1px solid #7B7B7B;
+    border-radius: 20px;
+    width: 14px;
+    height: 14px;
+    margin-top: 3px;
+}
+
+
 
