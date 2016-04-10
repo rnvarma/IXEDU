@@ -3,10 +3,24 @@
     right: 17px;
     top: 18px;
     font-size: 16px;
+    color: #414141;
 }
 
 .edit-btn:hover {
     cursor: pointer;
+    color: #414141;
+}
+
+.big-edit-btn {
+    color: #414141;
+}
+
+.big-edit-btn:active {
+    color: #414141;
+}
+
+.big-edit-btn:hover {
+    color: #414141;
 }
 
 .edit-camera-btn {
@@ -54,6 +68,10 @@
     font-size: 12px;
 }
 
+.edit-university-area {
+    padding-top: 5px;
+}
+
 .category-checkbox-area {
     margin: 20px 0px;
 }
@@ -79,6 +97,3 @@
     height: 14px;
     margin-top: 3px;
 }
-
-
-
