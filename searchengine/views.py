@@ -83,6 +83,20 @@ class AllUniversities(View):
     def get(self, request):
         context = {}
         context["unis"] = University.objects.all()
+
+        for uni in context["unis"]:
+            total = 0
+            total_empty = 0
+
+            filled_cats = uni.form_categories.all()
+
+            for cat in filled_cats:
+                filled_subcats = cat.filled_subcategories.all()
+                total += filled_subcats.count()
+                total_empty += filled_subcats.filter(description = "").count()
+
+            uni.completion_record = str(total - total_empty) + "/" + str(total)
+
         if request.user.is_anonymous():
             return render(request, 'all_universities.html', context)
         else:

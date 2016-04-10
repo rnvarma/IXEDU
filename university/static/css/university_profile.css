@@ -125,7 +125,10 @@ body {
 
 .admin-position {
     font-size: 12px;
+    letter-spacing: 0.8px;
     color: #838383;
+
+    text-transform: uppercase;
 }
 
 .admin-name {
