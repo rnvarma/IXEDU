@@ -32,6 +32,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
+            <li><a href="/allunis" class="right-site-title">Universities</a></li>
             {% if user.is_authenticated %}
                 <li><a href="/uni/{{uni.id}}" class="right-site-title">{{ uni.name }}</a></li>
                 <li class="dropdown">
