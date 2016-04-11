@@ -61,4 +61,11 @@ body {
   padding: 6px 24px;
 }
 
-
+.page-heading {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 30px 0px;
+    padding-bottom: 15px;
+    margin-bottom: 45px;
+    border-bottom: 1px solid #BEBEBE;
+}
