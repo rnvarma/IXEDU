@@ -105,6 +105,17 @@ class UniversityForm(View):
                 uni_subcat.save()
         return HttpResponseRedirect("/uni/%s/form" % u_id)
 
+class UniversityEditResources(View):
+    def get(self, request, u_id):
+        context = {}
+        context["uni"] = University.objects.get(id=u_id)
+        context["files"] = context["uni"].files.all()
+        context["can_edit"] = has_edit_priveleges(request.user)
+        return render(request, 'university_resources.html', context)
+
+
+
+
 
 
 

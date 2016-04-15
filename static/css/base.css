@@ -69,3 +69,17 @@ body {
     margin-bottom: 45px;
     border-bottom: 1px solid #BEBEBE;
 }
+
+.panel {
+    border: none;
+    border-radius: 0px;
+}
+
+.panel-heading {
+    text-transform: uppercase;
+    font-weight: 700;
+    background-color: #F8F8F8;
+    color: #414141;
+    padding: 15px;
+    position: relative;
+}

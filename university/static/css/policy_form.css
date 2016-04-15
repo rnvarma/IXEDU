@@ -146,6 +146,7 @@ button:focus {
 
 .panel-heading.active > .panel-title > .link-clicker {
     color: white;
+    text-transform: none;
 }
 
 .panel-heading.light {

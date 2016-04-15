@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{% static 'css/university_edit_profile.css' %}">
 {% endblock %}
 
-{% block title %}IXEDU - {{ uni.name }}{% endblock %}
+{% block title %}{{ uni.name }}{% endblock %}
 
 {% block content %}
     <div class="row pushed-in">
@@ -57,6 +57,26 @@
                         </div>
                         <button class="ixedu-btn btn edit-submit" data-edit="university-metadata">Save</button>
                     </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    Resources
+                    <a href="/uni/{{uni.id}}/editresources"><i title="Edit the resources" class="glyphicon glyphicon-edit edit-btn"></i></a>
+                </div>
+                <div class="panel-body">
+                    {% for file in files %}
+                        <div class="resource-entry">
+                            <a href="{% if file.link %}{{ file.link }}{% else %}{{MEDIA_URL}}{{file.uploaded_file}}{% endif %}" target="_blank" class="reset-this resource-link">
+                                <div class="resource-name">
+                                    {{ file.name }}
+                                </div>
+                                <div class="resource-description">
+                                    {{ file.description }}
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="panel">

@@ -3,20 +3,6 @@ body {
     background-color: #E8E8E8;
 }
 
-.panel {
-    border: none;
-    border-radius: 0px;
-}
-
-.panel-heading {
-    text-transform: uppercase;
-    font-weight: 700;
-    background-color: #F8F8F8;
-    color: #414141;
-    padding: 15px;
-    position: relative;
-}
-
 .img-area {
     background-size: cover;
     background-repeat: no-repeat;
