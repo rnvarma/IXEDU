@@ -6,9 +6,10 @@ from django.http import JsonResponse, HttpResponse
 from backend.models import *
 # Create your views here.
 
-def has_edit_priveleges(user):
+def has_edit_priveleges(user, uni):
     if user.is_anonymous(): return False
     cu = user.customuser
+    if cu.university != uni: return False
     role = cu.role
     roles = {
         "admin": True,
@@ -37,7 +38,7 @@ class UniversityProfile(View):
                 uni_subcat, _ = FilledSubcategory.objects.get_or_create(filled_category=uni_cat, name=subcat.name)
                 uni_cat.subcats.append(uni_subcat)
             context["categories"].append(uni_cat)
-        context["can_edit"] = has_edit_priveleges(request.user)
+        context["can_edit"] = has_edit_priveleges(request.user, context["uni"])
         context["admins"] = context["uni"].members.filter(role="admin")
         context["collaborators"] = context["uni"].members.filter(role="collaborator")
         if context["can_edit"]:
@@ -110,7 +111,7 @@ class UniversityEditResources(View):
         context = {}
         context["uni"] = University.objects.get(id=u_id)
         context["files"] = context["uni"].files.all()
-        context["can_edit"] = has_edit_priveleges(request.user)
+        context["can_edit"] = has_edit_priveleges(request.user, context["uni"])
         return render(request, 'university_resources.html', context)
 
 
