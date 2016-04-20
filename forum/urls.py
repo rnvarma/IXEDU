@@ -5,4 +5,5 @@ from forum.views import *
 
 urlpatterns = [
     url(r'^forum$', Forum.as_view()),
+
 ]
