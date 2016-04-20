@@ -14,12 +14,20 @@ class University(models.Model):
     population = models.IntegerField(default=0)
     logo = models.FileField(upload_to="uni_logos/", blank=True, null=True)
     is_staging = models.BooleanField(default=False)
+    phone_number = models.CharField(max_length=200, default="", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
 
 class UniFiles(models.Model):
     university = models.ForeignKey(University, related_name="files")
     name = models.CharField(max_length=200, default="")
     description = models.TextField(default="")
     uploaded_file = models.FileField(upload_to="uni_files/", blank=True, null=True)
+    link = models.CharField(max_length=300, default="", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
 
 class UniKeyTerms(models.Model):
     university = models.ForeignKey(University, related_name="key_terms")
@@ -28,20 +36,35 @@ class UniKeyTerms(models.Model):
 
 class CustomUser(models.Model):
     name = models.CharField(max_length=100, default="")
-    bio = models.TextField(default="")
+    bio = models.TextField(default="", blank=True, null=True)
     position = models.CharField(max_length=200, default="")
+    # role can either be collaborator, admin, or requested
+    # --admin: can manage roles, use form, upload resources
+    # --collaborator: can use form, upload resources
+    # --requested: no permissions
     role = models.CharField(max_length=200, default="")
     university = models.ForeignKey(University, related_name="members")
     user = models.OneToOneField(settings.AUTH_USER_MODEL, default=0, related_name="customuser")
+    email = models.CharField(max_length=100, default="", blank=True, null=True)
+    phone_number = models.CharField(max_length=100, default="", blank=True, null=True)
+    
     def __str__(self):
         return self.name
 
 class ProfileCategory(models.Model):
     name = models.CharField(max_length=200, default="")
+    order = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return self.name
 
 class ProfileSubcategory(models.Model):
     category = models.ForeignKey(ProfileCategory, related_name="subcategories")
     name = models.CharField(max_length=200, default="")
+    order = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
 
 class FilledCategory(models.Model):
     category = models.ForeignKey(ProfileCategory, related_name="filled_forms")
@@ -49,11 +72,18 @@ class FilledCategory(models.Model):
 
 class FilledSubcategory(models.Model):
     filled_category = models.ForeignKey(FilledCategory, related_name="filled_subcategories")
+    name = models.CharField(max_length=200, default="")
     is_offered = models.BooleanField(default=False)
     description = models.TextField(default="")
 
+    def __str__(self):
+        return self.name
+
 class Tag(models.Model):
     name = models.CharField(max_length=100, default="")
+
+    def __str__(self):
+        return self.name
 
 class PublicPost(models.Model):
     title = models.CharField(max_length=500, default="")
@@ -90,3 +120,6 @@ class PrivateResponse(models.Model):
 class PrivateLike(models.Model):
     user = models.ForeignKey(CustomUser, related_name="private_post_likes")
     post = models.ForeignKey(PrivatePost, related_name="likes")
+
+
+

@@ -19,4 +19,3 @@ class Forum(View):
             "formvar": form
             }
         return render(request, template, context)
-

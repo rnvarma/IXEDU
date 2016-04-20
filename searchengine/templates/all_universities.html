@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/all_universities.css' %}">
+{% endblock %}
+
+{% block title %}Universities{% endblock %}
+
+{% block content %}
+    <div class="row pushed-in">
+        <div class="col-md-12">
+            <div class="page-heading">
+                Participating Universities
+            </div>
+        </div>
+        {% for uni in unis %}
+            <div class="col-md-4">
+                <div class="panel img-panel university-panel" data-id="{{ uni.id }}">
+                    <div class="img-area" style="background-image: url({{ MEDIA_URL}}{{ uni.logo }});">
+                    </div>
+                    <div class="panel-body" style="line-height: 1.75">
+                        <div class="university-name">
+                            {{ uni.name }}
+                        </div>
+                        <div class="university-location">
+                            {{ uni.city }}, {{ uni.state }}
+                        </div>
+                        <div class="university-phone-number">
+                            {{ uni.phone_number }}
+                        </div>
+                        <div class="university-completion-record">
+                            {{ uni.completion_record }} sections completed
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/all_universities.js' %}"></script>
+{% endblock %}

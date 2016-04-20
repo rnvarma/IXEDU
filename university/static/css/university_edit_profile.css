@@ -1,0 +1,110 @@
+.edit-btn {
+    position: absolute;
+    right: 17px;
+    top: 18px;
+    font-size: 16px;
+    color: #414141;
+}
+
+.edit-btn:hover {
+    cursor: pointer;
+    color: #414141;
+}
+
+.big-edit-btn {
+    color: #414141;
+}
+
+.big-edit-btn:active {
+    color: #414141;
+}
+
+.big-edit-btn:hover {
+    color: #414141;
+}
+
+.edit-camera-btn {
+    position: absolute;
+    top: 12px;
+    right: 17px;
+    font-size: 16px;
+    color: #E3EEF5;
+    opacity: 0.5;
+}
+
+.edit-camera-btn:hover {
+    cursor: pointer;
+    z-index: 9;
+}
+
+.upload-img-input {
+    width: 20px;
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    opacity: 0;
+    z-index: 10;
+}
+
+.upload-img-input:hover {
+    cursor: pointer;
+}
+
+.profile-info-area {
+    background-color: white;
+    padding: 30px;
+}
+
+.profile-info-title {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.university-metadata-input {
+    width: 100%;
+    font-size: 12px
+}
+
+.university-edit-label {
+    font-size: 12px;
+}
+
+.edit-university-area {
+    padding-top: 5px;
+}
+
+.category-checkbox-area {
+    margin: 20px 0px;
+}
+
+.category-checkbox-name {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.subategory-checkbox-area {
+    padding: 5px 0px;
+}
+
+.subcategory-filled {
+    color: #606eb9;
+}
+
+.subcategory-empty {
+    border: 1px solid #7B7B7B;
+    border-radius: 20px;
+    width: 14px;
+    height: 14px;
+    margin-top: 3px;
+}
+
+.subcat-name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.main-info-block {
+    padding-left: 5px;
+}

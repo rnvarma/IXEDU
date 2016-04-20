@@ -1,0 +1,139 @@
+
+body {
+    background-color: #E8E8E8;
+}
+
+.img-area {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: 100%;
+    height: 200px;
+    position: relative;
+}
+
+.university-name {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.university-location {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.resource-entry {
+    padding: 15px 5px;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.resource-entry:hover {
+    background-color: #F8F8F8;
+}
+
+.resource-name {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.resource-description {
+    font-size: 14px;
+}
+
+.resource-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.resource-link:active, .resource-link:focus {
+    text-decoration: none;
+    color: inherit;
+}
+
+#university-information-area {
+    background-color: white;
+    min-height: 80%;
+}
+
+.university-info-tabs {
+    background-color: #E8E8E8
+}
+
+.nav-pills>li+li {
+    margin: 0;
+}
+
+.nav-pills>li>a {
+    padding: 15px 25px;
+    color: #414141;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.nav-pills>li.active>a {
+    background-color: white;
+    border-radius: 0px;
+    color: #414141;
+}
+
+.nav-pills>li.active>a:focus, .nav-pills>li.active>a:active {
+    background-color: white;
+    border-radius: 0px;
+    color: black;
+}
+
+.tab-content {
+    padding: 15px 25px;
+}
+
+.subcategory-area {
+    margin-bottom: 10px;
+    margin-top: 20px;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.subcategory-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.subcategory-text {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.admin-entry {
+    line-height: 1.7;
+    padding: 15px 0px;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.admin-position {
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    color: #838383;
+
+    text-transform: uppercase;
+}
+
+.admin-name {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.admin-contact {
+    font-size: 14px;
+    margin-top: 5px;
+    padding-left: 5px;
+}
+
+.glyphicon {
+    vertical-align: middle;
+
+    padding-bottom: 4px;
+}
+
+.main-info-panel {
+    padding-left: 5px;
+}

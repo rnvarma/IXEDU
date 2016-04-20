@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 
+from backend.models import *
+
 # Create your views here.
 
 mapping = {
@@ -76,3 +78,36 @@ class SearchPage(View):
         context["q"] = query
         context["universities"] = universities
         return render(request, 'search-results.html', context)
+
+class AllUniversities(View):
+    def get(self, request):
+        context = {}
+        context["unis"] = University.objects.all()
+
+        for uni in context["unis"]:
+            total = 0
+            total_empty = 0
+
+            cats = ProfileCategory.objects.all().order_by("order")
+
+            for cat in cats:
+                uni_cat, _ = FilledCategory.objects.get_or_create(category=cat, university=uni)
+
+                uni_cat.subcats = []
+
+                for subcat in cat.subcategories.all():
+                    uni_subcat, _ = FilledSubcategory.objects.get_or_create(filled_category=uni_cat, name=subcat.name)
+                    uni_cat.subcats.append(uni_subcat)
+
+                total += len(uni_cat.subcats)
+                total_empty += len(filter(lambda x: x.description == "", uni_cat.subcats))
+
+            uni.completion_record = str(total - total_empty) + "/" + str(total)
+
+        if request.user.is_anonymous():
+            return render(request, 'all_universities.html', context)
+        else:
+            context["uni"] = request.user.customuser.university
+            return render(request, 'all_universities.html', context)
+
+

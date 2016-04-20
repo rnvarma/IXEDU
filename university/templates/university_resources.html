@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/university_resources.css' %}">
+{% endblock %}
+
+{% block title %}Resources - {{ uni.name }}{% endblock %}
+
+{% block content %}
+    <div class="row pushed-in">
+        <div class="col-md-12">
+            <div class="page-heading">
+                {{ uni.name }} Resources
+            </div>
+        </div>
+        {% for file in files %}
+            <div class="col-md-4">
+                <div class="panel">
+                    <div class="panel-heading">
+                        {{ file.name }}
+                    </div>
+                    <div class="panel-body">
+                        <div class="resource-description">
+                            {{ file.description }}
+                        </div>
+                        <div class="resource-type">
+                            {% if file.link %}url{% else %}file{% endif %}
+                        </div>
+                        <div class="resource-area">
+                            <a href="{% if file.link %}{{ file.link }}{% else %}{{MEDIA_URL}}{{file.uploaded_file}}{% endif %}" target="_blank">{% if file.link %}{{ file.link }}{% else %}{{file.uploaded_file}}{% endif %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

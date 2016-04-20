@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/university_profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/university_edit_profile.css' %}">
+{% endblock %}
+
+{% block title %}{{ uni.name }}{% endblock %}
+
+{% block content %}
+    <div class="row pushed-in">
+        <div class="col-md-4">
+            <div class="panel img-panel">
+                <div class="panel-heading">
+                    University Information
+                    <i title="Edit information" data-edit="university-metadata" class="glyphicon glyphicon-edit edit-btn"></i>
+                </div>
+                <div class="img-area" style="background-image: url({{ MEDIA_URL}}{{ uni.logo }});">
+                <form method="POST" action="/uploadphoto" enctype="multipart/form-data" style="margin:0;" id="upload-photo-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="u_id" value="{{ uni.id }}">
+                    <input class="upload-img-input" type="file" name="profile_image">
+                </form>
+                <i title="Change photo" class="glyphicon glyphicon-camera edit-camera-btn"></i>
+                </div>
+                <div class="panel-body" style="line-height: 1.75">
+                    <div class="university-name">
+                        {{ uni.name }}
+                    </div>
+                    <div id="university-metadata-static">
+                        <div class="university-location">
+                            <span id="university-metadata-city">{{ uni.city }}</span>, <span id="university-metadata-state">{{ uni.state }}</span>
+                        </div>
+                        <div class="university-phone-number">
+                            <span id="university-metadata-phone_number">{{ uni.phone_number }}</span>
+                        </div>
+                    </div>
+                    <div class="edit-university-area" id="university-metadata-edit" style="display:none">
+                        <div class="form-group row">
+                            <label class="form-control-label col-sm-2 university-edit-label">City</label>
+                            <div class="col-sm-10">
+                                <input class="university-metadata-input" name="city" type="text" value="{{uni.city}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="form-control-label col-sm-2 university-edit-label">State</label>
+                            <div class="col-sm-10">
+                                <input class="university-metadata-input" name="state" type="text" value="{{uni.state}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="form-control-label col-sm-2 university-edit-label">Phone</label>
+                            <div class="col-sm-10">
+                                <input class="university-metadata-input" name="phone_number" type="text" value="{{uni.phone_number}}">
+                            </div>
+                        </div>
+                        <button class="ixedu-btn btn edit-submit" data-edit="university-metadata">Save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    Resources
+                    <a href="/uni/{{uni.id}}/editresources"><i title="Edit the resources" class="glyphicon glyphicon-edit edit-btn"></i></a>
+                </div>
+                <div class="panel-body">
+                    {% for file in files %}
+                        <div class="resource-entry">
+                            <a href="{% if file.link %}{{ file.link }}{% else %}{{MEDIA_URL}}{{file.uploaded_file}}{% endif %}" target="_blank" class="reset-this resource-link">
+                                <div class="resource-name">
+                                    {{ file.name }}
+                                </div>
+                                <div class="resource-description">
+                                    {{ file.description }}
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    Admins
+                    <i title="Edit information" class="glyphicon glyphicon-edit edit-btn"></i>
+                </div>
+                <div class="panel-body" style="padding-top:0px;">
+                    {% for admin in admins %}
+                        <div class="admin-entry">
+                            <div class="admin-position">
+                                {{ admin.position }}
+                            </div>
+                            <div class="admin-name">
+                                {{ admin.name }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    Collaborators
+                    <i title="Edit information" class="glyphicon glyphicon-edit edit-btn"></i>
+                </div>
+                <div class="panel-body" style="padding-top:0px;">
+                    {% for c in collaborators %}
+                        <div class="admin-entry">
+                            <div class="admin-name">
+                                {{ c.name }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 main-info-block">
+            <div class="profile-info-area">
+                <div class="profile-info-title">
+                    Complete your profile: <a href="/uni/{{uni.id}}/form" class="big-edit-btn"><i title="Edit information" class="glyphicon glyphicon-edit"></i></a>
+                </div>
+                <div class="profile-checkboxes-area">
+                    {% for cat in categories %}
+                        <div class="category-checkbox-area">
+                            <div class="category-checkbox-name">
+                                {{ cat.name }}
+                            </div>
+                            <div class="category-checkboxe-checkboxes row">
+                                {% for subcat in cat.subcats %}
+                                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
+                                        <div class="subategory-checkbox-area">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    {% if subcat.description %}
+                                                        <i class="glyphicon glyphicon-ok-sign subcategory-filled"></i>
+                                                    {% else %}
+                                                        <div class="subcategory-empty"></div>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-10 subcat-name">
+                                                    {{ subcat.name }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="uni-id-hidden" data-id="{{uni.id}}" style="display:none;"></div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/university_edit_profile.js' %}"></script>
+{% endblock %}
+
