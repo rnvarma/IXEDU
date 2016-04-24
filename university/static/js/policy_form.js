@@ -55,7 +55,7 @@ $(document).ready(function() {
         if (currCircle == num_cats) return;
         // clear previous bar
         $(".bar" + currBar).removeClass("filled")
-        currBar -= 1 
+        currBar -= 1
 
     })
 
@@ -65,7 +65,7 @@ $(document).ready(function() {
 
         // fill previous circle
         $(".circle" + currCircle).removeClass("half-empty").addClass("filled")
-        
+
         // half-empty next circle
         currCircle += 1
         if (currCircle == num_cats) {

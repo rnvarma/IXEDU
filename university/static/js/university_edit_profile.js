@@ -14,7 +14,7 @@ $(document).ready(function() {
             reader.readAsDataURL(input.files[0]);
         }
     }
-    
+
     $(".upload-img-input").change(function(){
         readURL(this);
         $("#upload-photo-form").submit()

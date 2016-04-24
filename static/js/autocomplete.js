@@ -2,7 +2,7 @@ $(document).ready(function() {
   var src = [
     {label: "risk reduction", value: "riskreduction"},
     {label: "secondary prevention", value: "riskreduction"},
-    {label: "risk", value: "riskreduction"}, 
+    {label: "risk", value: "riskreduction"},
     {label: "primary prevention", value: "primaryprevention"},
     {label: "faculty-staff training",value: "facultystafftraining"},
     {label: "faculty staff training", value: "facultystafftraining"},
@@ -32,13 +32,13 @@ $(document).ready(function() {
     {label: "awareness about reporting",value: "aboutreporting"},
     {label: "reporting", value: "aboutreporting"}
   ];
-  var tags = [ "risk reduction", "secondary prevention", "risk", "primary prevention", "faculty-staff training", 
+  var tags = [ "risk reduction", "secondary prevention", "risk", "primary prevention", "faculty-staff training",
   "faculty staff training", "faculty staff training", "title IX office", "titleIX office", "title ix office", "titleix office",
-  "volunteer group", "volunteer", "student initiative", "mens group", "other offices", "stats on campus reports", 
-  "campus reports", "stats on all reports", "all reports", "stats on climate studies", "climate study", "consent", 
-  "sexual assault", "sexual harassment", "stalking", "dating violence", "domestic violence", "awareness about policies", "policies", 
+  "volunteer group", "volunteer", "student initiative", "mens group", "other offices", "stats on campus reports",
+  "campus reports", "stats on all reports", "all reports", "stats on climate studies", "climate study", "consent",
+  "sexual assault", "sexual harassment", "stalking", "dating violence", "domestic violence", "awareness about policies", "policies",
   "awareness about reporting", "reporting" ]
-  
+
   $("#search-area").tagit({
     availableTags: tags,
   });
