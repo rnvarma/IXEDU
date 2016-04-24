@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="col-md-8 main-info-panel">
-            <div id="university-information-area"> 
+            <div id="university-information-area">
                 <ul  class="nav nav-pills university-info-tabs">
                     {% for cat in categories %}
                         <li class="{% if cat.first %}active{% endif %}"><a href="#category{{cat.id}}" data-toggle="tab">{{ cat.name }}</a></li>

@@ -4,7 +4,7 @@ from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 
-from backend.models import *  ## models import 
+from backend.models import *  ## models import
 
 from .forms import * ## forms import
 # Create your views here.

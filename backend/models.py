@@ -47,14 +47,14 @@ class CustomUser(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, default=0, related_name="customuser")
     email = models.CharField(max_length=100, default="", blank=True, null=True)
     phone_number = models.CharField(max_length=100, default="", blank=True, null=True)
-    
+
     def __str__(self):
         return self.name
 
 class ProfileCategory(models.Model):
     name = models.CharField(max_length=200, default="")
     order = models.IntegerField(default=0)
-    
+
     def __str__(self):
         return self.name
 
