@@ -9,12 +9,12 @@ from django.conf import settings
 class University(models.Model):
     name = models.CharField(max_length=200, default="")
     description = models.TextField(default="")
-    state = models.CharField(max_length=80, default="")
-    city = models.CharField(max_length=80, default="")
+    state = models.CharField(max_length=80, default="TX")
+    city = models.CharField(max_length=80, default="Cut and Shoot")
     population = models.IntegerField(default=0)
-    logo = models.FileField(upload_to="uni_logos/", blank=True, null=True)
+    logo = models.FileField(upload_to="uni_logos/", default="uni_logos/default_univ.jpg")
     is_staging = models.BooleanField(default=False)
-    phone_number = models.CharField(max_length=200, default="", blank=True, null=True)
+    phone_number = models.CharField(max_length=200, default="No phone number", blank=True, null=True)
 
     def __str__(self):
         return self.name
