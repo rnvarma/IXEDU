@@ -70,41 +70,47 @@ class UniversityForm(View):
     def get(self, request, u_id):
         context = {}
         context["uni"] = University.objects.get(id=u_id)
-        cats = ProfileCategory.objects.all().order_by("order")
-        context["categories"] = []
-        i = 0
-        for cat in cats:
-            uni_cat, _ = FilledCategory.objects.get_or_create(category=cat, university=context["uni"])
-            uni_cat.num = i
-            uni_cat.subcats = []
-            uni_cat.name = cat.name
-            j = 0
-            for subcat in cat.subcategories.all():
-                uni_subcat, _ = FilledSubcategory.objects.get_or_create(filled_category=uni_cat, name=subcat.name)
-                uni_subcat.href = "".join(uni_subcat.name.split())
-                uni_subcat.id = uni_subcat.href + "-id"
-                uni_subcat.parity = j
-                j = 0 if j else 1
-                uni_cat.subcats.append(uni_subcat)
-            context["categories"].append(uni_cat)
-            i += 1
-        context["num_cats"] = len(context["categories"])
-        context["cat_nums"] = range(1, context["num_cats"] + 1)
-        context["num_bars"] = context["num_cats"] - 1
-        context["bar_nums"] = range(1, context["num_bars"] + 1)
-        return render(request, 'university_form.html', context)
+        if has_edit_priveleges(request.user, context["uni"]):
+            cats = ProfileCategory.objects.all().order_by("order")
+            context["categories"] = []
+            i = 0
+            for cat in cats:
+                uni_cat, _ = FilledCategory.objects.get_or_create(category=cat, university=context["uni"])
+                uni_cat.num = i
+                uni_cat.subcats = []
+                uni_cat.name = cat.name
+                j = 0
+                for subcat in cat.subcategories.all():
+                    uni_subcat, _ = FilledSubcategory.objects.get_or_create(filled_category=uni_cat, name=subcat.name)
+                    uni_subcat.href = "".join(uni_subcat.name.split())
+                    uni_subcat.id = uni_subcat.href + "-id"
+                    uni_subcat.parity = j
+                    j = 0 if j else 1
+                    uni_cat.subcats.append(uni_subcat)
+                context["categories"].append(uni_cat)
+                i += 1
+            context["num_cats"] = len(context["categories"])
+            context["cat_nums"] = range(1, context["num_cats"] + 1)
+            context["num_bars"] = context["num_cats"] - 1
+            context["bar_nums"] = range(1, context["num_bars"] + 1)
+            return render(request, 'university_form.html', context)
+        else:
+            return HttpResponseRedirect("/uni/%s" % u_id)
 
     def post(self, request, u_id):
         u = University.objects.get(id=u_id)
-        cats = ProfileCategory.objects.all()
-        for cat in cats:
-            uni_cat, _ = FilledCategory.objects.get_or_create(category=cat, university=u)
-            for subcat in cat.subcategories.all():
-                uni_subcat, _ = FilledSubcategory.objects.get_or_create(filled_category=uni_cat, name=subcat.name)
-                description = request.POST.get(uni_cat.category.name + " - " + uni_subcat.name)
-                uni_subcat.description = description
-                uni_subcat.save()
-        return HttpResponseRedirect("/uni/%s/form" % u_id)
+        if has_edit_priveleges(request.user, u):
+            cats = ProfileCategory.objects.all()
+            for cat in cats:
+                uni_cat, _ = FilledCategory.objects.get_or_create(category=cat, university=u)
+                for subcat in cat.subcategories.all():
+                    uni_subcat, _ = FilledSubcategory.objects.get_or_create(filled_category=uni_cat, name=subcat.name)
+                    description = request.POST.get(uni_cat.category.name + " - " + uni_subcat.name)
+                    uni_subcat.description = description
+                    uni_subcat.save()
+            return HttpResponseRedirect("/uni/%s/form" % u_id)
+        else:
+            return HttpResponseRedirect("/")
 
 class UniversityEditResources(View):
     def get(self, request, u_id):
