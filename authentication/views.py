@@ -41,13 +41,18 @@ class Register(View):
 
 class Login(View):
     def get(self, request):
-        return render(request, 'login.html')
+        context = {}
+        context['next'] = request.GET.get('next', '')
+        return render(request, 'login.html', context=context)
 
     def post(self, request):
         user = authenticate(username=request.POST.get('username'),
                             password=request.POST.get('password'))
         if user is not None:
             login(request, user)
+            redirect = request.POST.get('next', '')
+            if redirect is not '':
+                return HttpResponseRedirect(redirect)
             return HttpResponseRedirect("/")
         else:
             return HttpResponseRedirect("/login")
