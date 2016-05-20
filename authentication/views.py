@@ -42,7 +42,8 @@ class Register(View):
 class Login(View):
     def get(self, request):
         context = {}
-        context['next'] = request.GET.get('next', '')
+        if request.GET.get('next') is not None:
+            context['next'] = request.GET.get('next')
         return render(request, 'login.html', context=context)
 
     def post(self, request):
@@ -50,9 +51,13 @@ class Login(View):
                             password=request.POST.get('password'))
         if user is not None:
             login(request, user)
-            redirect = request.POST.get('next', '')
-            if redirect is not '':
+            redirect = request.POST.get('next')
+            if not redirect == u'':
                 return HttpResponseRedirect(redirect)
+            if user.customuser.new_user:
+                user.customuser.new_user = False
+                user.customuser.save()
+                return HttpResponseRedirect("/change-password")
             return HttpResponseRedirect("/")
         else:
             return HttpResponseRedirect("/login")
