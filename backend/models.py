@@ -37,6 +37,7 @@ class UniKeyTerms(models.Model):
 class CustomUser(models.Model):
     name = models.CharField(max_length=100, default="")
     bio = models.TextField(default="", blank=True, null=True)
+    new_user = models.TextField(default=True)
     position = models.CharField(max_length=200, default="")
     # role can either be collaborator, admin, or requested
     # --admin: can manage roles, use form, upload resources
