@@ -14,11 +14,13 @@
                 {{ uni.name }} Resources
             </div>
         </div>
+        <div class="panels">
         {% for file in files %}
             <div class="col-md-4">
                 <div class="panel">
                     <div class="panel-heading">
                         {{ file.name }}
+                        <span id="remove_{{ file.id }}" class="glyphicon glyphicon-remove"></span>
                     </div>
                     <div class="panel-body">
                         <div class="resource-description">
@@ -34,5 +36,32 @@
                 </div>
             </div>
         {% endfor %}
+        </div>
     </div>
+{% endblock %}
+{% block scripts %}
+<script>
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", Cookies.get('csrftoken'));
+            }
+        }
+    });
+    $('.panels').click(function(e) {
+        if (e.target.id.indexOf('remove_') > -1) {
+            $.post('/removeresource', {'resource_id': e.target.id.slice(7)},
+                function (response) {
+                    console.log(target);
+                    var target = $('#remove_' + response.resource_removed).closest('.col-md-4');
+                    target.hide('slow', function(){ target.remove(); });
+                }
+            );
+        }
+    });
+</script>
 {% endblock %}

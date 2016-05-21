@@ -1,3 +1,9 @@
+.glyphicon-remove {
+    float: right;
+}
+.glyphicon-remove:hover {
+    cursor: pointer;
+}
 
 .resource-type {
     font-weight: 600;

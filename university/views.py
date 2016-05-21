@@ -116,13 +116,14 @@ class UniversityEditResources(View):
     def get(self, request, u_id):
         context = {}
         context["uni"] = University.objects.get(id=u_id)
-        context["files"] = context["uni"].files.all()
+        context["files"] = context["uni"].files.all().exclude(archived=True)
         context["can_edit"] = has_edit_priveleges(request.user, context["uni"])
         return render(request, 'university_resources.html', context)
 
-
-
-
-
-
-
+class UniversityRemoveResources(View):
+    def post(self, request):
+        resource_id = request.POST.get('resource_id')
+        resource = UniFiles.objects.get(id=resource_id)
+        resource.archived = True
+        resource.save()
+        return JsonResponse({'status': 200, 'resource_removed': resource_id})
