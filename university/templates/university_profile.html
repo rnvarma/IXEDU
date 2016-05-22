@@ -5,23 +5,23 @@
     <link rel="stylesheet" href="{% static 'css/university_profile.css' %}">
 {% endblock %}
 
-{% block title %}{{ uni.name }}{% endblock %}
+{% block title %}{{ view_uni.name }}{% endblock %}
 
 {% block content %}
     <div class="row pushed-in">
         <div class="col-md-4">
             <div class="panel img-panel">
-                <div class="img-area" style="background-image: url({{ MEDIA_URL}}{{ uni.logo }});">
+                <div class="img-area" style="background-image: url({{ MEDIA_URL}}{{ view_uni.logo }});">
                 </div>
                 <div class="panel-body" style="line-height: 1.75">
                     <div class="university-name">
-                        {{ uni.name }}
+                        {{ view_uni.name }}
                     </div>
                     <div class="university-location">
-                        {{ uni.city }}, {{ uni.state }}
+                        {{ view_uni.city }}, {{ view_uni.state }}
                     </div>
                     <div class="university-phone-number">
-                        {{ uni.phone_number }}
+                        {{ view_uni.phone_number }}
                     </div>
                 </div>
             </div>

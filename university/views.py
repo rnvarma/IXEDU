@@ -23,13 +23,15 @@ def has_edit_priveleges(user, uni):
 class UniversityProfile(View):
     def get(self, request, u_id):
         context = {}
-        context["uni"] = University.objects.get(id=u_id)
-        context["files"] = context["uni"].files.all().exclude(archived=True)
+        if not request.user.is_anonymous():
+            context["uni"] = request.user.customuser.university
+        context["view_uni"] = University.objects.get(id=u_id)
+        context["files"] = context["view_uni"].files.all().exclude(archived=True)
         context["categories"] = []
         first = True
         cats = ProfileCategory.objects.all().order_by("order")
         for cat in cats:
-            uni_cat, _ = FilledCategory.objects.get_or_create(category=cat, university=context["uni"])
+            uni_cat, _ = FilledCategory.objects.get_or_create(category=cat, university=context["view_uni"])
             uni_cat.subcats = []
             uni_cat.name = cat.name
             uni_cat.first = first
@@ -38,9 +40,9 @@ class UniversityProfile(View):
                 uni_subcat, _ = FilledSubcategory.objects.get_or_create(filled_category=uni_cat, name=subcat.name)
                 uni_cat.subcats.append(uni_subcat)
             context["categories"].append(uni_cat)
-        context["can_edit"] = has_edit_priveleges(request.user, context["uni"])
-        context["admins"] = context["uni"].members.filter(role="admin")
-        context["collaborators"] = context["uni"].members.filter(role="collaborator")
+        context["can_edit"] = has_edit_priveleges(request.user, context["view_uni"])
+        context["admins"] = context["view_uni"].members.filter(role="admin")
+        context["collaborators"] = context["view_uni"].members.filter(role="collaborator")
         if context["can_edit"]:
             return render(request, 'university_edit_profile.html', context)
         else:
