@@ -62,8 +62,7 @@ $(document).ready(function() {
       success: function (response) {
         var is_link = outputData.get('type').indexOf('link') > -1;
         var link = outputData.get('link');
-        var file = outputData.get('file');
-        debugger;
+        var filename = outputData.get('file').name.replace(/\ /g, '_');
         $('.panels').append('<div class="col-md-4">\
               <div class="panel">\
                   <div class="panel-heading">\
@@ -78,7 +77,7 @@ $(document).ready(function() {
                           ' + (is_link ? 'url' : 'file') + '\
                       </div>\
                       <div class="resource-area">\
-                          <a href="' + (is_link ? link : 'uni_files/' + file.name) + '" target="_blank">' + (is_link ? link : 'uni_files/' + file.name) + '</a>\
+                          <a href="' + (is_link ? link : 'uni_files/' + filename) + '" target="_blank">' + (is_link ? link : 'uni_files/' + filename) + '</a>\
                       </div>\
                   </div>\
               </div>\
