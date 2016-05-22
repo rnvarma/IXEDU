@@ -10,6 +10,8 @@ urlpatterns = [
         ensure_csrf_cookie(UniversityEditResources.as_view())),
     url(r'^removeresource',
         requires_csrf_token(UniversityRemoveResources.as_view())),
+    url(r'^addresource',
+        requires_csrf_token(UniversityAddResources.as_view())),
     url(r'^uploadphoto$', UniversityPhoto.as_view()),
     url(r'^editmetadata$', UniversityMetaData.as_view())
 ]

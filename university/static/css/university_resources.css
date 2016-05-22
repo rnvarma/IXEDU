@@ -1,7 +1,7 @@
-.glyphicon-remove {
+.glyphicon {
     float: right;
 }
-.glyphicon-remove:hover {
+.glyphicon:hover {
     cursor: pointer;
 }
 
@@ -9,4 +9,35 @@
     font-weight: 600;
     text-transform: uppercase;
     padding: 15px 0px;
+}
+
+.btn-group-justified {
+    margin-bottom: 15px;
+}
+
+.btn-group-justified > .btn.res-btn {
+    width: 50%;
+}
+
+.btn-group-justified > .btn.res-btn:focus {
+    outline: none;
+}
+
+.res-btn:first-child {
+    border-radius: 5px 0 0 5px;
+}
+
+.res-btn:last-child {
+    border-radius: 0 5px 5px 0;
+}
+
+.res-btn.activated {
+    background-color: #e6e6e6;
+    border-color: #adadad;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+    box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+}
+
+.row.pushed-in {
+    min-height: 80%;
 }

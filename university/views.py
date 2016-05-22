@@ -118,7 +118,9 @@ class UniversityEditResources(View):
         context["uni"] = University.objects.get(id=u_id)
         context["files"] = context["uni"].files.all().exclude(archived=True)
         context["can_edit"] = has_edit_priveleges(request.user, context["uni"])
-        return render(request, 'university_resources.html', context)
+        response = render(request, 'university_resources.html', context)
+        response.set_cookie('university_id', u_id)
+        return response
 
 class UniversityRemoveResources(View):
     def post(self, request):
@@ -127,3 +129,23 @@ class UniversityRemoveResources(View):
         resource.archived = True
         resource.save()
         return JsonResponse({'status': 200, 'resource_removed': resource_id})
+
+class UniversityAddResources(View):
+    def post(self, request):
+        uid = request.POST.get('university_id')
+        name = request.POST.get('resource-name')
+        desc = request.POST.get('resource-desc')
+        typ = request.POST.get('type')
+
+        uni = University.objects.get(id=uid)
+
+        if typ == 'link':
+            link = request.POST.get('link')
+            res = UniFiles(university=uni, name=name, description=desc, link=link)
+            res.save()
+        elif typ == 'file':
+            fil = request.FILES.get('file')
+            res = UniFiles(university=uni, name=name, description=desc, uploaded_file=fil)
+            res.save()
+
+        return JsonResponse({'status': 200, 'resource_added': res.id})

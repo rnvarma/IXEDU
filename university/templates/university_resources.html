@@ -12,6 +12,7 @@
         <div class="col-md-12">
             <div class="page-heading">
                 {{ uni.name }} Resources
+                <span id="add_resource" class="glyphicon glyphicon-plus-sign"></span>
             </div>
         </div>
         <div class="panels">
@@ -38,30 +39,48 @@
         {% endfor %}
         </div>
     </div>
+    <div class="modal fade" id="resource_modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h4 class="modal-title">New resource for {{ uni.name }}</h4>
+                </div>
+            <div class="modal-body">
+                <form id="res-form" enc="multipart/form-data" action="/addresource" method="POST">
+                    <div class="form-group">
+                        <label for="resource-name" class="control-label">Name:</label>
+                        <input type="text" name="resource-name" class="form-control" id="resource-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="resource-desc" class="control-label">Description:</label>
+                        <textarea class="form-control" name="resource-desc" id="resource-desc"></textarea>
+                    </div>
+                    <div class="btn-group btn-group-justified type-buttons" role="group">
+                        <button id="button-link" type="button" class="btn btn-default res-btn">Link</button>
+                        <button id="button-file" type="button" class="btn btn-default res-btn">File</button>
+                    </div>
+                    <div class="input-fields">
+                        <div id="input-file" class="form-group">
+                            <label class="control-label">Select File</label>
+                            <input id="file-input" name="file" type="file">
+                        </div>
+                        <div id="input-link" class="form-group">
+                            <label class="control-label">URL:</label>
+                            <input id="link-input" class="form-control" name="link" type="text">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="submit" type="button" class="btn btn-primary">Add resource</button>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 {% block scripts %}
-<script>
-    function csrfSafeMethod(method) {
-        // these HTTP methods do not require CSRF protection
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-    $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", Cookies.get('csrftoken'));
-            }
-        }
-    });
-    $('.panels').click(function(e) {
-        if (e.target.id.indexOf('remove_') > -1) {
-            $.post('/removeresource', {'resource_id': e.target.id.slice(7)},
-                function (response) {
-                    console.log(target);
-                    var target = $('#remove_' + response.resource_removed).closest('.col-md-4');
-                    target.hide('slow', function(){ target.remove(); });
-                }
-            );
-        }
-    });
-</script>
+    <script src="{% static 'js/resources.js' %}"></script>
 {% endblock %}

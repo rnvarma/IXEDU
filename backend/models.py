@@ -23,8 +23,8 @@ class UniFiles(models.Model):
     university = models.ForeignKey(University, related_name="files")
     name = models.CharField(max_length=200, default="")
     description = models.TextField(default="")
-    uploaded_file = models.FileField(upload_to="uni_files/", blank=True, null=True)
-    link = models.CharField(max_length=300, default="", blank=True, null=True)
+    uploaded_file = models.FileField(upload_to="uni_files/", blank=True)
+    link = models.CharField(max_length=300, default="", blank=True)
     archived = models.BooleanField(default=False)
 
     def __str__(self):
