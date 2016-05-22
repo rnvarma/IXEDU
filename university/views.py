@@ -24,7 +24,7 @@ class UniversityProfile(View):
     def get(self, request, u_id):
         context = {}
         context["uni"] = University.objects.get(id=u_id)
-        context["files"] = context["uni"].files.all()
+        context["files"] = context["uni"].files.all().exclude(archived=True)
         context["categories"] = []
         first = True
         cats = ProfileCategory.objects.all().order_by("order")
