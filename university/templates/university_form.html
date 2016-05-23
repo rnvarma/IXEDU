@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
+{% block title %}University Profile - {{ uni }}{% endblock %}
 {% block head %}
     <link href="{% static 'css/policy_form.css' %}" rel="stylesheet">
 {% endblock %}
@@ -16,7 +17,8 @@
           </div>
         {% endfor %}
         {% for i in cat_nums %}
-          <div class="circle circle{{i}} {% if i == 1 %}half-empty{% endif %}"></div>
+          <div class="circle circle{{i}} {% if i == 1 %}half-empty{% endif %}" data-num="{{ i }}">
+          </div>
         {% endfor %}
         {% for cat in categories %}
           <div class="under-text under-text{{cat.num}}">{{ cat.name }}</div>
