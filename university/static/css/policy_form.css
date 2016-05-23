@@ -27,6 +27,10 @@ body {
     transition: border 1.2s linear;
 }
 
+.circle:hover {
+    cursor: pointer;
+}
+
 @keyframes fill {
     from {background-color: white;}
     to {background-color: #5B65BE}
