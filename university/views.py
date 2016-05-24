@@ -84,7 +84,7 @@ class UniversityForm(View):
                 j = 0
                 for subcat in cat.subcategories.all():
                     uni_subcat, _ = FilledSubcategory.objects.get_or_create(filled_category=uni_cat, name=subcat.name)
-                    uni_subcat.href = "".join(uni_subcat.name.split())
+                    uni_subcat.href = ("".join(uni_subcat.name.split())).replace("/", "_")
                     uni_subcat.id = uni_subcat.href + "-id"
                     uni_subcat.parity = j
                     j = 0 if j else 1
