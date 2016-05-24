@@ -80,7 +80,7 @@ $(document).ready(function() {
   });
 
   $('.panel-title > a').click(function() {
-    if ($(this).parent().parent().hasclass('active')) {
+    if ($(this).parent().parent().hasClass('active')) {
       $('.panel-heading.active').children().children().children().removeClass('glyphicon-ok-sign').addClass('glyphicon-record');
       $('.panel-heading.active').removeClass('active');
       return;
