@@ -83,7 +83,11 @@ $(document).ready(function() {
     if ($(this).parent().parent().hasClass('active')) {
 
       // change circle on panel heading
-      $('.panel-heading.active').children().children().children().removeClass('glyphicon-ok-sign').addClass('glyphicon-record');
+      var handle = $(this).parent().parent().parent();
+      handle.find('.select-circle').removeClass('glyphicon-ok-sign');
+      if (handle.find('.subcat-desc').val() !== '')
+        handle.find('.select-circle').addClass('glyphicon-ok');
+      else handle.find('.select-circle').addClass('glyphicon-record');
 
       // remove all down arrows
       $('.down-arrow').css('opacity', 0);
@@ -108,10 +112,16 @@ $(document).ready(function() {
     $('.panel-collapse.active').collapse('show');
 
     // remove all ok signs and change to record sign
-    $('.select-circle.glyphicon-ok-sign').removeClass('glyphicon-ok-sign').addClass('glyphicon-record');
-    // remove active record sign and change to ok sign
-    $('.panel-heading.active').children().children().children().removeClass('glyphicon-record').addClass('glyphicon-ok-sign');
+    var handle = $('.glyphicon-ok-sign');
+    handle.removeClass('glyphicon-ok-sign');
+    if (handle.parent().parent().parent().siblings('.panel-collapse').find('.subcat-desc').val() !== '')
+      handle.addClass('glyphicon-ok');
+    else handle.addClass('glyphicon-record')
 
+    // remove active record sign and change to ok sign
+    handle = $(this).children('.select-circle');
+    handle.removeClass('glyphicon-record').removeClass('glyphicon-ok');
+    handle.addClass('glyphicon-ok-sign');
   });
 
   $('.row-bar').click(function (e) {

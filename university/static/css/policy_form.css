@@ -173,6 +173,10 @@ button:focus {
     margin-right: 20px;
 }
 
+.select-circle.glyphicon-ok {
+    color: #1f1f1f;
+}
+
 a:hover {
     text-decoration: none;
 }
