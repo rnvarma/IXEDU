@@ -141,7 +141,7 @@ $(document).ready(function() {
 
         currBar = currCircle - 1;
       } else if (clicked_cir < currCircle) {
-        if (clicked_cir == num_cats) {
+        if (currCircle == num_cats) {
           $('.next-btn-container').show();
           $('.submit-btn-container').hide();
         };
