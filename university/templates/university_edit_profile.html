@@ -127,20 +127,22 @@
                             <div class="category-checkboxe-checkboxes row">
                                 {% for subcat in cat.subcats %}
                                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
-                                        <div class="subategory-checkbox-area">
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    {% if subcat.description %}
-                                                        <i class="glyphicon glyphicon-ok-sign subcategory-filled"></i>
-                                                    {% else %}
-                                                        <div class="subcategory-empty"></div>
-                                                    {% endif %}
-                                                </div>
-                                                <div class="col-md-10 subcat-name">
-                                                    {{ subcat.name }}
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <a href="/uni/{{ uni.id }}/form?cat={{ cat.href }}&subcat={{ subcat.href }}">
+                                          <div class="subategory-checkbox-area">
+                                              <div class="row">
+                                                  <div class="col-md-2">
+                                                      {% if subcat.description %}
+                                                          <i class="glyphicon glyphicon-ok-sign subcategory-filled"></i>
+                                                      {% else %}
+                                                          <div class="subcategory-empty"></div>
+                                                      {% endif %}
+                                                  </div>
+                                                  <div class="col-md-10 subcat-name">
+                                                      {{ subcat.name }}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                        </a>
                                     </div>
                                 {% endfor %}
                             </div>

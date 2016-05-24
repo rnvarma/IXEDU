@@ -103,6 +103,8 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+
+    color: black;
 }
 
 .main-info-block {

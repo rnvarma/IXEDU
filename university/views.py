@@ -35,9 +35,11 @@ class UniversityProfile(View):
             uni_cat.subcats = []
             uni_cat.name = cat.name
             uni_cat.first = first
+            uni_cat.href = uni_cat.name.replace(' ', '').replace('/', '_')
             first = False
             for subcat in cat.subcategories.all():
                 uni_subcat, _ = FilledSubcategory.objects.get_or_create(filled_category=uni_cat, name=subcat.name)
+                uni_subcat.href = uni_subcat.name.replace(' ', '').replace('/', '_')
                 uni_cat.subcats.append(uni_subcat)
             context["categories"].append(uni_cat)
         context["can_edit"] = has_edit_priveleges(request.user, context["view_uni"])
@@ -74,6 +76,8 @@ class UniversityForm(View):
         context["uni"] = University.objects.get(id=u_id)
         if has_edit_priveleges(request.user, context["uni"]):
             cats = ProfileCategory.objects.all().order_by("order")
+            context["active_cat"] = 0
+            context["active_subcat"] = request.GET.get('subcat','')
             context["categories"] = []
             i = 0
             for cat in cats:
@@ -89,7 +93,11 @@ class UniversityForm(View):
                     uni_subcat.parity = j
                     j = 0 if j else 1
                     uni_cat.subcats.append(uni_subcat)
+
                 context["categories"].append(uni_cat)
+
+                if cat.name.lower() == request.GET.get('cat', '').lower():
+                    context["active_cat"] = i
                 i += 1
             context["num_cats"] = len(context["categories"])
             context["cat_nums"] = range(1, context["num_cats"] + 1)
@@ -110,7 +118,7 @@ class UniversityForm(View):
                     description = request.POST.get(uni_cat.category.name + " - " + uni_subcat.name)
                     uni_subcat.description = description
                     uni_subcat.save()
-            return HttpResponseRedirect("/uni/%s/form" % u_id)
+            return HttpResponseRedirect("/uni/%s" % u_id)
         else:
             return HttpResponseRedirect("/")
 

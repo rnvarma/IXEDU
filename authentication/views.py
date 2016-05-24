@@ -42,6 +42,8 @@ class Register(View):
 class Login(View):
     def get(self, request):
         context = {}
+        if not request.user.is_anonymous():
+            context['uni'] = request.user.customuser.university
         if request.GET.get('next') is not None:
             context['next'] = request.GET.get('next')
         return render(request, 'login.html', context=context)

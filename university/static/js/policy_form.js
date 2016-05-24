@@ -1,6 +1,6 @@
-var currCircle = 1
-var currBar = 0
-var currPage = 1;
+var currCircle = active_cat + 1;
+var currBar = active_cat;
+var currPage = active_cat + 1;
 
 mapp_nums = {
   1: 'first',
@@ -176,4 +176,25 @@ $(document).ready(function() {
       }
     }
   });
+
+  $('#' + active_subcat + '-id').find('.link-clicker').trigger('click');
+
+  // fill previous circles
+  for (var i = 0; i < currCircle; i++) {
+    $('.circle' + i).removeClass('half-empty').addClass('filled');
+  }
+
+  // half-empty next circle
+  if (currCircle == num_cats) {
+    $('.next-btn-container').hide();
+    $('.submit-btn-container').show();
+  }
+  $('.circle' + currCircle).addClass('half-empty');
+  $('.collapsing-row.active').removeClass('active');
+  $('.collapsing-row.form-row' + (currCircle - 1)).addClass('active');
+
+  // fill prev bars
+  for (var i = 0; i < currCircle; i++) {
+    $('.bar' + i).addClass('filled');
+  }
 });

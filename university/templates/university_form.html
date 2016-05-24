@@ -8,8 +8,10 @@
 
 {% block content %}
     <script>
-      var num_cats = {{ num_cats }}
-      var num_bars = {{ num_bars }}
+      var num_cats = {{ num_cats }};
+      var num_bars = {{ num_bars }};
+      var active_cat = {{ active_cat }};
+      var active_subcat = '{{ active_subcat }}';
     </script>
     <div class="row row-bar">
         {% for i in bar_nums %}
@@ -30,18 +32,18 @@
     <input type="hidden" name="uni_id" value="{{ uni.id }}">
 
     {% for category in categories %}
-      <div class="row collapsing-row form-row{{category.num}} {% if category.num == 0%}active{% endif %}">
+      <div class="row collapsing-row form-row{{category.num}} {% if category.num == active_cat %}active{% endif %}">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           {% for subcategory in category.subcats %}
             <div class="panel panel-default">
-              <div class="panel-heading {% if subcategory.parity %}light{% else %}dark{% endif %}" role="tab" id="{{subcategory.name_id}}">
+              <div class="panel-heading {% if subcategory.parity %}light{% else %}dark{% endif %}" role="tab" id="{{subcategory.id}}">
                 <h4 class="panel-title">
                   <a class="link-clicker" role="button" data-toggle="collapse" data-parent="#accordion" href="#{{subcategory.href}}" aria-expanded="true" aria-controls="{{subcategory.href}}" style="text-transform:none;">
                     <i class="glyphicon {% if not subcategory.description %}glyphicon-record{% else %}glyphicon-ok{% endif %} select-circle"></i>{{ subcategory.name }}
                   </a>
                 </h4>
               </div>
-              <div id="{{subcategory.href}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{subcategory.name_id}}">
+              <div id="{{subcategory.href}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{subcategory.id}}">
               <div class="down-arrow">
                   </div>
                 <div class="panel-body">
