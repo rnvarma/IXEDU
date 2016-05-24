@@ -81,14 +81,37 @@ $(document).ready(function() {
 
   $('.panel-title > a').click(function() {
     if ($(this).parent().parent().hasClass('active')) {
+
+      // change circle on panel heading
       $('.panel-heading.active').children().children().children().removeClass('glyphicon-ok-sign').addClass('glyphicon-record');
+
+      // remove all down arrows
+      $('.down-arrow').css('opacity', 0);
+
+      // remove active panel
       $('.panel-heading.active').removeClass('active');
       return;
     }
-    $('.panel-heading.active').removeClass('active');
+    // remove all down arrows and add in this one
+    $('.down-arrow').css('opacity', 0);
+    $(this).parent().parent().parent().find('.down-arrow').css('opacity', 1);
+
+    // remove all active panels and make this one active
+    $('.panel-heading').removeClass('active');
     $(this).parent().parent().addClass('active');
+
+    // close all active panels and open this one
+    var all_collapsibles = $('.panel-collapse').filter(function (i, val) {
+      return !($(val).hasClass('active'));
+    });
+    all_collapsibles.collapse('hide');
+    $('.panel-collapse.active').collapse('show');
+
+    // remove all ok signs and change to record sign
     $('.select-circle.glyphicon-ok-sign').removeClass('glyphicon-ok-sign').addClass('glyphicon-record');
+    // remove active record sign and change to ok sign
     $('.panel-heading.active').children().children().children().removeClass('glyphicon-record').addClass('glyphicon-ok-sign');
+
   });
 
   $('.row-bar').click(function (e) {
