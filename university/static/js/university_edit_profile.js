@@ -107,7 +107,7 @@ $(document).ready(function() {
 
     $('.admin-list').sortable({
         connectWith: 'admin-edit',
-        placeholder: '<li class="admin-placeholder"></li>'
+        placeholderClass: 'admin-placeholder'
     });
 
     $('.admin-list').click(function (e) {
