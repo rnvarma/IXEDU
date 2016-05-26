@@ -42,6 +42,10 @@
     display: inline;
 }
 
+.panel-body > .row {
+    margin-top: 12px;
+}
+
 .university-completion-record {
     font-size: 11px;
     color: #838383;
@@ -49,8 +53,17 @@
     letter-spacing: 0.8px;
 
     text-transform: uppercase;
+}
 
-    margin-top: 12px;
+.university-population {
+    text-align: right;
+
+    text-transform: uppercase;
+
+    font-size: 11px;
+    color: #838383;
+
+    letter-spacing: 0.8px;
 }
 
 .university-panel:hover {

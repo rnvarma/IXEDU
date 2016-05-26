@@ -80,7 +80,8 @@ $(document).ready(function() {
 
   $('.panels').sortable({
     items: '.panel-col',
-    handle: '.glyphicon-th'
+    handle: '.glyphicon-th',
+    placeholderClass: 'col-md-4 panel-placeholder'
   });
 
   $('.panels').bind('sortstop', function(e, ui) {

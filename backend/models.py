@@ -6,12 +6,29 @@ from django.utils import timezone
 from django.conf import settings
 # Create your models here.
 
+class UniSizeGroup(models.Model):
+    SIZE_GROUPS = {
+        0: 'small',
+        1: 'medium',
+        2: 'large',
+        3: 'huge'
+    }
+
+    group = models.SmallIntegerField(default=1)
+
+    def size_group(self, text):
+        return [n for (n, t) in self.SIZE_GROUPS if t == text][0]
+
+    def __str__(self):
+        return self.SIZE_GROUPS[self.group] + ' universities'
+
 class University(models.Model):
     name = models.CharField(max_length=200, default="")
     description = models.TextField(default="")
     state = models.CharField(max_length=80, default="TX")
     city = models.CharField(max_length=80, default="Cut and Shoot")
     population = models.IntegerField(default=0)
+    size_group = models.ForeignKey(UniSizeGroup, related_name='unis', blank=True, null=True)
     logo = models.FileField(upload_to="uni_logos/", default="uni_logos/default_univ.jpg")
     is_staging = models.BooleanField(default=False)
     phone_number = models.CharField(max_length=200, default="No phone number", blank=True, null=True)
