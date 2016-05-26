@@ -12,6 +12,14 @@ urlpatterns = [
         requires_csrf_token(UniversityRemoveResources.as_view())),
     url(r'^addresource',
         requires_csrf_token(UniversityAddResources.as_view())),
-    url(r'^uploadphoto$', UniversityPhoto.as_view()),
-    url(r'^editmetadata$', UniversityMetaData.as_view())
+    url(r'^uploadphoto$',
+        requires_csrf_token(UniversityPhoto.as_view())),
+    url(r'^changeuniadmin$',
+        requires_csrf_token(UniversityChangeAdmins.as_view())),
+    url(r'^removeuniadmin$',
+        requires_csrf_token(UniversityRemoveAdmin.as_view())),
+    url(r'^adduniadmin$',
+        requires_csrf_token(UniversityAddAdmin.as_view())),
+    url(r'^editmetadata$',
+        requires_csrf_token(UniversityMetaData.as_view()))
 ]

@@ -20,11 +20,69 @@ def has_edit_priveleges(user, uni):
     if role in roles: return roles[role]
     else: return False
 
+class UniversityChangeAdmins(View):
+    def post(self, request):
+        uni_id = request.POST.get('uni_id')
+        adminordering = request.POST.getlist('admin_ordering[]')
+        collabordering = request.POST.getlist('collab_ordering[]')
+
+        for order, cu_id in enumerate(adminordering):
+            cu = CustomUser.objects.get(id=cu_id)
+
+            new_pos = ''.join(['changed_positions[',cu_id,']'])
+            if request.POST.get(new_pos) is not None:
+                cu.position = request.POST.get(new_pos)
+
+            cu.ordering = order
+            cu.role = 'admin'
+            cu.save()
+        for order, cu_id in enumerate(collabordering):
+            cu = CustomUser.objects.get(id=cu_id)
+
+            new_pos = ''.join(['changed_positions[',cu_id,']'])
+            if request.POST.get(new_pos) is not None:
+                cu.position = request.POST.get(new_pos)
+
+            cu.ordering = order
+            cu.role = 'collaborator'
+            cu.save()
+
+        return JsonResponse({'status': 200})
+
+class UniversityRemoveAdmin(View):
+    def post(self, request):
+        cu_id = request.POST.get('cu_id')
+
+        cu = CustomUser.objects.get(id=cu_id)
+        cu.role = ''
+        cu.save();
+
+        return JsonResponse({'status': 200})
+
+class UniversityAddAdmin(View):
+    def post(self, request):
+        email = request.POST.get('email')
+        u_id = request.POST.get('u_id')
+
+        cu = CustomUser.objects.get(email=email)
+        cu.role = 'collaborator'
+        cu.save()
+
+        if cu.university.id != int(u_id):
+            return JsonResponse({ 'worked': False })
+        return JsonResponse({
+            'worked': True,
+            'cu_id': cu.id,
+            'name': cu.name,
+            'position': cu.position,
+        })
+
 class UniversityProfile(View):
     def get(self, request, u_id):
         context = {}
         if not request.user.is_anonymous():
             context["uni"] = request.user.customuser.university
+        context["has_admin_priv"] = request.user.customuser.role == 'admin';
         context["view_uni"] = University.objects.get(id=u_id)
         context["files"] = context["view_uni"].files.all().exclude(archived=True)
         context["categories"] = []
@@ -43,8 +101,8 @@ class UniversityProfile(View):
                 uni_cat.subcats.append(uni_subcat)
             context["categories"].append(uni_cat)
         context["can_edit"] = has_edit_priveleges(request.user, context["view_uni"])
-        context["admins"] = context["view_uni"].members.filter(role="admin")
-        context["collaborators"] = context["view_uni"].members.filter(role="collaborator")
+        context["admins"] = context["view_uni"].members.filter(role="admin").order_by('ordering')
+        context["collaborators"] = context["view_uni"].members.filter(role="collaborator").order_by('ordering')
         if context["can_edit"]:
             return render(request, 'university_edit_profile.html', context)
         else:

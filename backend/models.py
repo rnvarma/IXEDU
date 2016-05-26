@@ -23,8 +23,8 @@ class UniFiles(models.Model):
     university = models.ForeignKey(University, related_name="files")
     name = models.CharField(max_length=200, default="")
     description = models.TextField(default="")
-    uploaded_file = models.FileField(upload_to="uni_files/", blank=True)
-    link = models.CharField(max_length=300, default="", blank=True)
+    uploaded_file = models.FileField(upload_to="uni_files/", blank=True, null=True)
+    link = models.CharField(max_length=300, default="", blank=True, null=True)
     archived = models.BooleanField(default=False)
 
     def __str__(self):
@@ -39,6 +39,7 @@ class CustomUser(models.Model):
     name = models.CharField(max_length=100, default="")
     bio = models.TextField(default="", blank=True, null=True)
     new_user = models.BooleanField(default=True)
+    ordering = models.IntegerField(default=0, blank=True)
     position = models.CharField(max_length=200, default="")
     # role can either be collaborator, admin, or requested
     # --admin: can manage roles, use form, upload resources

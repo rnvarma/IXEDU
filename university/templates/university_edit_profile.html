@@ -82,11 +82,13 @@
             <div class="panel">
                 <div class="panel-heading">
                     Admins
-                    <i title="Edit information" class="glyphicon glyphicon-edit edit-btn"></i>
+                    {% if has_admin_priv %}
+                        <i id="admin-edit" title="Edit information" class="glyphicon glyphicon-edit edit-btn"></i>
+                    {% endif %}
                 </div>
-                <div class="panel-body" style="padding-top:0px;">
+                <div id="admin-panel" class="panel-body" style="padding-top:0px;">
                     {% for admin in admins %}
-                        <div class="admin-entry">
+                        <div id="admin{{ admin.id }}" class="admin-entry">
                             <div class="admin-position">
                                 {{ admin.position }}
                             </div>
@@ -100,11 +102,16 @@
             <div class="panel">
                 <div class="panel-heading">
                     Collaborators
-                    <i title="Edit information" class="glyphicon glyphicon-edit edit-btn"></i>
+                    {% if has_admin_priv %}
+                        <i id="collab-edit" title="Edit information" class="glyphicon glyphicon-edit edit-btn"></i>
+                    {% endif %}
                 </div>
-                <div class="panel-body" style="padding-top:0px;">
+                <div id="collab-panel" class="panel-body" style="padding-top:0px;">
                     {% for c in collaborators %}
-                        <div class="admin-entry">
+                    <div id="admin{{ c.id }}" class="admin-entry">
+                            <div class="admin-position">
+                                {{ c.position }}
+                            </div>
                             <div class="admin-name">
                                 {{ c.name }}
                             </div>
@@ -154,9 +161,54 @@
     </div>
 
     <div id="uni-id-hidden" data-id="{{uni.id}}" style="display:none;"></div>
+
+    <div class="modal fade" id="admin_modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h4 class="modal-title">Administrators for {{ uni.name }}</h4>
+                </div>
+                <div class="modal-body">
+                    <ul id="admin-list" class="admin-list">
+                        {% for admin in admins %}
+                            <li class="admin-box" data-cu-id="{{ admin.id }}">
+                                <span class="admin-name">{{ admin }}</span>
+                                <span class="admin-position" contenteditable="true">{{ admin.position }}</span>
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="modal-header">
+                    <h4 class="modal-title">Collaborators for {{ uni.name }}</h4>
+                </div>
+                <div class="modal-body">
+                    <ul id="collab-list" class="admin-list">
+                        {% for collab in collaborators %}
+                            <li class="admin-box" data-cu-id="{{ collab.id }}">
+                                <span class="admin-name">{{ collab }}</span>
+                                <span class="admin-position" contenteditable="true">{{ collab.position }}</span>
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button id="add-admin" type="button" class="btn btn-default">Add</button>
+                    <input id="admin-email" class="form-control" placeholder="User Email"></input>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="admin-submit" type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block scripts %}
+    <script src="{% static 'js/sortable.min.js' %}"></script>
     <script src="{% static 'js/university_edit_profile.js' %}"></script>
 {% endblock %}
 
