@@ -136,6 +136,8 @@
 .admin-box > .admin-position {
     color: white;
     cursor: text;
+
+    outline: none;
 }
 
 .admin-box > .glyphicon-remove {
@@ -154,19 +156,19 @@
 }
 
 #add-admin {
-  float: left;
+    float: left;
 }
 
 #admin-email {
-  display: inline;
-  width: 50%;
+    display: inline;
+    width: 50%;
 
-  float: left;
-  margin-left: 5px;
+    float: left;
+    margin-left: 5px;
 }
 
 #email-alert {
-  text-align: left;
-  margin-top: 20px;
-  margin-bottom: 0;
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 0;
 }

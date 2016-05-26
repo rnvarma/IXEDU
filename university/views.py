@@ -3,6 +3,8 @@ from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse, HttpResponse
 
+import sys
+
 from backend.models import *
 # Create your views here.
 
@@ -84,7 +86,7 @@ class UniversityProfile(View):
             context["uni"] = request.user.customuser.university
             context["has_admin_priv"] = request.user.customuser.role == 'admin';
         context["view_uni"] = University.objects.get(id=u_id)
-        context["files"] = context["view_uni"].files.all().exclude(archived=True)
+        context["files"] = context["view_uni"].files.all().exclude(archived=True).order_by('ordering')
         context["categories"] = []
         first = True
         cats = ProfileCategory.objects.all().order_by("order")
@@ -180,11 +182,11 @@ class UniversityForm(View):
         else:
             return HttpResponseRedirect("/")
 
-class UniversityEditResources(View):
+class UniversityResources(View):
     def get(self, request, u_id):
         context = {}
         context["uni"] = University.objects.get(id=u_id)
-        context["files"] = context["uni"].files.all().exclude(archived=True)
+        context["files"] = context["uni"].files.all().exclude(archived=True).order_by('ordering')
         context["can_edit"] = has_edit_priveleges(request.user, context["uni"])
         response = render(request, 'university_resources.html', context)
         response.set_cookie('university_id', u_id)
@@ -209,11 +211,33 @@ class UniversityAddResources(View):
 
         if typ == 'link':
             link = request.POST.get('link')
-            res = UniFiles(university=uni, name=name, description=desc, link=link)
+            res = UniFiles(university=uni, name=name, description=desc, link=link, ordering=1000)
             res.save()
         elif typ == 'file':
             fil = request.FILES.get('file')
-            res = UniFiles(university=uni, name=name, description=desc, uploaded_file=fil)
+            res = UniFiles(university=uni, name=name, description=desc, uploaded_file=fil, ordering=1000)
             res.save()
 
         return JsonResponse({'status': 200, 'resource_added': res.id})
+
+class UniversityChangeResource(View):
+    def post(self, request):
+        file_id = request.POST.get('file_id')
+
+        fil = UniFiles.objects.get(id=file_id)
+        fil.name = request.POST.get('name')
+        fil.desc = request.POST.get('desc')
+        fil.save()
+
+        return JsonResponse({'worked': True})
+
+class UniversityChangeResourceOrder(View):
+    def post(self, request):
+        order = request.POST.getlist('neworder[]')
+
+        for index, file_id in enumerate(order):
+            fil = UniFiles.objects.get(id=file_id)
+            fil.ordering = index
+            fil.save()
+
+        return JsonResponse({'worked': True})

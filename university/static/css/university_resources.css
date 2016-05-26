@@ -1,8 +1,29 @@
-.glyphicon {
+.glyphicon-th {
+    cursor: move;
+}
+
+.panel-title {
+    cursor: text;
+
+    display: inline;
+
+    padding-left: 5px;
+}
+
+.panel-title:focus {
+    outline: none;
+}
+
+.glyphicon.glyphicon-remove {
     float: right;
 }
-.glyphicon:hover {
+
+.glyphicon.glyphicon-remove:hover {
     cursor: pointer;
+}
+
+.glyphicon.glyphicon-plus-sign {
+    float: right;
 }
 
 .resource-type {

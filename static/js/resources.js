@@ -18,9 +18,85 @@ $(document).ready(function() {
         function (response) {
           var target = $('#remove_' + response.resource_removed).closest('.col-md-4');
           target.hide('slow', function(){ target.remove(); });
+          $('.panels').sortable();
         }
       );
     }
+
+    if ($(e.target).hasClass('panel-title')) {
+      $(e.target).blur(function(ev) {
+        var target = $(ev.target);
+        var file_id = target.data('file-id');
+
+        data = {
+          'file_id': file_id,
+          'name': target.text(),
+          'desc': target.parent().parent().find('.resource-description').text()
+        };
+
+        // update file title
+        $.ajax({
+          url: '/changeresource',
+          type: 'POST',
+          data: data
+        });
+      });
+
+      $(e.target).keydown(function (ev) {
+        if (ev.keyCode == 13 || ev.keyCode == 10) {
+          ev.preventDefault();
+          $(e.target).blur();
+        }
+      });
+    }
+
+    if ($(e.target).hasClass('resource-description')) {
+      $(e.target).blur(function(ev) {
+        var target = $(ev.target);
+        var file_id = target.data('file-id');
+
+        data = {
+          'file_id': file_id,
+          'name': target.parent().parent().find('.panel-title').text(),
+          'desc': target.text()
+        };
+
+        // update file title
+        $.ajax({
+          url: '/changeresource',
+          type: 'POST',
+          data: data
+        });
+      });
+
+      $(e.target).keydown(function (ev) {
+        if (ev.keyCode == 13 || ev.keyCode == 10) {
+          ev.preventDefault();
+          $(e.target).blur();
+        }
+      });
+    }
+  });
+
+  $('.panels').sortable({
+    items: '.panel-col',
+    handle: '.glyphicon-th'
+  });
+
+  $('.panels').bind('sortstop', function(e, ui) {
+    var cols = $('.panel-col').toArray().map(function(o) {
+      return $(o).data('file-id');
+    });
+
+    data = {
+      neworder: cols
+    };
+
+    $.ajax({
+      url: '/changeresourceorder',
+      type: 'POST',
+      data: data
+    });
   });
 
   $('#add_resource').click(function(e) {
@@ -63,27 +139,32 @@ $(document).ready(function() {
         var is_link = outputData.get('type').indexOf('link') > -1;
         var link = outputData.get('link');
         var filename = outputData.get('file').name.replace(/\ /g, '_');
-        $('.panels').append('<div class="col-md-4">\
-              <div class="panel">\
-                  <div class="panel-heading">\
-                      ' + outputData.get('resource-name') + '\
-                      <span id="remove_' + response.resource_added + '" class="glyphicon glyphicon-remove"></span>\
-                  </div>\
-                  <div class="panel-body">\
-                      <div class="resource-description">\
-                          ' + outputData.get('resource-desc') + '\
-                      </div>\
-                      <div class="resource-type">\
-                          ' + (is_link ? 'url' : 'file') + '\
-                      </div>\
-                      <div class="resource-area">\
-                          <a href="' + (is_link ? link : 'uni_files/' + filename) + '" target="_blank">' + (is_link ? link : 'uni_files/' + filename) + '</a>\
-                      </div>\
-                  </div>\
+        $('.panels').append(
+        '<div class="col-md-4 panel-col" data-file-id="' + response.resource_added + '">\
+          <div class="panel">\
+            <div class="panel-heading">\
+              <span class="glyphicon glyphicon-th"></span>\
+              <div contenteditable="true" data-file-id="' + response.resource_added + '" class="panel-title">'
+                + outputData.get('resource-name') +
+              '</div>\
+              <span id="remove_' + response.resource_added + '" class="glyphicon glyphicon-remove"></span>\
+            </div>\
+            <div class="panel-body">\
+              <div data-file-id="' + response.resource_added + '" class="resource-description">'
+                + outputData.get('resource-desc') +
+              '</div>\
+              <div class="resource-type">'
+                + (is_link ? 'url' : 'file') +
+              '</div>\
+              <div class="resource-area">\
+                <a href="' + (is_link ? link : 'uni_files/' + filename) + '" target="_blank">' + (is_link ? link : 'uni_files/' + filename) + '</a>\
               </div>\
-          </div>');
+            </div>\
+          </div>\
+        </div>');
 
         $('#resource_modal').modal('hide');
+        $('.panels').sortable();
       }
     });
   });

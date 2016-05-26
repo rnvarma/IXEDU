@@ -25,6 +25,7 @@ class UniFiles(models.Model):
     description = models.TextField(default="")
     uploaded_file = models.FileField(upload_to="uni_files/", blank=True, null=True)
     link = models.CharField(max_length=300, default="", blank=True, null=True)
+    ordering = models.IntegerField(default=0, blank=True)
     archived = models.BooleanField(default=False)
 
     def __str__(self):

@@ -17,14 +17,15 @@
         </div>
         <div class="panels">
         {% for file in files %}
-            <div class="col-md-4">
+            <div data-file-id="{{ file.id }}" class="col-md-4 panel-col">
                 <div class="panel">
                     <div class="panel-heading">
-                        {{ file.name }}
+                        <span class="glyphicon glyphicon-th"></span>
+                        <div data-file-id="{{ file.id }}" contenteditable="true" class="panel-title">{{ file.name }}</div>
                         <span id="remove_{{ file.id }}" class="glyphicon glyphicon-remove"></span>
                     </div>
                     <div class="panel-body">
-                        <div class="resource-description">
+                        <div data-file-id="{{ file.id }}" class="resource-description" contenteditable="true">
                             {{ file.description }}
                         </div>
                         <div class="resource-type">
