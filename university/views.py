@@ -82,7 +82,7 @@ class UniversityProfile(View):
         context = {}
         if not request.user.is_anonymous():
             context["uni"] = request.user.customuser.university
-        context["has_admin_priv"] = request.user.customuser.role == 'admin';
+            context["has_admin_priv"] = request.user.customuser.role == 'admin';
         context["view_uni"] = University.objects.get(id=u_id)
         context["files"] = context["view_uni"].files.all().exclude(archived=True)
         context["categories"] = []
