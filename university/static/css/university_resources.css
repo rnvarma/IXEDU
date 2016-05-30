@@ -68,3 +68,11 @@
 .row.pushed-in {
     min-height: 80%;
 }
+
+.panel-animation-enter {
+    opacity: 0.01;
+}
+.panel-animation-enter.panel-animation-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}

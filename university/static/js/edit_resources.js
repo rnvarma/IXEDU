@@ -365,7 +365,13 @@ var PanelWidget = React.createClass({
     });
     return (
       <div className='panels' ref={(ref) => this.panels = ref}>
-        {panels}
+        <ReactCSSTransitionGroup
+          transitionName='panel-animation'
+          transitionEnterTimeout={500}
+          transitionEnter={true}
+          transitionLeave={false}>
+          {panels}
+        </ReactCSSTransitionGroup>
       </div>
     );
   }
