@@ -192,6 +192,25 @@ class UniversityResources(View):
         response.set_cookie('university_id', u_id)
         return response
 
+class UniversityGetResources(View):
+    def get(self, request):
+        u_id = request.GET.get('u_id')
+        files = University.objects.get(id=u_id).files.all().exclude(archived=True).order_by('ordering')
+        filesJSON = map(lambda x:
+            {
+                'resourceID': x.id,
+                'resourceName': x.name,
+                'resourceDesc': x.description,
+                'urlValue': x.link,
+                'fileValue': {
+                    'name': x.uploaded_file.name
+                },
+                'ordering': x.ordering,
+                'type': 'url' if x.link != '' else 'file'
+            },
+            files)
+        return JsonResponse({'status': 200, 'files': filesJSON})
+
 class UniversityRemoveResources(View):
     def post(self, request):
         resource_id = request.POST.get('resource_id')
@@ -209,8 +228,8 @@ class UniversityAddResources(View):
 
         uni = University.objects.get(id=uid)
 
-        if typ == 'link':
-            link = request.POST.get('link')
+        if typ == 'url':
+            link = request.POST.get('url')
             res = UniFiles(university=uni, name=name, description=desc, link=link, ordering=1000)
             res.save()
         elif typ == 'file':

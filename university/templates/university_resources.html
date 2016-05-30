@@ -7,82 +7,13 @@
 
 {% block title %}Resources - {{ uni.name }}{% endblock %}
 
-{% block content %}
-    <div class="row pushed-in">
-        <div class="col-md-12">
-            <div class="page-heading">
-                {{ uni.name }} Resources
-                <span id="add_resource" class="glyphicon glyphicon-plus-sign"></span>
-            </div>
-        </div>
-        <div class="panels">
-        {% for file in files %}
-            <div data-file-id="{{ file.id }}" class="col-md-4 panel-col">
-                <div class="panel">
-                    <div class="panel-heading">
-                        <span class="glyphicon glyphicon-th"></span>
-                        <div data-file-id="{{ file.id }}" contenteditable="true" class="panel-title">{{ file.name }}</div>
-                        <span id="remove_{{ file.id }}" class="glyphicon glyphicon-remove"></span>
-                    </div>
-                    <div class="panel-body">
-                        <div data-file-id="{{ file.id }}" class="resource-description" contenteditable="true">
-                            {{ file.description }}
-                        </div>
-                        <div class="resource-type">
-                            {% if file.link %}url{% else %}file{% endif %}
-                        </div>
-                        <div class="resource-area">
-                            <a href="{% if file.link %}{{ file.link }}{% else %}{{MEDIA_URL}}{{file.uploaded_file}}{% endif %}" target="_blank">{% if file.link %}{{ file.link }}{% else %}{{file.uploaded_file}}{% endif %}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-        </div>
-    </div>
-    <div class="modal fade" id="resource_modal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span>&times;</span>
-                    </button>
-                    <h4 class="modal-title">New resource for {{ uni.name }}</h4>
-                </div>
-            <div class="modal-body">
-                <form id="res-form" enc="multipart/form-data" action="/addresource" method="POST">
-                    <div class="form-group">
-                        <label for="resource-name" class="control-label">Name:</label>
-                        <input type="text" name="resource-name" class="form-control" id="resource-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="resource-desc" class="control-label">Description:</label>
-                        <textarea class="form-control" name="resource-desc" id="resource-desc"></textarea>
-                    </div>
-                    <div class="btn-group btn-group-justified type-buttons" role="group">
-                        <button id="button-link" type="button" class="btn btn-default res-btn">Link</button>
-                        <button id="button-file" type="button" class="btn btn-default res-btn">File</button>
-                    </div>
-                    <div class="input-fields">
-                        <div id="input-file" class="form-group">
-                            <label class="control-label">Select File</label>
-                            <input id="file-input" name="file" type="file">
-                        </div>
-                        <div id="input-link" class="form-group">
-                            <label class="control-label">URL:</label>
-                            <input id="link-input" class="form-control" name="link" type="text">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button id="submit" type="button" class="btn btn-primary">Add resource</button>
-            </div>
-        </div>
-    </div>
-{% endblock %}
 {% block scripts %}
+    <script>
+        CONFIG = {
+            uni_name: '{{ uni.name }}',
+            uni_id: {{ uni.id }}
+        }
+    </script>
     <script src="{% static 'js/sortable.min.js' %}"></script>
-    <script src="{% static 'js/resources.js' %}"></script>
+    <script type="text/babel" src="{% static 'js/edit_resources.js' %}"></script>
 {% endblock %}
