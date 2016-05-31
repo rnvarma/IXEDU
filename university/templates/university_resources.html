@@ -8,12 +8,12 @@
 {% block title %}Resources - {{ uni.name }}{% endblock %}
 
 {% block scripts %}
+    <script src="{% static 'js/build.js' %}"></script>
     <script>
-        CONFIG = {
-            uni_name: '{{ uni.name }}',
+        var root = window.React.createElement(window.ResourcePanelContainer, {
+            uni: '{{ uni.name }}',
             uni_id: {{ uni.id }}
-        }
+        });
+        window.ReactDOM.render(root, document.getElementById('content'));
     </script>
-    <script src="{% static 'js/sortable.min.js' %}"></script>
-    <script type="text/babel" src="{% static 'js/edit_resources.js' %}"></script>
 {% endblock %}

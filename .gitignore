@@ -3,3 +3,6 @@
 *.swp
 
 staticfiles
+node_modules
+
+**/build.js

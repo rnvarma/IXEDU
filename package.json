@@ -1,0 +1,26 @@
+{
+  "name": "ixedu",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "a platform for title ix coordinators to communicate",
+  "dependencies": {
+    "bootstrap": "3.3.6",
+    "html5sortable": "^0.3.1",
+    "jquery": "2.2.0",
+    "jquery-ui": "1.10.4",
+    "react": "15.1.0",
+    "react-addons-css-transition-group": "15.1.0",
+    "react-addons-linked-state-mixin": "^15.1.0",
+    "react-addons-pure-render-mixin": "^15.1.0",
+    "react-dom": "^15.1.0"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "reactify": "^1.1.1",
+    "watchify": "latest"
+  },
+  "scripts": {
+    "build": "browserify -v -t reactify static/js/components.js -o static/js/build.js",
+    "watch": "watchify -v -t reactify static/js/components.js -o static/js/build.js"
+  }
+}
