@@ -1,8 +1,8 @@
 var React = require('react');
 
-var TitlePanel = require('./TitlePanel.js');
-var PanelModal = require('./ResourcePanelModal.js');
-var PanelWidget = require('./ResourcePanelWidget.js');
+var TitlePanel = require('./components/TitlePanel.js');
+var PanelModal = require('./components/ResourcePanelModal.js');
+var PanelWidget = require('./components/ResourcePanelWidget.js');
 
 var $ = require('jquery');
 
