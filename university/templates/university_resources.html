@@ -11,6 +11,7 @@
     <script src="{% static 'js/build.js' %}"></script>
     <script>
         var root = window.React.createElement(window.ResourcePanelContainer, {
+            media_url: '{{ MEDIA_URL }}',
             uni: '{{ uni.name }}',
             uni_id: {{ uni.id }}
         });

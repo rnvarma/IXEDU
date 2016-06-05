@@ -1,8 +1,8 @@
 var React = require('react');
-var LinkedStateMixin = require('react-addons-linked-state-mixin');
+
+var $ = require('jquery');
 
 var PanelModalBody = React.createClass({
-  mixins: [LinkedStateMixin],
   getInitialState: function () {
     return {
       resourceName: '',
@@ -43,14 +43,20 @@ var PanelModalBody = React.createClass({
 
     this.props.ajaxResourceAdded(currentFileState);
   },
+  updateName: function(e) {
+    this.setState({resourceName: e.target.value});
+  },
+  updateDesc: function(e) {
+    this.setState({resourceDesc: e.target.value});
+  },
+  updateURL: function(e) {
+    this.setState({urlValue: e.target.value});
+  },
   updateFile: function(e) {
     this.setState({fileValue: e.target.files[0]});
   },
   isActive: function(type) {
     return this.state.type === type;
-  },
-  componentDidMount: function() {
-    this.urlButton.click();
   },
   render: function() {
     return (
@@ -60,23 +66,21 @@ var PanelModalBody = React.createClass({
             <label htmlFor='resource-name' className='control-label'>Name:</label>
             <input
               type='text'
-              className='form-control'
-              valueLink={this.linkState('resourceName')} />
+              className='form-control resource-name'
+              onChange={this.updateName} />
           </div>
           <div className='form-group'>
             <label htmlFor='resource-desc' className='control-label'>Description:</label>
             <textarea
               className='form-control'
-              valueLink={this.linkState('resourceDesc')} />
+              onChange={this.updateDesc} />
           </div>
           <div className='btn-group btn-group-justified type-buttons'>
             <button type='button'
               className={'btn btn-default res-btn ' + (this.isActive('url') ? 'activated' : '')}
-              ref={(ref) => this.urlButton = ref}
               onClick={() => this.setState({type: 'url'})}>URL</button>
             <button type='button'
               className={'btn btn-default res-btn ' + (this.isActive('file') ? 'activated' : '')}
-              ref={(ref) => this.fileButton = ref}
               onClick={() => this.setState({type: 'file'})}>File</button>
           </div>
           <div className='input-fields'>
@@ -88,7 +92,7 @@ var PanelModalBody = React.createClass({
               <label className='control-label'>URL:</label>
               <input
                 className='form-control'
-                valueLink={this.linkState('urlValue')} />
+                onChange={this.updateURL} />
             </div>
           </div>
         </div>

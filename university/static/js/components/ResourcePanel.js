@@ -12,7 +12,12 @@ var Panel = React.createClass({
 
     if (this.props.resource.type === 'file') {
       res_location = this.props.resource.fileValue.name.replace(/\ /g, '_');
-      href = 'uni_files/' + res_location;
+
+      if (res_location.indexOf('uni_files') === -1) {
+        res_location = 'uni_files/' + res_location;
+      }
+
+      href = this.props.media_url + res_location;
     } else {
       res_location = this.props.resource.urlValue;
       href = this.props.resource.urlValue;

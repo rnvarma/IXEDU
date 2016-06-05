@@ -1,18 +1,18 @@
 var React = require('react');
 
-var TitlePanel = React.createClass({
+var TitleAddPanel = React.createClass({
   render: function() {
     return (
       <div className='col-md-12'>
         <div className='page-heading'>
-          {this.props.uni} Resources
+          {this.props.title}
           <span
             className='glyphicon glyphicon-plus-sign'
-            onClick={this.props.clickOpenModal} />
+            onClick={this.props.clickAdd} />
         </div>
       </div>
     );
   }
 });
 
-module.exports = TitlePanel;
+module.exports = TitleAddPanel;
