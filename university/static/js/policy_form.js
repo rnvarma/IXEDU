@@ -11,7 +11,7 @@ mapp_nums = {
 };
 
 function format_form_header() {
-  var width = 100 / num_bars;
+  var width = 100.0 / num_bars;
   $('.bar').width(width + '%');
   for (var i = 0; i < num_cats; i++) {
     var circle = '.circle' + (i + 1);
@@ -24,9 +24,10 @@ function format_form_header() {
       $(cat_text).css('right', '-20px');
     } else {
       var circle_percent = (width * i) - 1 + '%';
-      var cat_percent = (width * i) - 2 + '%';
+      var cat_percent = (width * i) + '%';
       $(circle).css('left', circle_percent);
       $(cat_text).css('left', cat_percent);
+      $(cat_text).css('margin-left', '-' + ($(cat_text).width() / 2 - 10) + 'px');
     }
   }
 }
