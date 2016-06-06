@@ -186,6 +186,8 @@ class UniversityResources(View):
     def get(self, request, u_id):
         context = {}
         context["uni"] = University.objects.get(id=u_id)
+        context["files"] = context["uni"].files.all().exclude(archived=True).order_by('ordering')
+        context["can_edit"] = has_edit_priveleges(request.user, context["uni"])
         response = render(request, 'university_resources.html', context)
         response.set_cookie('university_id', u_id)
         return response
