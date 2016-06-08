@@ -27,7 +27,7 @@ UNI_DIR = os.path.join(BASE_DIR, 'university')
 SECRET_KEY = '+^k8_ke1-yfm4ziba8%r!(a!^fgu5i@yo+oay)!pe%12g65dz4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -92,16 +92,28 @@ WSGI_APPLICATION = 'IXEDU.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_postgrespool',
-        'NAME': 'ddslv04a0i165s',
-        'USER': 'fddhpptxlggkop',
-        'PASSWORD': 'm37_OAxiSlVuNe5G-qnCl3zXRS',
-        'HOST': 'ec2-54-83-22-48.compute-1.amazonaws.com',
-        'PORT': '5432'
+if not DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django_postgrespool',
+            'NAME': 'ddslv04a0i165s',
+            'USER': 'fddhpptxlggkop',
+            'PASSWORD': 'm37_OAxiSlVuNe5G-qnCl3zXRS',
+            'HOST': 'ec2-54-83-22-48.compute-1.amazonaws.com',
+            'PORT': '5432'
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django_postgrespool',
+            'NAME': 'da88u4s7mk0uta',
+            'USER': 'bqwzkkuirdtbkw',
+            'PASSWORD': 'tmVOsitKx-l13uowFIKbH6pubR',
+            'HOST': 'ec2-54-243-220-140.compute-1.amazonaws.com',
+            'PORT': '5432'
+        }
+    }
 
 
 # Password validation
@@ -154,11 +166,11 @@ AWS_STORAGE_BUCKET_NAME = 'ixedu'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 STATICFILES_LOCATION = 'static'
 
-# if not DEBUG:
-STATICFILES_STORAGE = 'IXEDU.storage.StaticStorage'
-STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
-# else:
-#   STATIC_URL = "/static/"
+if not DEBUG:
+    STATICFILES_STORAGE = 'IXEDU.storage.StaticStorage'
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+else:
+    STATIC_URL = "/static/"
 
 MEDIAFILES_LOCATION = 'media'
 MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
