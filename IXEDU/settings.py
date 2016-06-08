@@ -29,7 +29,7 @@ SECRET_KEY = '+^k8_ke1-yfm4ziba8%r!(a!^fgu5i@yo+oay)!pe%12g65dz4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.ixedu.org']
 
 
 # Application definition
