@@ -1,0 +1,108 @@
+<html>
+{% load staticfiles %}
+<head>
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic" rel="stylesheet" type="text/css">
+    <title>Welcome - IXEDU</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/welcome.css' %}">
+</head>
+<body>
+  <div class="content-container">
+    <div class="title-section">
+      <div class="logo-container">
+        <img class="logo-img" src="{% static 'images/logo.png' %}" />
+      </div>
+      <div class="title-content">
+        <div class="title-content-txt">
+          An online platform for <span class="title-emph">increasing transparency</span> on university SARV policies and <span class="title-emph">facilitating collaboration</span> between Title IX Coordinators.
+        </div>
+        <a class="title-learn-more" href="/">Learn More</a>
+      </div>
+    </div>
+    <div class="row section mission-section">
+      <div class="section-title mission-title">
+        <h2 class="section-title-txt mission-title-txt">Our Mission</h2>
+      </div>
+      <div class="row section-content mission-content">
+        <div class="six columns">
+          <div class="four columns">
+            <span class="collaboration-logo"></span>
+          </div>
+          <div class="eight columns">
+            <div class="subsection-title collaboration-title">
+              <h3 class="subsection-title-txt collaboration-title-txt">
+                Improve Collaboration
+              </h3>
+            </div>
+            <div class="subsection-content collaboration-content">
+              Facilitate collaboration and the sharing of resources between Title IX Coordinators at different universities.
+            </div>
+          </div>
+        </div>
+        <div class="six columns">
+          <div class="two columns">
+            <span class="transparency-logo"></span>
+          </div>
+          <div class="eight columns">
+            <div class="subsection-title transparency-title">
+              <h3 class="subsection-title-txt transparency-title-txt">
+                Increase Transparency
+              </h3>
+            </div>
+            <div class="subsection-content transparency-content">
+              Make unorganized and hidden information on university policies and procedures more accesible.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row section works-section">
+      <div class="four columns">
+        <div class="section-title works-title">
+          <h2 class="section-title-txt works-title-txt">How it Works</h2>
+        </div>
+        <div class="row section-content works-content">
+          <div class="row">
+            <div class="four columns numbering"><h4>1</h4></div>
+            <div class="eight columns numbered-step">
+              Fill out the information for your university.
+            </div>
+          </div>
+          <div class="row">
+            <div class="four columns numbering"><h4>2</h4></div>
+            <div class="eight columns numbered-step">
+              Browse for resources from other universities.
+            </div>
+          </div>
+          <div class="row">
+            <div class="four columns numbering"><h4>3</h4></div>
+            <div class="eight columns numbered-step">
+              Together, we can build a better community.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="eight columns display-image">
+        <img class="screenshot" src="{% static 'images/screenshot.png' %}" />
+      </div>
+    </div>
+    <div class="row section contact-section">
+      <div class="section-title contact-title">
+        <h2 class="section-title-txt contact-title-txt">Contact Us</h2>
+      </div>
+      <div class="row section-content contact-content">
+        <div class="contact-description">
+          <a href="/">IXEDU</a> is being developed by a group of Carnegie Mellon University students in close collaboration with <a href="http://www.cmu.edu/title-ix/">CMU's Office of Title IX Initiatives</a>. We'd love to hear your comments, questions, and feedback.
+        </div>
+        <div class="contact-email">
+          <a href="mailto:team@ixedu.org">team@ixedu.org</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

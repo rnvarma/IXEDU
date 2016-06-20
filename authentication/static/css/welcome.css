@@ -1,0 +1,215 @@
+body {
+  margin: 0;
+}
+
+.content-container {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  margin: 0;
+}
+
+.row-section {
+  display: block;
+  width: 100%;
+}
+
+.title-section {
+  height: 85vh;
+
+  background: url(../images/hands-raised.jpg) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.section {
+  padding-top: 75px;
+  padding-bottom: 75px;
+}
+
+.mission-section {
+  background: white;
+  color: #222;
+}
+
+.works-section {
+  background: #5461b3;
+  color: white;
+}
+
+.contact-section {
+  background: #3c3d49;
+  color: white;
+}
+
+.section-title {
+  padding-left: 50px;
+  border-bottom: 4px solid;
+
+  display: inline-block;
+}
+
+.section-title-txt {
+  margin: 0 0 4px 0;
+
+  font-size: 2.5em;
+  font-weight: 600;
+
+  letter-spacing: -1px;
+}
+
+.mission-title {
+  border-bottom: 4px solid #5461b3;
+}
+
+.contact-title {
+  border-bottom: 4px solid #5461b3;
+}
+
+.mission-content {
+  margin-top: 50px;
+}
+
+.title-content {
+  margin-top: 30vh;
+  margin-left: 50px;
+
+  width: 55vw;
+  color: white;
+
+  font-size: 1.8em;
+  font-weight: 400;
+}
+
+.title-emph {
+  font-weight: 600;
+}
+
+.logo-img {
+  height: 50px;
+  margin: 50px 0 0 50px;
+}
+
+.title-learn-more {
+  display: inline-block;
+  vertical-align: middle;
+
+  border-radius: 5px;
+
+  background-color: #5461b3;
+
+  margin-top: 20px;
+  padding: 10px 20px;
+
+  color: white;
+  line-height: 1em;
+  text-decoration: none;
+  font-size: 0.7em;
+  text-transform: uppercase;
+}
+
+.collaboration-logo {
+  float: right;
+
+  margin-top: 20px;
+
+  display: inline-block;
+
+  height: 100px;
+  width: 100px;
+
+  background: url(../images/06_mix1.jpg) no-repeat;
+  background-size: 540px;
+
+  background-position: -163px -42px;
+}
+
+.transparency-logo {
+  float: right;
+
+  margin-top: 20px;
+
+  display: inline-block;
+
+  height: 100px;
+  width: 100px;
+
+  background: url(../images/06_mix1.jpg) no-repeat;
+  background-size: 540px;
+
+  background-position: -278px -390px;
+}
+
+.subsection-title-txt {
+  font-size: 2.3em;
+  font-weight: 400;
+}
+
+.subsection-content {
+  font-size: 1.2em;
+  font-weight: 400;
+
+  padding-right: 50px;
+}
+
+.screenshot {
+  max-height: 30%;
+  max-width: 55%;
+
+  margin-left: 17.5%;
+}
+
+.works-content {
+  margin-top: 40px;
+}
+
+.numbering > h4 {
+  margin-left: -20px;
+  float: right;
+
+  font-size: 3.3em;
+  font-weight: 600;
+}
+
+.numbered-step {
+  font-size: 1.2em;
+  font-weight: 400;
+
+  margin-top: 6px;
+}
+
+.contact-content {
+  margin-top: 50px;
+  margin-left: 50px;
+
+  width: 50vw;
+}
+
+.contact-description {
+  font-size: 1.2em;
+  font-weight: 400;
+}
+
+.contact-description > a {
+  font-weight: 600;
+
+  color: white;
+  text-decoration: none;
+}
+
+.contact-email {
+  margin-top: 20px;
+
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+.contact-email > a {
+  color: white;
+  text-decoration: none;
+}

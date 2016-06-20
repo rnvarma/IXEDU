@@ -15,6 +15,9 @@ class HomePage(View):
             context["uni"] = request.user.customuser.university
         return render(request, 'home.html', context)
 
+class WelcomePage(View):
+    def get(self, request):
+        return render(request, "welcome.html")
 
 class Register(View):
     def get(self, request):
