@@ -76,7 +76,7 @@ body {
 }
 
 .title-content {
-  margin-top: 35vh;
+  margin-top: 30vh;
   margin-left: 80px;
 
   width: 55vw;
@@ -92,7 +92,7 @@ body {
 
 .logo-img {
   height: 40px;
-  margin: 50px 0 0 80px;
+  margin: 80px 0 0 80px;
 }
 
 .title-learn-more {
@@ -103,7 +103,7 @@ body {
 
   background-color: #5461b3;
 
-  margin-top: 20px;
+  margin-top: 40px;
   padding: 15px 20px;
 
   color: white;
