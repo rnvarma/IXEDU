@@ -27,7 +27,7 @@ UNI_DIR = os.path.join(BASE_DIR, 'university')
 SECRET_KEY = '+^k8_ke1-yfm4ziba8%r!(a!^fgu5i@yo+oay)!pe%12g65dz4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['.ixedu.org']
 
