@@ -218,3 +218,79 @@ body {
   color: white;
   text-decoration: none;
 }
+
+@media screen and (max-width: 1000px) {
+  .display-image {
+    display: none;
+  }
+
+  .works-section > .four {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .title-section {
+    height: 95vh;
+  }
+
+  .logo-img {
+    margin: 35px 0 0 35px;
+  }
+
+  .title-content {
+    margin-left: 35px;
+    margin-top: 30vh;
+    width: 75vw;
+
+    font-size: 1.2em;
+  }
+
+  .section {
+    padding: 50px 0;
+  }
+
+  .section-title {
+    padding-left: 25px;
+  }
+
+  .mission-content {
+    margin-top: 30px;
+  }
+
+  .collaboration-logo {
+    float: none;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .transparency-logo {
+    float: none;
+    margin: 50px auto 0;
+    display: block;
+  }
+
+  .subsection-title {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .subsection-content {
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .numbering {
+    margin-right: 5%;
+    width: 15%;
+  }
+
+  .numbered-step {
+    width: 75%;
+  }
+
+  .contact-content {
+    margin-left: 35px;
+    width: 78vw;
+  }
+}
