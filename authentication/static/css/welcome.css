@@ -115,6 +115,10 @@ body {
   letter-spacing: 0.7px;
 }
 
+.title-learn-more:hover {
+  color: white;
+}
+
 .collaboration-logo {
   float: right;
 
