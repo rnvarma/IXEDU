@@ -27,9 +27,17 @@ UNI_DIR = os.path.join(BASE_DIR, 'university')
 SECRET_KEY = '+^k8_ke1-yfm4ziba8%r!(a!^fgu5i@yo+oay)!pe%12g65dz4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
+LOCAL = False
 
-ALLOWED_HOSTS = ['.ixedu.org']
+STAGING = os.environ['IXEDU_STAGING'] == 'True'
+
+if DEBUG:
+  ALLOWED_HOSTS = ['*']
+elif STAGING:
+  ALLOWED_HOSTS = ['ixedu-staging.herokuapp.org', '.ixedu.org']
+else:
+  ALLOWED_HOSTS = ['.ixedu.org']
 
 
 # Application definition
@@ -93,7 +101,8 @@ WSGI_APPLICATION = 'IXEDU.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-if not DEBUG:
+if not DEBUG and not STAGING:
+    # PRODUCTION
     DATABASES = {
         'default': {
             'ENGINE': 'django_postgrespool',
@@ -104,17 +113,42 @@ if not DEBUG:
             'PORT': '5432'
         }
     }
-else:
+elif STAGING:
+    # STAGING
     DATABASES = {
         'default': {
             'ENGINE': 'django_postgrespool',
-            'NAME': 'da88u4s7mk0uta',
-            'USER': 'bqwzkkuirdtbkw',
-            'PASSWORD': 'tmVOsitKx-l13uowFIKbH6pubR',
-            'HOST': 'ec2-54-243-220-140.compute-1.amazonaws.com',
+            'NAME': 'deea552560cl2',
+            'USER': 'xjewhsrfegbcxd',
+            'PASSWORD': 'AOzZtAhVNf31YY4wlvFd4sUS7_',
+            'HOST': 'ec2-54-225-211-218.compute-1.amazonaws.com',
             'PORT': '5432'
         }
     }
+else:
+    if LOCAL:
+        # LOCAL
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django_postgrespool',
+                'NAME': 'ixedu',
+                'USER': 'shyam',
+                'HOST': 'localhost',
+                'PORT': ''
+            }
+        }
+    else:
+        # DEVELOPMENT
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django_postgrespool',
+                'NAME': 'da88u4s7mk0uta',
+                'USER': 'bqwzkkuirdtbkw',
+                'PASSWORD': 'tmVOsitKx-l13uowFIKbH6pubR',
+                'HOST': 'ec2-54-243-220-140.compute-1.amazonaws.com',
+                'PORT': '5432'
+            }
+        }
 
 
 # Password validation
