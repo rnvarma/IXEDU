@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "description": "a platform for title ix coordinators to communicate",
+  "repository": "https://github.com/rnvarma/ixedu",
   "dependencies": {
     "bootstrap": "3.3.6",
     "html5sortable": "^0.3.1",

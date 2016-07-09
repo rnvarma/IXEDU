@@ -44,6 +44,7 @@ class UniFiles(models.Model):
     link = models.CharField(max_length=300, default="", blank=True, null=True)
     ordering = models.IntegerField(default=0, blank=True)
     archived = models.BooleanField(default=False)
+    thumbnail = models.FileField(upload_to="uni_thumbnails/", blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -68,6 +69,7 @@ class CustomUser(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, default=0, related_name="customuser")
     email = models.CharField(max_length=100, default="", blank=True, null=True)
     phone_number = models.CharField(max_length=100, default="", blank=True, null=True)
+    thumbnail = models.FileField(upload_to="profile_thumbnails/", blank=True, null=True)
 
     def __str__(self):
         return self.name

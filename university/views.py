@@ -4,9 +4,15 @@ from django.http import HttpResponseRedirect
 from django.http import JsonResponse, HttpResponse
 
 import sys
+import json
+
+import requests
 
 from backend.models import *
 # Create your views here.
+
+def slugify(inp):
+    return inp.replace(' ', '').replace('/','-')
 
 def has_edit_priveleges(user, uni):
     if user.is_anonymous(): return False
@@ -80,31 +86,93 @@ class UniversityAddAdmin(View):
         })
 
 class UniversityProfile(View):
+    def resource_to_json(self, resource):
+        result = {
+            'name': resource.name,
+            'desc': resource.description,
+            'fileValue': {
+                'name': resource.uploaded_file.name
+            },
+            'urlValue': resource.link,
+            'ordering': resource.ordering,
+            'image': resource.thumbnail.name,
+            'type': 'url' if resource.link != '' else 'file'
+        }
+
+        return result
+
     def get(self, request, u_id):
         context = {}
+        university = University.objects.get(id=u_id)
+        context["view_uni_name"] = university.name
+        context["view_uni_json"] = json.dumps({
+            'name': university.name,
+            'state': university.state,
+            'city': university.city,
+            'undergrad': university.population,
+            'grad': university.population,
+            'program_size': 1,
+            'logo': university.logo.name
+        })
+        context["view_uni_admins_json"] = json.dumps(
+            map(lambda x: {
+                'phone': x.phone_number,
+                'email': x.email,
+                'name': x.name,
+                'position': x.position,
+                'img': x.thumbnail.name
+            }, university.members.filter(role="admin").order_by('ordering'))
+        )
+        context["view_uni_collabs_json"] = json.dumps(
+            map(lambda x: {
+                'phone': x.phone_number,
+                'email': x.email,
+                'name': x.name,
+                'position': x.position,
+                'img': x.thumbnail.name
+            }, university.members.filter(role="collaborator").order_by('ordering'))
+        )
+        context["view_uni_resources"] = json.dumps(map(self.resource_to_json,
+          university.files.all().exclude(archived=True).order_by('ordering')))
+
+        if not request.user.is_anonymous():
+          context["has_admin_priv"] = request.user.customuser.role == 'admin';
         if not request.user.is_anonymous():
             context["uni"] = request.user.customuser.university
-            context["has_admin_priv"] = request.user.customuser.role == 'admin';
-        context["view_uni"] = University.objects.get(id=u_id)
-        context["files"] = context["view_uni"].files.all().exclude(archived=True).order_by('ordering')
-        context["categories"] = []
-        first = True
+
+        categories = []
         cats = ProfileCategory.objects.all().order_by("order")
+
         for cat in cats:
-            uni_cat, _ = FilledCategory.objects.get_or_create(category=cat, university=context["view_uni"])
-            uni_cat.subcats = []
-            uni_cat.name = cat.name
-            uni_cat.first = first
-            uni_cat.href = uni_cat.name.replace(' ', '').replace('/', '_')
-            first = False
+            filled_cat, _ = \
+                FilledCategory.objects.get_or_create(category=cat, university=university)
+
+            uni_cat = {
+                'subcats': [],
+                'name': cat.name,
+                'slug': slugify(cat.name)
+            }
+
             for subcat in cat.subcategories.all():
-                uni_subcat, _ = FilledSubcategory.objects.get_or_create(filled_category=uni_cat, name=subcat.name)
-                uni_subcat.href = uni_subcat.name.replace(' ', '').replace('/', '_')
-                uni_cat.subcats.append(uni_subcat)
-            context["categories"].append(uni_cat)
-        context["can_edit"] = has_edit_priveleges(request.user, context["view_uni"])
-        context["admins"] = context["view_uni"].members.filter(role="admin").order_by('ordering')
-        context["collaborators"] = context["view_uni"].members.filter(role="collaborator").order_by('ordering')
+                filled_subcat, _ = \
+                    FilledSubcategory.objects.get_or_create(
+                        filled_category=filled_cat,
+                        name=subcat.name
+                    )
+
+                uni_subcat = {
+                    'name': subcat.name,
+                    'slug': slugify(subcat.name),
+                    'desc': filled_subcat.description
+                }
+
+                uni_cat['subcats'].append(uni_subcat)
+
+            categories.append(uni_cat)
+
+        context["can_edit"] = has_edit_priveleges(request.user, university)
+        context["categories"] = json.dumps(categories)
+
         if context["can_edit"]:
             return render(request, 'university_edit_profile.html', context)
         else:
@@ -184,10 +252,12 @@ class UniversityForm(View):
 
 class UniversityResources(View):
     def get(self, request, u_id):
+        uni = University.objects.get(id=u_id)
         context = {}
-        context["uni"] = University.objects.get(id=u_id)
-        context["files"] = context["uni"].files.all().exclude(archived=True).order_by('ordering')
-        context["can_edit"] = has_edit_priveleges(request.user, context["uni"])
+        context["uni_name"] = uni.name
+        context["uni_id"] = u_id
+        context["files"] = uni.files.all().exclude(archived=True).order_by('ordering')
+        context["can_edit"] = has_edit_priveleges(request.user, uni)
         response = render(request, 'university_resources.html', context)
         response.set_cookie('university_id', u_id)
         return response

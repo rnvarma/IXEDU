@@ -5,15 +5,15 @@
     <link rel="stylesheet" href="{% static 'css/university_resources.css' %}">
 {% endblock %}
 
-{% block title %}Resources - {{ uni.name }}{% endblock %}
+{% block title %}Resources - {{ uni_name }}{% endblock %}
 
 {% block scripts %}
     <script src="{% static 'js/build.js' %}"></script>
     <script>
         var root = window.React.createElement(window.ResourcePanelContainer, {
             media_url: '{{ MEDIA_URL }}',
-            uni: '{{ uni.name }}',
-            uni_id: {{ uni.id }}
+            uni: '{{ uni_name }}',
+            uni_id: {{ uni_id }}
         });
         window.ReactDOM.render(root, document.getElementById('content'));
     </script>
