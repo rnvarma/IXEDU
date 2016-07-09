@@ -201,7 +201,7 @@ AWS_STORAGE_BUCKET_NAME = 'ixedu'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 STATICFILES_LOCATION = 'static'
 
-if not DEBUG:
+if not DEBUG or STAGING:
     STATICFILES_STORAGE = 'IXEDU.storage.StaticStorage'
     STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
 else:
