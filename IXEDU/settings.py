@@ -195,7 +195,7 @@ STATICFILES_DIRS = (
     os.path.join(UNI_DIR, 'static')
 )
 
-if not STAGING:
+if not STAGING and not DEBUG:
   AWS_ACCESS_KEY_ID = 'AKIAJG46VBV7P4GN4N5A'
   AWS_SECRET_ACCESS_KEY = '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'
   AWS_STORAGE_BUCKET_NAME = 'ixedu'
