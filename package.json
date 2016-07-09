@@ -9,7 +9,7 @@
     "html5sortable": "^0.3.1",
     "jquery": "2.2.0",
     "jquery-ui": "1.10.4",
-    "react": "15.1.0",
+    "react": "^15.1.0",
     "react-addons-css-transition-group": "15.1.0",
     "react-addons-linked-state-mixin": "^15.1.0",
     "react-addons-pure-render-mixin": "^15.1.0",
