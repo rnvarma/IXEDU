@@ -35,7 +35,7 @@ STAGING = os.environ['IXEDU_STAGING'] == 'True'
 if DEBUG:
   ALLOWED_HOSTS = ['*']
 elif STAGING:
-  ALLOWED_HOSTS = ['ixedu-staging.herokuapp.org', '.ixedu.org']
+  ALLOWED_HOSTS = ['ixedu-staging.herokuapp.com', '.ixedu.org']
 else:
   ALLOWED_HOSTS = ['.ixedu.org']
 
