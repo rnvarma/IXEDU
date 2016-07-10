@@ -128,6 +128,7 @@ class UniversityProfile(View):
             'undergrad': university.undergrad,
             'grad': university.grad,
             'program_size': university.program_size,
+            'id': university.id,
             'logo': university.logo.name
         })
         context["view_uni_admins_json"] = json.dumps(

@@ -27,8 +27,8 @@ UNI_DIR = os.path.join(BASE_DIR, 'university')
 SECRET_KEY = '+^k8_ke1-yfm4ziba8%r!(a!^fgu5i@yo+oay)!pe%12g65dz4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-LOCAL = False
+DEBUG = True
+LOCAL = True
 
 STAGING = os.environ['IXEDU_STAGING'] == 'True'
 

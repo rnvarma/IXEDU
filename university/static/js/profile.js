@@ -10,6 +10,8 @@ var ResourceList = require('./components/ResourceList');
 var CategoriesListPanel = require('./components/CategoriesListPanel');
 var CategoryPanel = require('./components/CategoryPanel');
 
+var ResourcePanelContainer = require('./edit_resources');
+
 var LESS = require('../less/university_profile.less');
 
 var UniversityProfile = React.createClass({
@@ -22,13 +24,15 @@ var UniversityProfile = React.createClass({
         undergrad: 0,
         grad: 0,
         program_size: 1,
+        id: 0,
         logo: ''
       },
       admins: [],
       collabs: [],
       resources: [],
       categories: [],
-      selectedCategory: 0
+      selectedCategory: 0,
+      editingResources: false
     };
   },
   componentWillMount: function() {
@@ -70,11 +74,55 @@ var UniversityProfile = React.createClass({
       })
     });
   },
-  render: function() { var collaborators = null;
+  getProfileStyle: function() {
+    if (this.state.editingResources) {
+      return {
+        left: -100 + 'vw',
+        top: 0
+      };
+    } else {
+      return {
+        left: 0,
+        top: 0
+      };
+    }
+  },
+  getResourcesStyle: function() {
+    if (this.state.editingResources) {
+      return {
+        left: -100 + 'vw',
+        top: -500
+      };
+    } else {
+      return {
+        left: 0,
+        top: -500
+      };
+    }
+  },
+  editResources: function() {
+    var self = this;
+    var popState = function() {
+      self.setState({
+        editingResources: !self.state.editingResources
+      });
+    };
+
+    this.setState({
+      editingResources: true
+    });
+
+    history.pushState({}, '', window.location.pathname + '/editresources');
+
+    window.removeEventListener('popstate', popState);
+    window.addEventListener('popstate', popState);
+  },
+  render: function() {
+    var collaborators = null;
 
     if (this.props.editable) {
       collaborators = (
-        <InfoPanel editable={this.props.editable} title='Collaborators'>
+        <InfoPanel title='Collaborators'>
           <AdminList
             media_url={this.props.media_url}
             editable={this.props.editable}
@@ -85,14 +133,17 @@ var UniversityProfile = React.createClass({
 
     var leftColumn = (
       <div className='left-column'>
-        <InfoPanel editable={this.props.editable} title='Title IX Office'>
+        <InfoPanel title='Title IX Office'>
           <AdminList
             media_url={this.props.media_url}
             editable={this.props.editable}
             admins={this.state.admins} />
         </InfoPanel>
         {collaborators}
-        <InfoPanel editable={this.props.editable} title='Resources'>
+        <InfoPanel
+          editable={this.props.editable}
+          editButton={this.editResources}
+          title='Resources'>
           <ResourceList
             media_url={this.props.media_url}
             resources={this.state.resources} />
@@ -117,10 +168,20 @@ var UniversityProfile = React.createClass({
           uni={this.state.uni}
           editable={this.props.editable}
           update_fields={this.updateTitlePanelFields} />
-        <ContentContainer containerClass='university-profile-content'>
+        <ContentContainer
+          style={this.getProfileStyle()}
+          containerClass='university-profile-content'>
           <TwoColumn
             leftChild={leftColumn}
             rightChild={rightColumn} />
+        </ContentContainer>
+        <ContentContainer
+          style={this.getResourcesStyle()}
+          containerClass='university-edit-resources-content'>
+          <ResourcePanelContainer
+            uni={this.props.uni.name}
+            uni_id={this.props.uni.id}
+            media_url={this.props.media_url} />
         </ContentContainer>
       </div>
     );

@@ -9,7 +9,7 @@ var PanelModal = React.createClass({
   mixins: [PureRenderMixin],
   render: function() {
     return (
-      <div className='modal fade' tabindex='-1'>
+      <div className='modal fade'>
         <div className='modal-dialog' role='document'>
           <div className='modal-content'>
             <PanelModalHeader uni={this.props.uni} />

@@ -8,6 +8,8 @@ var sortModule = require('html5sortable');
 var $ = require('jquery');
 var bootstrap = require('bootstrap');
 
+var LESS = require('../less/university_resources.less');
+
 function csrfSafeMethod(method) {
   // these HTTP methods do not require CSRF protection
   return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -138,7 +140,7 @@ var ResourcePanelContainer = React.createClass({
     return (
       <div className='row pushed-in'>
         <TitleAddPanel
-          title={this.props.uni + ' Resources'}
+          title={'Editing Resources'}
           clickAdd={this.clickOpenModal} />
         <PanelWidget
           uni_id={this.props.uni_id}
