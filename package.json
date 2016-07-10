@@ -17,11 +17,12 @@
   },
   "devDependencies": {
     "browserify": "^13.0.1",
+    "node-lessify": "^0.1.4",
     "reactify": "^1.1.1",
     "watchify": "latest"
   },
   "scripts": {
-    "build": "browserify -v -t reactify static/js/components.js -o static/js/build.js",
-    "watch": "watchify -v -t reactify static/js/components.js -o static/js/build.js"
+    "build": "browserify -v -t reactify -t node-lessify static/js/components.js -o static/js/build.js",
+    "watch": "watchify -v -t reactify -t node-lessify static/js/components.js -o static/js/build.js"
   }
 }

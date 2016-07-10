@@ -10,6 +10,8 @@ var ResourceList = require('./components/ResourceList');
 var CategoriesListPanel = require('./components/CategoriesListPanel');
 var CategoryPanel = require('./components/CategoryPanel');
 
+var LESS = require('../less/university_profile.less');
+
 var UniversityProfile = React.createClass({
   getInitialState: function() {
     return {
@@ -43,12 +45,40 @@ var UniversityProfile = React.createClass({
       selectedCategory: i
     });
   },
+  updateTitlePanelFields: function(city, st, ug, g, ps) {
+    var new_uni = Object.assign({}, this.state.uni);
+
+    new_uni.city = city;
+    new_uni.state = st;
+    new_uni.undergrad = ug;
+    new_uni.grad = g;
+    new_uni.program_size = ps;
+
+    this.setState({
+      uni: new_uni
+    }, () => {
+      $.ajax('/changeunimetadata', {
+        type: 'POST',
+        data: {
+          u_name: this.state.uni.name,
+          city: this.state.uni.city,
+          state: this.state.uni.state,
+          ug: this.state.uni.undergrad,
+          g: this.state.uni.grad,
+          ps: this.state.uni.program_size
+        }
+      })
+    });
+  },
   render: function() { var collaborators = null;
 
     if (this.props.editable) {
       collaborators = (
         <InfoPanel editable={this.props.editable} title='Collaborators'>
-          <AdminList admins={this.state.collabs} />
+          <AdminList
+            media_url={this.props.media_url}
+            editable={this.props.editable}
+            admins={this.state.collabs} />
         </InfoPanel>
       );
     }
@@ -81,7 +111,7 @@ var UniversityProfile = React.createClass({
     );
 
     return (
-      <div class='page-container'>
+      <div className='page-container'>
         <TitlePanel
           media_url={this.props.media_url}
           uni={this.state.uni}

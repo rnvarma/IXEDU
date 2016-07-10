@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
-{% block head %}
-    <link rel="stylesheet" href="{% static 'css/university_profile.css' %}">
-{% endblock %}
-
 {% block title %}{{ view_uni_name }}{% endblock %}
 
 {% block scripts %}
@@ -18,7 +14,7 @@
           resources: {{ view_uni_resources }},
           categories: {{ categories }},
           media_url: '{{ MEDIA_URL }}',
-          editable: false
+          editable: {{ can_edit }}
         });
         window.ReactDOM.render(root, document.getElementById('content'));
       {% endautoescape %}

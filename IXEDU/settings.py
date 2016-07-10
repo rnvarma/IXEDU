@@ -132,7 +132,7 @@ else:
             'default': {
                 'ENGINE': 'django_postgrespool',
                 'NAME': 'ixedu',
-                'USER': 'shyam',
+                'USER': os.environ['USER'],
                 'HOST': 'localhost',
                 'PORT': ''
             }
