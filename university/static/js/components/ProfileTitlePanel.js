@@ -13,9 +13,11 @@ var TitlePanel = React.createClass({
     };
   },
   makeLocationEditable: function() {
-    this.setState({
-      showLocationSave: true
-    });
+    if (this.props.editable) {
+      this.setState({
+        showLocationSave: true
+      });
+    }
   },
   saveLocationChanges: function() {
     this.props.update_fields(
@@ -30,9 +32,11 @@ var TitlePanel = React.createClass({
     });
   },
   makePopEditable: function() {
-    this.setState({
-      showPopSave: true
-    });
+    if (this.props.editable) {
+      this.setState({
+        showPopSave: true
+      });
+    }
   },
   savePopChanges: function() {
     this.props.update_fields(
