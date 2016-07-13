@@ -49,6 +49,7 @@ var UniversityProfile = React.createClass({
       collabs: this.props.collabs,
       resources: this.props.resources,
       categories: this.props.categories,
+      editingResources: window.location.pathname.indexOf('editresources') > -1
     });
   },
   changeSelectedCategory: function(i) {

@@ -6,7 +6,7 @@ from university.views import *
 urlpatterns = [
     url(r'^uni/(?P<u_id>[a-zA-Z0-9_.-]+)$', UniversityProfile.as_view()),
     url(r'^uni/(?P<u_id>[a-zA-Z0-9_.-]+)/form$', UniversityForm.as_view()),
-    url(r'^uni/(?P<u_id>[a-zA-Z0-9_.-]+)/editresources$', UniversityResources.as_view()),
+    url(r'^uni/(?P<u_id>[a-zA-Z0-9_.-]+)/editresources$', UniversityProfile.as_view()),
     url(r'^getresources$', UniversityGetResources.as_view()),
     url(r'^removeresource$',
         requires_csrf_token(UniversityRemoveResources.as_view())),

@@ -253,18 +253,6 @@ class UniversityForm(View):
         else:
             return HttpResponseRedirect("/")
 
-class UniversityResources(View):
-    def get(self, request, u_id):
-        uni = University.objects.get(id=u_id)
-        context = {}
-        context["uni_name"] = uni.name
-        context["uni_id"] = u_id
-        context["files"] = uni.files.all().exclude(archived=True).order_by('ordering')
-        context["can_edit"] = has_edit_priveleges(request.user, uni)
-        response = render(request, 'university_resources.html', context)
-        response.set_cookie('university_id', u_id)
-        return response
-
 class UniversityGetResources(View):
     def get(self, request):
         u_id = request.GET.get('u_id')
