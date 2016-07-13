@@ -3,8 +3,8 @@ var React = require('react');
 var Panel = React.createClass({
   shouldComponentUpdate: function(nextProps, nextState) {
     return (
-         nextProps.resource.resourceName !== this.props.resource.resourceName
-      || nextProps.resource.resourceDesc !== this.props.resource.resourceDesc);
+         nextProps.resource.name !== this.props.resource.name
+      || nextProps.resource.desc !== this.props.resource.desc);
   },
   render: function() {
     var href = '';
@@ -24,30 +24,30 @@ var Panel = React.createClass({
     }
 
     return (
-      <div className="col-md-4 panel-col">
+      <div key={this.props.resource_id} className="col-md-4 panel-col">
         <div className="panel">
           <div className="panel-heading">
             <span className="glyphicon glyphicon-th" />
             <div
-              onKeyDown={(e) => this.props.keydown(this.props.resource.resourceID, e)}
+              onKeyDown={(e) => this.props.keydown(this.props.resource.id, e)}
               onBlur={(e) =>
-                this.props.attrChange(this.props.resource.resourceID, e, 'resourceName')}
+                this.props.attrChange(this.props.resource.id, e, 'name')}
               contentEditable="true"
               className="panel-title">
-              {this.props.resource.resourceName}
+              {this.props.resource.name}
             </div>
             <span
               className="glyphicon glyphicon-remove"
-              onClick={() => this.props.removePanel(this.props.resource.resourceID)} />
+              onClick={() => this.props.removePanel(this.props.resource.id)} />
           </div>
           <div className="panel-body">
             <div
-              onKeyDown={(e) => this.props.keydown(this.props.resource.resourceID, e)}
+              onKeyDown={(e) => this.props.keydown(this.props.resource.id, e)}
               onBlur={(e) =>
-                this.props.attrChange(this.props.resource.resourceID, e, 'resourceDesc')}
+                this.props.attrChange(this.props.resource.id, e, 'desc')}
               contentEditable="true"
               className="resource-description">
-              {this.props.resource.resourceDesc}
+              {this.props.resource.desc}
             </div>
             <div className="resource-type">
               {this.props.resource.type}

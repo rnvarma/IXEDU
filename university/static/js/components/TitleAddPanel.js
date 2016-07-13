@@ -5,6 +5,9 @@ var TitleAddPanel = React.createClass({
     return (
       <div className='col-md-12'>
         <div className='page-heading'>
+          <span onClick={this.props.saveResources} className='edit-button save-button'>
+            Save
+          </span>
           {this.props.title}
           <span
             className='glyphicon glyphicon-plus-sign'

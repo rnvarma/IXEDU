@@ -104,6 +104,7 @@ class UniversityChangeMetadata(View):
 class UniversityProfile(View):
     def resource_to_json(self, resource):
         result = {
+            'id': resource.id,
             'name': resource.name,
             'desc': resource.description,
             'fileValue': {

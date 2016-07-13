@@ -14,7 +14,7 @@ var PanelWidget = React.createClass({
     var panels = self.props.resources.map(function (resourceObj) {
       return (
           <Panel
-            key={resourceObj.resourceName}
+            key={resourceObj.name}
             keydown={self.panelKeydown}
             media_url={self.props.media_url}
             attrChange={self.props.panelAttrChange}

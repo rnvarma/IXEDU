@@ -5,8 +5,8 @@ var $ = require('jquery');
 var PanelModalBody = React.createClass({
   getInitialState: function () {
     return {
-      resourceName: '',
-      resourceDesc: '',
+      name: '',
+      desc: '',
       type: 'url',
       urlValue: '',
       fileValue: {}
@@ -19,8 +19,8 @@ var PanelModalBody = React.createClass({
     var outputData = new FormData();
     var self = this;
 
-    outputData.append('resource-name', currentFileState.resourceName);
-    outputData.append('resource-desc', currentFileState.resourceDesc);
+    outputData.append('resource-name', currentFileState.name);
+    outputData.append('resource-desc', currentFileState.desc);
     outputData.append('type', currentFileState.type);
     if (this.state.type === 'url') {
       outputData.append('url', currentFileState.urlValue);
@@ -44,10 +44,10 @@ var PanelModalBody = React.createClass({
     this.props.ajaxResourceAdded(currentFileState);
   },
   updateName: function(e) {
-    this.setState({resourceName: e.target.value});
+    this.setState({name: e.target.value});
   },
   updateDesc: function(e) {
-    this.setState({resourceDesc: e.target.value});
+    this.setState({desc: e.target.value});
   },
   updateURL: function(e) {
     this.setState({urlValue: e.target.value});

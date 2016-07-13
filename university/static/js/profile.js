@@ -35,6 +35,13 @@ var UniversityProfile = React.createClass({
       editingResources: false
     };
   },
+  componentDidMount: function() {
+    $('.panels').sortable({
+      items: '.panel-col',
+      handle: '.glyphicon-th',
+      placeholderClass: 'col-md-4 panel-placeholder'
+    });
+  },
   componentWillMount: function() {
     this.setState({
       uni: this.props.uni,
@@ -47,6 +54,90 @@ var UniversityProfile = React.createClass({
   changeSelectedCategory: function(i) {
     this.setState({
       selectedCategory: i
+    });
+  },
+  ajaxResourceAdded: function(outputData) {
+    var newResource = {
+      id: 1000
+    };
+    for (var attr in outputData) { newResource[attr] = outputData[attr]; }
+
+    this.setState({
+      resources: this.state.resources.concat(newResource),
+    });
+
+    $('.modal').modal('hide');
+    $('.panels').sortable();
+  },
+  ajaxResourceFinished: function(outputData, id) {
+    this.setState(function(prevState, currentProps) {
+      return {
+        resources: prevState.resources.map(function (obj) {
+          var newObj = obj;
+          if (obj.resourceName === outputData.resourceName) {
+            newObj.id = id;
+          }
+
+          return newObj;
+        })
+      };
+    });
+  },
+  removePanel: function(id) {
+    this.setState(function(prevState, currentProps) {
+      return {
+        resources: prevState.resources.filter(function(obj, i) {
+          return obj.id !== id;
+        }),
+      };
+    });
+
+    $('.panels').sortable();
+    $.post('/removeresource', {'resource_id': id});
+  },
+  panelAttrChange: function(id, e, attrName) {
+    var resourceIndex = this.state.resources.findIndex(function (obj) {
+      return obj.id === id;
+    });
+    var newName = e.target.textContent;
+
+    var newResources = $.extend(true, [], this.state.resources);
+    newResources[resourceIndex][attrName] = newName;
+
+    this.setState({
+      resources: newResources
+    }, function () {
+      $.ajax({
+        url: '/changeresource',
+        type: 'POST',
+        data: {
+          'file_id': id,
+          'name': newResources[resourceIndex].name,
+          'desc': newResources[resourceIndex].desc
+        }
+      });
+    });
+  },
+  updateSortOrder: function(e, ui) {
+    var self = this;
+    var to = ui.elementIndex;
+    var from = ui.oldElementIndex;
+
+    var res = $.extend(true, [], this.state.resources);
+    res.splice(to, 0, res.splice(from, 1)[0]);
+
+    this.setState({
+        resources: res
+    }, function () {
+      $.ajax({
+        url: '/changeresourceorder',
+        type: 'POST',
+        data: {
+          neworder: self.state.resources.map(function (obj) {
+            return obj.id;
+          })
+        }
+      });
     });
   },
   updateTitlePanelFields: function(city, st, ug, g, ps) {
@@ -100,25 +191,38 @@ var UniversityProfile = React.createClass({
       };
     }
   },
-  editResources: function() {
-    var self = this;
-    var popState = function() {
-      self.setState({
-        editingResources: !self.state.editingResources
-      });
-    };
+  popState: function() {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
 
+    this.setState({
+      editingResources: !this.state.editingResources
+    });
+  },
+  editResources: function() {
     this.setState({
       editingResources: true
     });
 
     history.pushState({}, '', window.location.pathname + '/editresources');
 
-    window.removeEventListener('popstate', popState);
-    window.addEventListener('popstate', popState);
+    window.addEventListener('popstate', this.popState);
+  },
+  back: function() {
+    this.setState({
+      editingResources: false
+    });
+
+    history.pushState( {}, '', window.location.pathname.substring(
+      0, window.location.pathname.lastIndexOf('/editresources')
+    ));
+
+    window.addEventListener('popstate', this.popState);
   },
   render: function() {
     var collaborators = null;
+    var resources = null;
 
     if (this.props.editable) {
       collaborators = (
@@ -128,6 +232,24 @@ var UniversityProfile = React.createClass({
             editable={this.props.editable}
             admins={this.state.collabs} />
         </InfoPanel>
+      );
+
+      resources = (
+        <ContentContainer
+          style={this.getResourcesStyle()}
+          containerClass='university-edit-resources-content'>
+          <ResourcePanelContainer
+            uni={this.props.uni.name}
+            uni_id={this.props.uni.id}
+            back={this.back}
+            updateSortOrder={this.updateSortOrder}
+            ajaxResourceAdded={this.ajaxResourceAdded}
+            ajaxResourceFinished={this.ajaxResourceFinished}
+            removePanel={this.removePanel}
+            panelAttrChange={this.panelAttrChange}
+            resources={this.state.resources}
+            media_url={this.props.media_url} />
+        </ContentContainer>
       );
     }
 
@@ -175,14 +297,7 @@ var UniversityProfile = React.createClass({
             leftChild={leftColumn}
             rightChild={rightColumn} />
         </ContentContainer>
-        <ContentContainer
-          style={this.getResourcesStyle()}
-          containerClass='university-edit-resources-content'>
-          <ResourcePanelContainer
-            uni={this.props.uni.name}
-            uni_id={this.props.uni.id}
-            media_url={this.props.media_url} />
-        </ContentContainer>
+        {resources}
       </div>
     );
   }
