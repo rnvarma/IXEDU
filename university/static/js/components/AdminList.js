@@ -1,9 +1,16 @@
 var React = require('react');
 
 var AdminList = React.createClass({
+  handleEnter: function(e) {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      e.target.blur();
+      this.props.saveAdminChanges();
+    }
+  },
   render: function() {
     var self = this;
-    var admins = this.props.admins.map(function(obj) {
+    var admins = this.props.admins.map((function(obj) {
       var content = null;
       var backgroundStyle = {
         backgroundImage: 'url(' + self.props.media_url + obj.img + ')'
@@ -27,6 +34,16 @@ var AdminList = React.createClass({
             {innerContent}
           </div>
         );
+      } else {
+        content = (
+          <div
+            onClick={this.props.showSaveButton}
+            onKeyDown={this.handleEnter}
+            contentEditable={true}
+            className='admin-position'>
+            {obj.position}
+          </div>
+        );
       }
 
       return (
@@ -40,7 +57,7 @@ var AdminList = React.createClass({
           </div>
         </div>
       );
-    });
+    }).bind(this));
 
     return (
       <div className='admin-list'>

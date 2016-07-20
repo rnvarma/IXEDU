@@ -4,10 +4,10 @@ var InfoPanel = React.createClass({
   render: function() {
     var editButton = null;
 
-    if (this.props.editable) {
+    if (this.props.editable && this.props.showButton) {
       editButton = (
         <span onClick={this.props.editButton} className='edit-button'>
-          Edit
+          {this.props.editText}
         </span>
       );
     }

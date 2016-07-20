@@ -32,7 +32,9 @@ var UniversityProfile = React.createClass({
       resources: [],
       categories: [],
       selectedCategory: 0,
-      editingResources: false
+      editingResources: false,
+      showCollabSaveButton: false,
+      showAdminSaveButton: false
     };
   },
   componentDidMount: function() {
@@ -210,7 +212,7 @@ var UniversityProfile = React.createClass({
 
     window.addEventListener('popstate', this.popState);
   },
-  back: function() {
+  resourcesBack: function() {
     this.setState({
       editingResources: false
     });
@@ -221,16 +223,40 @@ var UniversityProfile = React.createClass({
 
     window.addEventListener('popstate', this.popState);
   },
+  showCollabSaveButton: function() {
+    this.setState({
+      showCollabSaveButton: true
+    });
+  },
+  showAdminSaveButton: function() {
+    this.setState({
+      showAdminSaveButton: true
+    });
+  },
+  saveAdminChanges: function() {
+    // TODO: save the changes to the admin and collab lists
+    this.setState({
+      showCollabSaveButton: false,
+      showAdminSaveButton: false
+    });
+  },
   render: function() {
     var collaborators = null;
     var resources = null;
 
     if (this.props.editable) {
       collaborators = (
-        <InfoPanel title='Collaborators'>
+        <InfoPanel
+          editable={this.props.admin_editable}
+          editButton={this.saveAdminChanges}
+          showButton={this.state.showCollabSaveButton}
+          editText='Save'
+          title='Collaborators' >
           <AdminList
+            showSaveButton={this.showCollabSaveButton}
+            saveAdminChanges={this.saveAdminChanges}
             media_url={this.props.media_url}
-            editable={this.props.editable}
+            editable={this.props.admin_editable}
             admins={this.state.collabs} />
         </InfoPanel>
       );
@@ -242,7 +268,7 @@ var UniversityProfile = React.createClass({
           <ResourcePanelContainer
             uni={this.props.uni.name}
             uni_id={this.props.uni.id}
-            back={this.back}
+            back={this.resourcesBack}
             updateSortOrder={this.updateSortOrder}
             ajaxResourceAdded={this.ajaxResourceAdded}
             ajaxResourceFinished={this.ajaxResourceFinished}
@@ -256,16 +282,25 @@ var UniversityProfile = React.createClass({
 
     var leftColumn = (
       <div className='left-column'>
-        <InfoPanel title='Title IX Office'>
+        <InfoPanel
+          editable={this.props.admin_editable}
+          editButton={this.saveAdminChanges}
+          showButton={this.state.showAdminSaveButton}
+          editText='Save'
+          title={this.props.editable ? 'Admins' : 'Title IX Office'}>
           <AdminList
+            showSaveButton={this.showAdminSaveButton}
+            saveAdminChanges={this.saveAdminChanges}
             media_url={this.props.media_url}
-            editable={this.props.editable}
+            editable={this.props.admin_editable}
             admins={this.state.admins} />
         </InfoPanel>
         {collaborators}
         <InfoPanel
           editable={this.props.editable}
           editButton={this.editResources}
+          editText='Edit'
+          showButton={true}
           title='Resources'>
           <ResourceList
             media_url={this.props.media_url}
@@ -280,6 +315,7 @@ var UniversityProfile = React.createClass({
           changeSelectedCategory={this.changeSelectedCategory}
           selectedCategory={this.state.selectedCategory} />
         <CategoryPanel
+          editable={this.props.editable}
           category={this.state.categories[this.state.selectedCategory]} />
       </div>
     );

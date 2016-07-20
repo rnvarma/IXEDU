@@ -14,7 +14,8 @@
           resources: {{ view_uni_resources }},
           categories: {{ categories }},
           media_url: '{{ MEDIA_URL }}',
-          editable: {{ can_edit }}
+          editable: {{ can_edit }},
+          admin_editable: {{ has_admin_priv }}
         });
         window.ReactDOM.render(root, document.getElementById('content'));
       {% endautoescape %}

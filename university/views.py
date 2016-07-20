@@ -154,9 +154,10 @@ class UniversityProfile(View):
           university.files.all().exclude(archived=True).order_by('ordering')))
 
         if not request.user.is_anonymous():
-          context["has_admin_priv"] = request.user.customuser.role == 'admin';
+            context["has_admin_priv"] = \
+                'true' if request.user.customuser.role == 'admin' else 'false';
         if not request.user.is_anonymous():
-            context["uni"] = request.user.customuser.university
+          context["uni"] = request.user.customuser.university
 
         categories = []
         cats = ProfileCategory.objects.all().order_by("order")
