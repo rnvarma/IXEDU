@@ -156,6 +156,8 @@ class UniversityProfile(View):
         if not request.user.is_anonymous():
             context["has_admin_priv"] = \
                 'true' if request.user.customuser.role == 'admin' else 'false';
+        else:
+            context["has_admin_priv"] = 'false'
         if not request.user.is_anonymous():
           context["uni"] = request.user.customuser.university
 
