@@ -13,6 +13,10 @@
 .register-btn:active {
   text-decoration: none;
 }
+.nav-logo {
+  height: 22px;
+  padding-left: 30px;
+}
 .nav-bar {
   color: white;
   font-weight: 400;
@@ -20,7 +24,7 @@
   line-height: 1;
   display: inline-block;
   width: 100%;
-  background-color: #1F1F1F;
+  background-color: #3C3D49;
 }
 .nav-bar .IX-title {
   color: #606eb9;
@@ -70,8 +74,8 @@
   padding: 17px 15px;
 }
 .right-site-title {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 500;
   margin-top: -5px;
   border-color: white;
 }

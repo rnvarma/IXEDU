@@ -1,6 +1,6 @@
 @import '../../../static/less/mixins';
 
-@title-margin: 40px;
+@title-margin: 50px;
 @entry-padding: 15px;
 
 body {
@@ -35,11 +35,17 @@ body {
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
+  
+  padding-top: 20vh;
 
-  .box-shadow(inset 0 0 0 1000px fade(black, 50%));
+  .box-shadow(inset 0 0 0 1000px fade(#3C3D49, 75%));
 
   width: 100vw;
-  height: 35vh;
+
+  .uni-header {
+    display: inline-block;
+    padding-bottom: @title-margin;
+  }
 
   .uni-title {
     color: fade(white, 85%);
@@ -47,7 +53,6 @@ body {
     font-weight: @title-boldness;
     font-size: @title-font-size;
 
-    margin-top: 19vh;
     margin-left: @title-margin;
   }
 
@@ -88,19 +93,19 @@ body {
   .uni-size {
     color: fade(white, 85%);
 
-    display: block;
+    display: inline-block;
     float: right;
 
     text-transform: uppercase;
     font-size: @detail-font-size;
 
-    margin: 0 20px 15px 0;
+    margin-right: @title-margin;
   }
 
   .size-sub {
     display: inline-block;
 
-    padding: 6px 14px;
+    padding: 10px 20px;
     border-right: 1px solid fade(white, 85%);
   }
 
@@ -111,15 +116,17 @@ body {
   .uni-size-number {
     text-align: center;
 
-    font-size: @emph-detail-font-size;
-    font-weight: @lightest-boldness;
+    font-size: @title-font-size;
+    font-weight: @title-boldness;
+    color: #A0A5BD;
   }
 
   .uni-size-desc {
     text-align: center;
 
     letter-spacing: 0.9px;
-    font-weight: @title-boldness;
+    font-size: @subtitle-font-size;
+    font-weight: @med-boldness;
   }
 }
 
@@ -134,8 +141,7 @@ body {
   }
 
   .panel-heading {
-    background-color: @base-gray-background;
-    border: 1px solid white;
+    background-color: @base-gray-light;
 
     font-size: @subtitle-font-size;
   }
@@ -184,6 +190,7 @@ body {
   }
 
   .right-column {
+    margin-left: -20px;
     margin-right: 25px;
   }
 }
@@ -225,14 +232,13 @@ body {
     margin-top: (1 / 3 * @entry-padding);
 
     font-weight: @title-boldness;
-    letter-spacing: 0.25px;
   }
 
   .admin-img {
     display: inline-block;
 
     height: 75px;
-    width: 25%;
+    width: 75px;
 
     background-size: cover;
     background-repeat: no-repeat;
@@ -316,8 +322,6 @@ body {
   width: 100%;
 
   margin-top: (2 / 3 * @entry-padding);
-
-  border: 1px solid @base-blue;
 }
 
 .category-header {
@@ -326,10 +330,11 @@ body {
   background-color: @base-blue;
 
   font-size: @subtitle-font-size;
-  font-weight: @boldest-boldness;
+  font-weight: @title-boldness;
   text-transform: uppercase;
   line-height: @subtitle-font-size;
   color: white;
+  letter-spacing: 0.6px;
 
   padding: 18px;
 

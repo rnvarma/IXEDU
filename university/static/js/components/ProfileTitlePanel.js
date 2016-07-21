@@ -88,27 +88,29 @@ var TitlePanel = React.createClass({
 
     return (
       <div className="row title-panel" style={this.panelStyles()}>
-        <div className="row uni-title">
-          {this.props.uni.name}
-        </div>
-        <div className="row uni-location">
-          <span
-            ref={(ref) => this.city = ref}
-            onKeyDown={this.handleEnter}
-            onClick={this.makeLocationEditable}
-            contentEditable={this.props.editable}
-            className="location uni-city" >
-            {this.props.uni.city}
-          </span>
-          <span
-            ref={(ref) => this.st = ref}
-            onKeyDown={this.handleEnter}
-            onClick={this.makeLocationEditable}
-            contentEditable={this.props.editable}
-            className="location uni-state" >
-            {this.props.uni.state}
-          </span>
-          {locationEditable}
+        <div className="row uni-header">
+          <div className="row uni-title">
+            {this.props.uni.name}
+          </div>
+          <div className="row uni-location">
+            <span
+              ref={(ref) => this.city = ref}
+              onKeyDown={this.handleEnter}
+              onClick={this.makeLocationEditable}
+              contentEditable={this.props.editable}
+              className="location uni-city" >
+              {this.props.uni.city}
+            </span>
+            <span
+              ref={(ref) => this.st = ref}
+              onKeyDown={this.handleEnter}
+              onClick={this.makeLocationEditable}
+              contentEditable={this.props.editable}
+              className="location uni-state" >
+              {this.props.uni.state}
+            </span>
+            {locationEditable}
+          </div>
         </div>
         <div className="row uni-size">
           {popEditable}

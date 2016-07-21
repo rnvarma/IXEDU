@@ -9,6 +9,8 @@ html {
 body {
   font-family: 'Open Sans', sans-serif;
   background-color: #E8E8E8;
+  font-size: 16px;
+  letter-spacing: 0.2px;
 }
 .site-title {
   letter-spacing: 0.1em;
