@@ -25,13 +25,13 @@ class UniSizeGroup(models.Model):
 class University(models.Model):
     name = models.CharField(max_length=200, default="")
     description = models.TextField(default="")
-    state = models.CharField(max_length=80, default="TX")
-    city = models.CharField(max_length=80, default="Cut and Shoot")
-    population = models.IntegerField(default=0)
+    state = models.CharField(max_length=80, default="PA")
+    city = models.CharField(max_length=80, default="Pittsburgh")
+    population = models.IntegerField(default=20000)
     size_group = models.ForeignKey(UniSizeGroup, related_name='unis', blank=True, null=True)
     logo = models.FileField(upload_to="uni_logos/", default="uni_logos/default_univ.jpg")
-    is_staging = models.BooleanField(default=True)
-    phone_number = models.CharField(max_length=200, default="No phone number", blank=True, null=True)
+    is_staging = models.BooleanField(default=False)
+    phone_number = models.CharField(max_length=200, default="(412)268-2000", blank=True, null=True)
 
     def __str__(self):
         return self.name
