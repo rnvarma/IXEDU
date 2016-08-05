@@ -70,7 +70,8 @@ class ForumLogin(View):
                 'external_id': request.user.id,
                 'username': request.user.customuser.name,
                 'name': request.user.customuser.name,
-                'avatar_url': settings.MEDIA_URL + str(request.user.customuser.thumbnail),
+                'avatar_url': settings.MEDIA_URL + \
+                  str(request.user.customuser.thumbnail if hasattr(request.user.customuser, 'thumbnail') else ''),
                 'about_me': request.user.customuser.bio
             }
             data_qstring = urlencode(data)
