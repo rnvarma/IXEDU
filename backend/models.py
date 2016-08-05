@@ -30,7 +30,7 @@ class University(models.Model):
     population = models.IntegerField(default=0)
     size_group = models.ForeignKey(UniSizeGroup, related_name='unis', blank=True, null=True)
     logo = models.FileField(upload_to="uni_logos/", default="uni_logos/default_univ.jpg")
-    is_staging = models.BooleanField(default=False)
+    is_staging = models.BooleanField(default=True)
     phone_number = models.CharField(max_length=200, default="No phone number", blank=True, null=True)
 
     def __str__(self):

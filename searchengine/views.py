@@ -82,7 +82,7 @@ class SearchPage(View):
 class AllUniversities(View):
     def get(self, request):
         context = {}
-        context["unis"] = University.objects.all()
+        context["unis"] = University.objects.all().filter(is_staging=False)
 
         for uni in context["unis"]:
             total = 0
