@@ -25,8 +25,8 @@ class UniSizeGroup(models.Model):
 class University(models.Model):
     name = models.CharField(max_length=200, default="")
     description = models.TextField(default="")
-    state = models.CharField(max_length=80, default="TX")
-    city = models.CharField(max_length=80, default="Cut and Shoot")
+    state = models.CharField(max_length=80, default="PA")
+    city = models.CharField(max_length=80, default="Pittsburgh")
     undergrad = models.IntegerField(default=0)
     grad = models.IntegerField(default=0)
     program_size = models.IntegerField(default=1)
@@ -103,48 +103,3 @@ class FilledSubcategory(models.Model):
 
     def __str__(self):
         return self.name
-
-class Tag(models.Model):
-    name = models.CharField(max_length=100, default="")
-
-    def __str__(self):
-        return self.name
-
-class PublicPost(models.Model):
-    title = models.CharField(max_length=500, default="")
-    creator = models.ForeignKey(CustomUser, blank=True, null=True, related_name="public_posts")
-    content = models.TextField(default="")
-    timestamp = models.DateTimeField(default=timezone.now)
-    tags = models.ManyToManyField(Tag, related_name="public_posts")
-    is_anonymous = models.BooleanField(default=True)
-    creator_name = models.CharField(max_length=80, default="")
-
-class PublicResponse(models.Model):
-    creator = models.ForeignKey(CustomUser, blank=True, null=True, related_name="public_responses")
-    timestamp = models.DateTimeField(default=timezone.now)
-    content = models.TextField(default="")
-    is_anonymous = models.BooleanField(default=True)
-    creator_name = models.CharField(max_length=80, default="")
-
-class PublicLike(models.Model):
-    user = models.ForeignKey(CustomUser, related_name="public_post_likes")
-    post = models.ForeignKey(PublicPost, related_name="likes")
-
-class PrivatePost(models.Model):
-    title = models.CharField(max_length=500, default="")
-    creator = models.ForeignKey(CustomUser, related_name="private_posts")
-    content = models.TextField(default="")
-    timestamp = models.DateTimeField(default=timezone.now)
-    tags = models.ManyToManyField(Tag, related_name="private_posts")
-
-class PrivateResponse(models.Model):
-    creator = models.ForeignKey(CustomUser, blank=True, null=True, related_name="private_responses")
-    timestamp = models.DateTimeField(default=timezone.now)
-    content = models.TextField(default="")
-
-class PrivateLike(models.Model):
-    user = models.ForeignKey(CustomUser, related_name="private_post_likes")
-    post = models.ForeignKey(PrivatePost, related_name="likes")
-
-
-
