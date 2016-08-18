@@ -58,6 +58,10 @@ body {
     background-color: #E8E8E8
 }
 
+.navbar-nav form input {
+    top: 8px;
+}
+
 .nav-pills>li+li {
     margin: 0;
 }

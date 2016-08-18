@@ -1,0 +1,48 @@
+.row {
+  margin: 0;
+}
+
+.container {
+  padding: 20px 0 0 40px;
+}
+
+.search-header-txt {
+  padding-bottom: 20px;
+  border-bottom: 1px solid black;
+}
+
+.entry {
+  color: black;
+
+  padding-left: 20px;
+}
+
+.entry-href:hover {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+.entry:hover {
+  background: #c8c8c8;
+}
+
+.entry-uni > * {
+  display: inline-block;
+}
+
+.entry-uni-sub-txt {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.entry-desc {
+  max-width: 650px;
+
+  padding: 0 0 20px 10px;
+}
+
+.entry-desc-txt {
+  font-size: 12.5px;
+}

@@ -6,78 +6,61 @@ from backend.models import *
 
 # Create your views here.
 
-mapping = {
-    "risk reduction": "riskreduction",
-    "secondary prevention": "riskreduction",
-    "risk": "riskreduction",
-    "primary prevention": "primaryprevention",
-    "faculty-staff training": "facultystafftraining",
-    "faculty staff training": "facultystafftraining",
-    "title IX office": "titleixoffice",
-    "titleIX office": "titleixoffice",
-    "titleix office": "titleixoffice",
-    "title ix office": "titleixoffice",
-    "volunteer group": "volunteergroup",
-    "volunteer": "volunteergroup",
-    "student initiative": "studentinitiative",
-    "mens group": "mensgroup",
-    "other offices": "otheroffices",
-    "stats on campus reports": "oncampusreports",
-    "campus reports": "oncampusreports",
-    "stats on all reports": "allreports",
-    "all reports": "allreports",
-    "stats on climate studies": "climatestudy",
-    "climate study": "climatestudy",
-    "consent": "consent",
-    "sexual assault": "sexualassault",
-    "sexual harassment": "sexualharassment",
-    "stalking": "stalking",
-    "dating violence": "datingviolence",
-    "domestic violence": "domesticviolence",
-    "awareness about policies": "aboutpolicies",
-    "policies": "aboutpolicies",
-    "awareness about reporting": "aboutreporting",
-    "reporting": "aboutreporting",
-}
+import re
 
-reverse_mapping = {mapping[key]: key for key in mapping}
+from django.db.models import Q
 
-def getMatchesOfFields(fields):
-    forms = University.objects.all()
-    unis = []
-    for form in forms:
-        for field in fields:
-            if form.__getattribute__(field):
-                unis.append(form)
-                break
-    return unis
+def normalize_query(query_string,
+                    findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
+                    normspace=re.compile(r'\s{2,}').sub):
+    ''' Splits the query string in invidual keywords, getting rid of unecessary spaces
+        and grouping quoted words together.
+        Example:
+
+        >>> normalize_query('  some random  words "with   quotes  " and   spaces')
+        ['some', 'random', 'words', 'with quotes', 'and', 'spaces']
+
+    '''
+    return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
+
+def get_query(query_string, search_fields):
+    ''' Returns a query, that is a combination of Q objects. That combination
+        aims to search keywords within a model by testing the given search fields.
+
+    '''
+    query = None # Query to search for every search term
+    terms = normalize_query(query_string)
+    for term in terms:
+        or_query = None # Query to search for a given term in each field
+        for field_name in search_fields:
+            q = Q(**{"%s__icontains" % field_name: term})
+            if or_query is None:
+                or_query = q
+            else:
+                or_query = or_query | q
+        if query is None:
+            query = or_query
+        else:
+            query = query & or_query
+    return query
 
 class SearchPage(View):
     def get(self, request):
-        context = {}
-        query = request.GET.get("q")
-        if not query: query = ""
-        query = query.split(",")
-        fields = []
-        for q_word in query:
-            fields.append(mapping[q_word])
-        matches = []
-        # matches = getMatchesOfFields(fields)
-        universities = []
-        print matches
-        for match in matches:
-            for field in fields:
-                data = {}
-                data["university_name"] = match.college.name
-                data["topic"] = reverse_mapping[field]
-                data["description"] = match.__getattribute__(field + "Desc")
-                data["university_pic"] = match.college.logo
-                data["id"] = match.college.id
-                universities.append(data)
-        import random
-        context["q"] = query
-        context["universities"] = universities
-        return render(request, 'search-results.html', context)
+      context = {}
+
+      if not request.user.is_anonymous():
+          context['uni'] = request.user.customuser.university
+
+      query_string = ''
+      found_entries = None
+      if ('q' in request.GET) and request.GET['q'].strip():
+          query_string = request.GET['q']
+          entry_query = get_query(query_string, ['description'])
+          found_entries = FilledSubcategory.objects.filter(entry_query).order_by('-id')
+          context['query_string'] = query_string
+          context['found_entries'] = found_entries
+
+      return render(request, 'search-results.html', context)
 
 class AllUniversities(View):
     def get(self, request):
@@ -109,5 +92,3 @@ class AllUniversities(View):
         else:
             context["uni"] = request.user.customuser.university
             return render(request, 'all_universities.html', context)
-
-

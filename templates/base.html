@@ -31,6 +31,12 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <div class="nav navbar-nav navbar-left">
+            <form action="/search" method="GET">
+              <input type="text" name="q" value="{{ query_string }}"></input>
+              <button type="submit" class="glyphicon glyphicon-search after"></button>
+            </form>
+          </div>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/allunis" class="right-site-title">Universities</a></li>
             {% if user.is_authenticated %}
