@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load filters %}
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/university_profile.css' %}">
@@ -86,7 +87,9 @@
                                     </div>
                                     <div class="subcategory-text">
                                         {% if subcat.description %}
-                                            {{ subcat.description|linebreaks }}
+                                            {% autoescape off %}
+                                            {{ subcat.description|linebreaks|repltabs }}
+                                            {% endautoescape %}
                                         {% else %}
                                             <span style="font-style:italic;">No description entered yet.</span>
                                         {% endif %}
