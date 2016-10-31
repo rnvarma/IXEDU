@@ -6,6 +6,7 @@ from django.http import JsonResponse, HttpResponse
 import sys
 
 from backend.models import *
+
 # Create your views here.
 
 def has_edit_priveleges(user, uni):

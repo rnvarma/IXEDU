@@ -3,8 +3,14 @@ from django.shortcuts import render
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
+from django.conf import settings
 
 from backend.models import *
+
+from urllib import quote, unquote, urlencode
+import base64
+import hmac
+import hashlib
 
 # Create your views here.
 
@@ -42,6 +48,46 @@ class Register(View):
         else:
             return HttpResponseRedirect("/login")
 
+class ForumLogin(View):
+    def get(self, request):
+        SSO_SECRET = 'lgH2uV9TZCnty1Toxfa8zkKJ5gpoXS6qIY3cOmxjeZuwCilcYc'
+
+        sso_payload = request.GET.get('sso')
+        sig = request.GET.get('sig')
+
+        nonce = base64.decodestring(unquote(sso_payload))
+        nonce = nonce[6:nonce.find('&')]
+
+        signature = hmac.new(SSO_SECRET, msg=sso_payload, digestmod=hashlib.sha256).hexdigest()
+
+        if (signature != sig):
+            return HttpResponseRedirect("/")
+
+        if not request.user.is_anonymous():
+            data = {
+                'nonce': nonce,
+                'email': request.user.customuser.email,
+                'external_id': request.user.id,
+                'username': request.user.customuser.name,
+                'name': request.user.customuser.name,
+                'avatar_url': settings.MEDIA_URL + \
+                  str(request.user.customuser.thumbnail if hasattr(request.user.customuser, 'thumbnail') else ''),
+                'about_me': request.user.customuser.bio
+            }
+            data_qstring = urlencode(data)
+
+            return_payload = base64.encodestring(data_qstring)
+            return_signature = \
+              hmac.new(SSO_SECRET, return_payload, digestmod=hashlib.sha256).hexdigest()
+
+            return HttpResponseRedirect(
+                "http://forum.ixedu.org/session/sso_login?sso=" + \
+                return_payload + "&sig=" + return_signature
+            )
+        else:
+            request.session['forum_info'] = 'sso=' + sso_payload + '&sig=' + sig
+            return HttpResponseRedirect('/login?next=forum')
+
 class Login(View):
     def get(self, request):
         context = {}
@@ -58,6 +104,8 @@ class Login(View):
             login(request, user)
             redirect = request.POST.get('next')
             if not redirect == u'':
+                if redirect == 'forum':
+                    return HttpResponseRedirect('/forumlogin?' + request.session.get('forum_info', 'none'))
                 return HttpResponseRedirect(redirect)
             if user.customuser.new_user:
                 user.customuser.new_user = False

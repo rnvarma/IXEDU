@@ -7,6 +7,7 @@ from authentication.views import *
 urlpatterns = [
     url(r'^$', WelcomePage.as_view()),
     url(r'^login$', Login.as_view()),
+    url(r'^forumlogin$', ForumLogin.as_view()),
     url(r'^logout$', Logout.as_view()),
     url(r'^register$', Register.as_view()),
     url(r'^user$', login_required(UserPage.as_view())),

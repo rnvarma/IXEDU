@@ -59,6 +59,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 ROOT_URLCONF = 'IXEDU.urls'
 
 LOGIN_URL = "/login"
