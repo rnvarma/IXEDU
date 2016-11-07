@@ -8,7 +8,6 @@
     <link href="{% static 'css/froala_editor.min.css' %}" rel='stylesheet' type='text/css' />
     <link href="{% static 'css/froala_style.min.css' %}" rel='stylesheet' type='text/css' />
 <!-- Include JS file. -->
-          
 {% endblock %}
 
 {% block content %}
@@ -82,6 +81,8 @@
   <script type='text/javascript' src="{% static 'js/froala-plugins/paragraph_format.min.js' %}"></script>
   <script type='text/javascript' src="{% static 'js/froala-plugins/align.min.js' %}"></script>
   <script type='text/javascript' src="{% static 'js/froala-plugins/lists.min.js' %}"></script>
+  <script type='text/javascript' src="{% static 'js/froala-plugins/url.min.js' %}"></script>
+  <script type='text/javascript' src="{% static 'js/froala-plugins/link.min.js' %}"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {$(".subcat-desc").froalaEditor()})

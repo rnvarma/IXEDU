@@ -225,3 +225,11 @@ textarea:focus {
     background-color: green;
     padding-top: 5px;
 }
+
+.fr-toolbar .fr-hs {
+    display: none;
+}
+
+.fr-wrapper + div {
+    display: none;
+}
