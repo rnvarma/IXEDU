@@ -87,9 +87,7 @@
                                     </div>
                                     <div class="subcategory-text">
                                         {% if subcat.description %}
-                                            {% autoescape off %}
-                                            {{ subcat.description|linebreaks|repltabs }}
-                                            {% endautoescape %}
+                                            {{ subcat.description|safe }}
                                         {% else %}
                                             <span style="font-style:italic;">No description entered yet.</span>
                                         {% endif %}
