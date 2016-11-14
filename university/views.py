@@ -83,21 +83,22 @@ class UniversityAddAdmin(View):
 class UniversityProfile(View):
     def get(self, request, u_id):
         context = {}
+        context['tab'] = int(request.GET.get('tab', 0))
         if not request.user.is_anonymous():
             context["uni"] = request.user.customuser.university
             context["has_admin_priv"] = request.user.customuser.role == 'admin';
         context["view_uni"] = University.objects.get(id=u_id)
         context["files"] = context["view_uni"].files.all().exclude(archived=True).order_by('ordering')
         context["categories"] = []
-        first = True
+        index = 0
         cats = ProfileCategory.objects.all().order_by("order")
         for cat in cats:
             uni_cat, _ = FilledCategory.objects.get_or_create(category=cat, university=context["view_uni"])
             uni_cat.subcats = []
             uni_cat.name = cat.name
-            uni_cat.first = first
+            uni_cat.index = index
             uni_cat.href = uni_cat.name.replace(' ', '').replace('/', '_')
-            first = False
+            index = index + 1
             for subcat in cat.subcategories.all():
                 uni_subcat, _ = FilledSubcategory.objects.get_or_create(filled_category=uni_cat, name=subcat.name)
                 uni_subcat.href = uni_cat.href + uni_subcat.name.replace(' ', '').replace('/', '_')

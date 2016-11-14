@@ -74,12 +74,12 @@
             <div id="university-information-area">
                 <ul  class="nav nav-pills university-info-tabs">
                     {% for cat in categories %}
-                        <li class="{% if cat.first %}active{% endif %}"><a href="#category{{cat.id}}" data-toggle="tab">{{ cat.name }}</a></li>
+                        <li class="{% if cat.index == tab %}active{% endif %}"><a href="#category{{cat.id}}" data-toggle="tab">{{ cat.name }}</a></li>
                     {% endfor %}
                 </ul>
                 <div class="tab-content clearfix">
                     {% for cat in categories %}
-                        <div class="tab-pane {% if cat.first %}active{% endif %}" id="category{{cat.id}}">
+                        <div class="tab-pane {% if cat.index == tab %}active{% endif %}" id="category{{cat.id}}">
                             {% for subcat in cat.subcats %}
                                 <div class="subcategory-area">
                                     <div class="subcategory-name">
